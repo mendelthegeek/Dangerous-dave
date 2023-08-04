@@ -15,3 +15,16 @@ while run:
     for event in pygame.event.get():
         if event.type == pygame.QUIT:
             run = False
+        elif event.type == pygame.KEYDOWN:
+            if event.key == pygame.K_UP:
+                if dave.velocity == 0:
+                    dave.velocity += 96
+            if event.key == pygame.K_RIGHT:
+                dave.moving_right = True
+            if event.key == pygame.K_LEFT:
+                dave.moving_left = True
+        elif event.type == pygame.KEYUP:
+            if event.key == pygame.K_RIGHT:
+                dave.moving_right = False
+            if event.key == pygame.K_LEFT:
+                dave.moving_left = False
