@@ -17,8 +17,9 @@ def test_render(dave, last_update):
 
 class SpriteSheet:
 
-    def __init__(self, source):
-        self.sprite_sheet = pygame.image.load(source)
+    def __init__(self, sprite):
+        self.sprite = sprite
+        self.sprite_sheet = pygame.image.load(self.sprite.sprite_source)
         self.frame = 0
 
     def get_sprite(self, row, column, width, height, scale):

@@ -5,7 +5,6 @@ from render import *
 pygame.init()
 
 dave = Dave()
-dave.__int__()
 last_update = pygame.time.get_ticks()
 
 run = True

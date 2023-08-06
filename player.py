@@ -5,7 +5,8 @@ from render import SpriteSheet
 
 class Dave(pygame.sprite.Sprite):
 
-    def __int__(self):
+    def __init__(self):
+        super().__init__()
         self.x, self.y = 10, 660
         self.sprite_source = r"resources\dave\Dave.png"
 
