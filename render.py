@@ -30,5 +30,9 @@ class SpriteSheet:
         sprite.set_colorkey((0, 0, 0))
         return sprite
 
+    def move_sprite(self, x, y):
+        self.sprite.x += x
+        self.sprite.y += y
+
     def move_frame(self):
         self.frame += 1
