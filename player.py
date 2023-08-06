@@ -12,7 +12,6 @@ class Dave(pygame.sprite.Sprite):
 
         self.speed = 10
 
-        self.sprite_sheet = SpriteSheet(self.sprite_source)
         self.sprite_sheet = SpriteSheet(self)
         self.velocity = 0
 
@@ -25,6 +24,7 @@ class Dave(pygame.sprite.Sprite):
             self.walk_left.append(self.sprite_sheet.get_sprite(1, i, 24, 16, 2))
         self.moving_right = False
         self.moving_left = False
+        self.facing = 0
 
     def current_display(self):
         return self.display_frame
@@ -40,24 +40,21 @@ class Dave(pygame.sprite.Sprite):
         self.jump()
 
     def move_right(self):
-        self.x += 1
         self.sprite_sheet.move_sprite(1, 0)
         self.sprite_sheet.move_frame()
         display_frame = self.sprite_sheet.frame//8 % 4
         self.display_frame = self.walk_right[display_frame]
+        self.facing = 0
 
     def move_left(self):
-        self.x -= 1
         self.sprite_sheet.move_sprite(-1, 0)
         self.sprite_sheet.move_frame()
         display_frame = self.sprite_sheet.frame//8 % 4
         self.display_frame = self.walk_left[display_frame]
+        self.facing = 1
 
     def jump(self):
         if self.velocity > 0:
             self.velocity -= 1
-            if self.moving_right:
-                self.display_frame = self.sprite_sheet.get_sprite(0,5,24, 16, 2)
-            else:
-                self.display_frame = self.sprite_sheet.get_sprite(1, 5, 24, 16, 2)
             self.sprite_sheet.move_sprite(0, -1)
+            self.display_frame = self.sprite_sheet.get_sprite(self.facing,5,24, 16, 2)
