@@ -9,4 +9,4 @@ class Tiles(pygame.sprite.Sprite):
         self.sprite_sheet = SpriteSheet(self)
 
     def tile(self):
-        return self.sprite_sheet.get_sprite(0, 4, 16, 16, 2)
+        return self.sprite_sheet.get_sprite(1, 7, 16, 16, 2)

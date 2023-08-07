@@ -21,7 +21,7 @@ while run:
         elif event.type == pygame.KEYDOWN:
             if event.key == pygame.K_UP:
                 if dave.velocity == 0:
-                    dave.velocity += 96
+                    dave.velocity += 72
             if event.key == pygame.K_RIGHT:
                 dave.moving_right = True
             if event.key == pygame.K_LEFT:

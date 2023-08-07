@@ -2,7 +2,7 @@ import pygame
 
 BG = (50, 50, 50)
 
-board = pygame.display.set_mode((1200, 700))
+board = pygame.display.set_mode((640, 326))
 
 
 def test_render(dave, tiles, last_update):
@@ -12,9 +12,14 @@ def test_render(dave, tiles, last_update):
         dave.move()
         last_update = current_time
     board.blit(dave.current_display(), dave.position())
-    for i in range(10):
-        for j in range(4):
-            board.blit(tiles.tile(), (i * 32 +j*128, 668 - j*96))
+    for j in range(10):
+        board.blit(tiles.tile(), (0, j*32))
+    for j in range(10):
+        board.blit(tiles.tile(), (608, j*32))
+    for i in range(20):
+        board.blit(tiles.tile(), (i * 32, 0))
+    for i in range(20):
+        board.blit(tiles.tile(), (i*32, 314))
     pygame.display.flip()
     return last_update
 
