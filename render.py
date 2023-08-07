@@ -1,19 +1,23 @@
-from player import *
+import pygame
 
 BG = (50, 50, 50)
 
 board = pygame.display.set_mode((1200, 700))
 
 
-def test_render(dave, last_update):
+def test_render(dave, tiles, last_update):
     board.fill(BG)
-    current_time  = pygame.time.get_ticks()
+    current_time = pygame.time.get_ticks()
     if current_time - last_update > dave.speed:
         dave.move()
         last_update = current_time
     board.blit(dave.current_display(), dave.position())
+    for i in range(10):
+        for j in range(4):
+            board.blit(tiles.tile(), (i * 32 +j*128, 668 - j*96))
     pygame.display.flip()
     return last_update
+
 
 class SpriteSheet:
 
