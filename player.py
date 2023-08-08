@@ -1,13 +1,13 @@
 import pygame
 
-from render import SpriteSheet
+from render import *
 
 
 class Dave(pygame.sprite.Sprite):
 
     def __init__(self):
         super().__init__()
-        self.x, self.y = 10, 282
+        self.x, self.y = 64, 282
         self.sprite_source = r"resources\dave\Dave.png"
 
         self.speed = 10
@@ -25,19 +25,36 @@ class Dave(pygame.sprite.Sprite):
         self.moving_right = False
         self.moving_left = False
         self.facing = 0
+        self.moved = False
+        self.displayed = True
+        self.last_blinked = pygame.time.get_ticks()
 
     def current_display(self):
+        if not self.moved:
+            current_ticks = pygame.time.get_ticks()
+            if current_ticks - self.last_blinked > 500:
+                self.last_blinked = current_ticks
+                self.displayed = not self.displayed
+            if self.displayed:
+                empty_square = (pygame.Surface((24, 16)))
+                empty_square.fill(BG)
+                return empty_square
+            elif not self.displayed:
+                return self.sprite_sheet.get_sprite(0, 6, 24, 16, 2)
         return self.display_frame
 
     def position(self):
         return self.x, self.y
 
-    def move(self):
+    def move(self, tiles):
+        if self.moving_right or self.moving_left or not self.velocity == 0:
+            self.moved = True
         if self.moving_right:
             self.move_right()
         if self.moving_left:
             self.move_left()
         self.jump()
+
 
     def move_right(self):
         self.sprite_sheet.move_sprite(1, 0)
