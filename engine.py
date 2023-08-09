@@ -7,13 +7,12 @@ pygame.init()
 
 dave = Dave()
 last_update = pygame.time.get_ticks()
-
-
 tiles = Tiles()
-
 run = True
 while run:
     last_update = test_render(dave, tiles, last_update)
+
+    dave.on_surface = not not pygame.sprite.spritecollide(dave, tiles, False)
 
     for event in pygame.event.get():
         if event.type == pygame.QUIT:

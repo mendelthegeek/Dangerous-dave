@@ -27,7 +27,10 @@ class Dave(pygame.sprite.Sprite):
         self.facing = 0
         self.moved = False
         self.displayed = True
+        self.on_surface = False
         self.last_blinked = pygame.time.get_ticks()
+        self.rect = pygame.Rect(0,0,0,0)
+        self.move()
 
     def current_display(self):
         if not self.moved:
@@ -46,7 +49,7 @@ class Dave(pygame.sprite.Sprite):
     def position(self):
         return self.x, self.y
 
-    def move(self, tiles):
+    def move(self):
         if self.moving_right or self.moving_left or not self.velocity == 0:
             self.moved = True
         if self.moving_right:
@@ -54,6 +57,7 @@ class Dave(pygame.sprite.Sprite):
         if self.moving_left:
             self.move_left()
         self.jump()
+        self.move_rect()
 
 
     def move_right(self):
@@ -75,3 +79,8 @@ class Dave(pygame.sprite.Sprite):
             self.velocity -= 1
             self.sprite_sheet.move_sprite(0, -1)
             self.display_frame = self.sprite_sheet.get_sprite(self.facing,5,24, 16, 2)
+        if self.velocity == 0 and self.moved and not self.on_surface:
+            self.sprite_sheet.move_sprite(0, 1)
+
+    def move_rect(self):
+        self.rect.update(self.x, self.y, 20, 32)

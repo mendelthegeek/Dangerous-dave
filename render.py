@@ -9,21 +9,21 @@ def test_render(dave, tiles, last_update):
     board.fill(BG)
     current_time = pygame.time.get_ticks()
     if current_time - last_update > dave.speed:
-        dave.move(tiles)
+        dave.move()
         last_update = current_time
     board.blit(dave.current_display(), dave.position())
     board.blit(tiles.horizontal_pipe(), (32,282))
     for j in range(3):
         for i in range(7):
-            board.blit(tiles.red_brick(), (128*(j+1)+i*32, 250 - j*64))
+            board.blit(*tiles.red_brick((128*(j+1)+i*32, 250 - j*64)))
     for j in range(10):
-        board.blit(tiles.red_brick(), (0, j*32))
+        board.blit(*tiles.red_brick((0, j*32)))
     for j in range(10):
-        board.blit(tiles.red_brick(), (608, j*32))
+        board.blit(*tiles.red_brick((608, j*32)))
     for i in range(20):
-        board.blit(tiles.red_brick(), (i * 32, 0))
+        board.blit(*tiles.red_brick((i * 32, 0)))
     for i in range(20):
-        board.blit(tiles.red_brick(), (i*32, 314))
+        board.blit(*tiles.red_brick((i*32, 314)))
     pygame.display.flip()
     return last_update
 
