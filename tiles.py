@@ -7,17 +7,15 @@ class Tiles(pygame.sprite.Group):
         super().__init__()
         self.sprite_source = r"resources/tileset/tileset.png"
         self.sprite_sheet = SpriteSheet(self)
+        self.tileset = {
+            "red_brick": (1, 7),
+            "horizontal_pipe": (1, 5)
+        }
 
-    def red_brick(self, rect):
+    def create_tile(self, type, rect):
+        sheet_location = self.tileset[type]
         sprite = pygame.sprite.Sprite()
         sprite.rect = pygame.Rect(*rect, 32, 32)
         self.add(sprite)
-        image = self.sprite_sheet.get_sprite(1, 7, 16, 16, 2)
-        return image, sprite.rect
-
-    def horizontal_pipe(self, rect):
-        sprite = pygame.sprite.Sprite()
-        sprite.rect = pygame.Rect(*rect, 32, 32)
-        self.add(sprite)
-        image = self.sprite_sheet.get_sprite(1, 5, 16, 16, 2)
+        image = self.sprite_sheet.get_sprite(*sheet_location, 16, 16, 2)
         return image, sprite.rect
