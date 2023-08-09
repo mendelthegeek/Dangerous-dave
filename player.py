@@ -10,7 +10,7 @@ class Dave(pygame.sprite.Sprite):
         self.x, self.y = 64, 282
         self.sprite_source = r"resources\dave\Dave.png"
 
-        self.speed = 10
+        self.speed = 8
 
         self.sprite_sheet = SpriteSheet(self)
         self.velocity = 0
@@ -75,12 +75,12 @@ class Dave(pygame.sprite.Sprite):
         self.facing = 1
 
     def jump(self):
+        if self.velocity == 0 and self.moved and not self.on_surface:
+            self.sprite_sheet.move_sprite(0, 1)
         if self.velocity > 0:
             self.velocity -= 1
             self.sprite_sheet.move_sprite(0, -1)
             self.display_frame = self.sprite_sheet.get_sprite(self.facing,5,24, 16, 2)
-        if self.velocity == 0 and self.moved and not self.on_surface:
-            self.sprite_sheet.move_sprite(0, 1)
 
     def move_rect(self):
         self.rect.update(self.x, self.y, 20, 32)
