@@ -12,8 +12,12 @@ class Tiles(pygame.sprite.Group):
         sprite = pygame.sprite.Sprite()
         sprite.rect = pygame.Rect(*rect, 16, 16)
         self.add(sprite)
-        image =  self.sprite_sheet.get_sprite(1, 7, 16, 16, 2)
+        image = self.sprite_sheet.get_sprite(1, 7, 16, 16, 2)
         return image, sprite.rect
 
-    def horizontal_pipe(self):
-        return self.sprite_sheet.get_sprite(1, 5, 16, 16, 2)
+    def horizontal_pipe(self, rect):
+        sprite = pygame.sprite.Sprite()
+        sprite.rect = pygame.Rect(*rect, 16, 16)
+        self.add(sprite)
+        image = self.sprite_sheet.get_sprite(1, 5, 16, 16, 2)
+        return image, sprite.rect
