@@ -9,6 +9,11 @@ dave = Dave()
 last_update = pygame.time.get_ticks()
 tiles = Tiles()
 run = True
+
+icon = tiles.sprite_sheet.get_sprite(5, 4, 16, 16, 2)
+pygame.display.set_caption("Dangerous Dave")
+pygame.display.set_icon(icon)
+
 while run:
     last_update = test_render(dave, tiles, last_update)
 
