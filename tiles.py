@@ -10,14 +10,14 @@ class Tiles(pygame.sprite.Group):
 
     def red_brick(self, rect):
         sprite = pygame.sprite.Sprite()
-        sprite.rect = pygame.Rect(*rect, 16, 16)
+        sprite.rect = pygame.Rect(*rect, 32, 32)
         self.add(sprite)
         image = self.sprite_sheet.get_sprite(1, 7, 16, 16, 2)
         return image, sprite.rect
 
     def horizontal_pipe(self, rect):
         sprite = pygame.sprite.Sprite()
-        sprite.rect = pygame.Rect(*rect, 16, 16)
+        sprite.rect = pygame.Rect(*rect, 32, 32)
         self.add(sprite)
         image = self.sprite_sheet.get_sprite(1, 5, 16, 16, 2)
         return image, sprite.rect
