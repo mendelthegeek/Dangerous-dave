@@ -29,14 +29,14 @@ while run:
             run = False
         elif event.type == pygame.KEYDOWN:
             if event.key == pygame.K_UP:
-                if dave.velocity == 0:
-                    dave.velocity += 64
+                if dave.on_surface:
+                    dave.jump_height += 64
             if event.key == pygame.K_RIGHT:
-                dave.moving_right = True
+                dave.x_speed += 1
             if event.key == pygame.K_LEFT:
-                dave.moving_left = True
+                dave.x_speed -= 1
         elif event.type == pygame.KEYUP:
             if event.key == pygame.K_RIGHT:
-                dave.moving_right = False
+                dave.x_speed -= 1
             if event.key == pygame.K_LEFT:
-                dave.moving_left = False
+                dave.x_speed += 1
