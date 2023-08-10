@@ -21,19 +21,15 @@ while run:
     for event in pygame.event.get():
         if event.type == pygame.QUIT:
             run = False
-        elif event.type == pygame.KEYDOWN:
-            if event.key == pygame.K_UP:
-                if dave.on_surface:
-                    dave.jump_height += 64
-            if event.key == pygame.K_RIGHT:
-                dave.x_speed += 1
-            if event.key == pygame.K_LEFT:
-                dave.x_speed -= 1
-        elif event.type == pygame.KEYUP:
-            if event.key == pygame.K_RIGHT:
-                dave.x_speed -= 1
-            if event.key == pygame.K_LEFT:
-                dave.x_speed += 1
+    dave.x_speed = 0
+    pressed = pygame.key.get_pressed()
+    if pressed[pygame.K_UP]:
+        if dave.on_surface and dave.jump_height == 0:
+            dave.jump_height += 64
+    if pressed[pygame.K_RIGHT]:
+        dave.x_speed += 1
+    if pressed[pygame.K_LEFT]:
+        dave.x_speed -= 1
 
     detect_collision = pygame.sprite.spritecollide(dave, tiles, False)
     collided = [pygame.Rect(tile) for tile in set(tuple(tile.rect) for tile in detect_collision)]
