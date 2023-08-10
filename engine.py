@@ -14,6 +14,8 @@ pygame.display.set_caption("Dangerous Dave")
 pygame.display.set_icon(icon)
 curr_score = 0
 gems = Gems()
+trophy = Trophy((576, 338))
+gems.add(trophy)
 init_tiles(tiles, gems)
 while run:
 

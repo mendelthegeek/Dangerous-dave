@@ -30,6 +30,7 @@ def init_tiles(tiles, gems):
 
 
 
+
 def test_render(dave, tiles, gems, curr_score):
     board.fill(BG)
     current_time = pygame.time.get_ticks()
@@ -40,7 +41,10 @@ def test_render(dave, tiles, gems, curr_score):
     for tile in tiles.sprites():
         board.blit(tile.image, tile.rect)
     for gem in gems.sprites():
-        board.blit(gem.image, gem.rect)
+        if gem.gem_type == "trophy":
+            board.blit(*gem.get_image())
+        else:
+            board.blit(gem.image, gem.rect)
     board.blit(banner.score(curr_score), (450, 10))
     pygame.display.flip()
 
