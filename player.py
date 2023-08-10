@@ -29,6 +29,7 @@ class Dave(pygame.sprite.Sprite):
         self.last_blinked = pygame.time.get_ticks()
         self.rect = pygame.Rect(0,0,0,0)
         self.move()
+        self.last_update = pygame.time.get_ticks()
 
     def current_display(self):
         if not self.x_speed == 0:

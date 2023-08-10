@@ -17,7 +17,7 @@ gems = Gems()
 init_tiles(tiles, gems)
 while run:
 
-    last_update = test_render(dave, tiles, gems, curr_score, last_update)
+    test_render(dave, tiles, gems, curr_score)
 
     for event in pygame.event.get():
         if event.type == pygame.QUIT:

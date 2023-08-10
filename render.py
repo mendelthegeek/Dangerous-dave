@@ -30,20 +30,19 @@ def init_tiles(tiles, gems):
 
 
 
-def test_render(dave, tiles, gems, curr_score, last_update):
+def test_render(dave, tiles, gems, curr_score):
     board.fill(BG)
     current_time = pygame.time.get_ticks()
-    if current_time - last_update > dave.speed:
+    if current_time - dave.last_update > dave.speed:
         dave.move()
-        last_update = current_time
+        dave.last_update = current_time
     board.blit(dave.current_display(), dave.position())
     for tile in tiles.sprites():
         board.blit(tile.image, tile.rect)
     for gem in gems.sprites():
         board.blit(gem.image, gem.rect)
-    board.blit(banner.score(curr_score), (375, 10))
+    board.blit(banner.score(curr_score), (450, 10))
     pygame.display.flip()
-    return last_update
 
 
 class SpriteSheet:
