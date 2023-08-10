@@ -37,7 +37,7 @@ class SpriteSheet:
 
     def get_sprite(self, row, column, width, height, scale):
         sprite = pygame.Surface((width, height)).convert_alpha()
-        sprite_rectangle = ((column * (width + 1)) + 1, 1 + row * (height + 1), (1 + width * (column + 1)), (height + 1) * (row + 1))
+        sprite_rectangle = ((column * (width + 1)) + 1, 1 + row * (height + 1), width, height)
         sprite.blit(self.sprite_sheet, (0, 0), sprite_rectangle)
         sprite = pygame.transform.scale(sprite, (width * scale, height * scale))
         sprite.set_colorkey((0, 0, 0))
