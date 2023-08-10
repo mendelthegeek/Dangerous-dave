@@ -34,11 +34,13 @@ class Gems(Tile):
         super().__init__()
         self.tileset = {
             "blue_gem": (5, 1),
+            "purple_gem": (5, 2),
             "red_gem": (5, 3)
         }
         self.point_values = {
+            "purple_gem": 50,
             "blue_gem": 100,
-            "red_gem": 200
+            "red_gem": 150
         }
 
     def create_tile(self, gem_type, rect):

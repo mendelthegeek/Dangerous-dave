@@ -5,29 +5,52 @@ from tiles import Trophy
 
 BG = (50, 50, 50)
 
-board = pygame.display.set_mode((640, 392))
+board = pygame.display.set_mode((640, 360))
 
 
 def init_tiles(tiles, gems):
-    board.blit(*tiles.create_tile("horizontal_pipe", (32, 330)))
-    for j in range(3):
-        for i in range(7):
-            board.blit(*tiles.create_tile("red_brick", (128 * (j + 1) + i * 32, 298 - j * 64)))
+    gem_list = [
+        ("blue_gem", (32, 234)),
+        ("blue_gem", (224, 234)),
+        ("blue_gem", (32, 170)),
+        ("blue_gem", (160, 170)),
+        ("blue_gem", (288, 170)),
+        ("blue_gem", (416, 170)),
+        ("blue_gem", (544, 170)),
+        ("blue_gem", (96, 106)),
+        ("blue_gem", (224, 106)),
+        ("blue_gem", (480, 106)),
+        ("red_gem", (544, 74)),
+        ("purple_gem", (32, 74)),
+    ]
+    board.blit(*tiles.create_tile("horizontal_pipe", (32, 298)))
+    for i in range(4):
+        board.blit(*tiles.create_tile("red_brick", (96 + i*128, 138)))
+    for i in range(5):
+        board.blit(*tiles.create_tile("red_brick", (32 + i*128, 202)))
+    for i in range(4):
+        board.blit(*tiles.create_tile("red_brick", (128 + i*32, 266)))
+    for i in range(6):
+        board.blit(*tiles.create_tile("red_brick", (352 + i*32, 266)))
+    board.blit(*tiles.create_tile("red_brick", (352, 298)))
+
+
     for j in range(10):
         board.blit(*tiles.create_tile("red_brick", (0, 42 + j * 32)))
     for j in range(10):
         board.blit(*tiles.create_tile("red_brick", (608, 42 + j * 32)))
+    for j in range(10):
+        board.blit(*tiles.create_tile("red_brick", (576, 42 + j * 32)))
     for i in range(20):
         board.blit(*tiles.create_tile("red_brick", (i * 32, 42)))
     for i in range(20):
-        board.blit(*tiles.create_tile("red_brick", (i * 32, 362)))
-    for i in range(18):
-        for j in range(8):
-            proposed = (32 + i*32, 74+j*32)
-            if proposed not in [(tile.rect.left, tile.rect.top) for tile in tiles.sprites()]:
-                board.blit(*gems.create_tile("red_gem", proposed))
-    trophy = Trophy((576, 330))
+        board.blit(*tiles.create_tile("red_brick", (i * 32, 330)))
+
+
+    trophy = Trophy((352, 106))
     gems.add(trophy)
+    for gem_info in gem_list:
+        board.blit(*gems.create_tile(*gem_info))
 
 
 
@@ -35,10 +58,6 @@ def init_tiles(tiles, gems):
 def test_render(dave, tiles, gems, curr_score):
     board.fill(BG)
     current_time = pygame.time.get_ticks()
-    if current_time - dave.last_update > dave.speed:
-        dave.move()
-        dave.last_update = current_time
-    board.blit(dave.current_display(), dave.position())
     for tile in tiles.sprites():
         board.blit(tile.image, tile.rect)
     for gem in gems.sprites():
@@ -46,12 +65,18 @@ def test_render(dave, tiles, gems, curr_score):
             board.blit(*gem.get_image())
         else:
             board.blit(gem.image, gem.rect)
+    if current_time - dave.last_update > dave.speed:
+        dave.move()
+        dave.last_update = current_time
+    board.blit(dave.current_display(), dave.position())
     board.blit(banner.score(curr_score), (450, 6))
-    board.blit(pygame.image.load(r"resources/tileset/border.png"), (0, 32))
     empty_rect = (pygame.Surface((640, 14)))
     empty_rect.fill(BG)
-    board.blit(empty_rect, (0, 378))
-    board.blit(pygame.image.load(r"resources/tileset/border.png"), (0, 381))
+    board.blit(empty_rect, (0, 346))
+    border = pygame.image.load(r"resources/tileset/border.png")
+    border = pygame.transform.scale(border, (640, 6))
+    board.blit(border, (0, 32))
+    board.blit(border, (0, 349))
     pygame.display.flip()
 
 
