@@ -1,20 +1,18 @@
 import pygame
 
+import banner
+
 BG = (50, 50, 50)
 
-board = pygame.display.set_mode((640, 334))
 board = pygame.display.set_mode((640, 384))
 
 
-def test_render(dave, tiles, last_update):
-    board.fill(BG)
-    current_time = pygame.time.get_ticks()
-    if current_time - last_update > dave.speed:
-        dave.move()
-        last_update = current_time
-    board.blit(dave.current_display(), dave.position())
-    board.blit(*tiles.create_tile("horizontal_pipe",(32,288)))
-def init_tiles(tiles):
+def init_tiles(tiles, gems):
+    gem_locs = [
+        (100,200),
+        (100,250),
+        (300, 275)
+    ]
     board.blit(*tiles.create_tile("horizontal_pipe", (32, 338)))
     for j in range(3):
         for i in range(7):
@@ -27,9 +25,12 @@ def init_tiles(tiles):
         board.blit(*tiles.create_tile("red_brick", (i * 32, 50)))
     for i in range(20):
         board.blit(*tiles.create_tile("red_brick", (i * 32, 370)))
+    for gem in gem_locs:
+        board.blit(*gems.create_tile("blue_gem", gem))
 
 
-def test_render(dave, tiles, curr_score, last_update):
+
+def test_render(dave, tiles, gems, curr_score, last_update):
     board.fill(BG)
     current_time = pygame.time.get_ticks()
     if current_time - last_update > dave.speed:
@@ -38,6 +39,9 @@ def test_render(dave, tiles, curr_score, last_update):
     board.blit(dave.current_display(), dave.position())
     for tile in tiles.sprites():
         board.blit(tile.image, tile.rect)
+    for gem in gems.sprites():
+        board.blit(gem.image, gem.rect)
+    board.blit(banner.score(curr_score), (375, 10))
     pygame.display.flip()
     return last_update
 
