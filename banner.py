@@ -26,6 +26,6 @@ def score(curr_score):
     score_banner.blit(decos, (0, 0), score_rect)
     for index, digit in enumerate(map(int, str(curr_score))):
         score_banner.blit(decos, (60+9*index, 0), number_rects[digit])
-    score_banner = pygame.transform.scale(score_banner, (265, 30))
+    score_banner = pygame.transform.scale(score_banner, (265, 20))
     score_banner.set_colorkey((0, 0, 0))
     return score_banner

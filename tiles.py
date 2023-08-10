@@ -34,7 +34,7 @@ class Gems(Tile):
         super().__init__()
         self.tileset = {
             "blue_gem": (5, 1),
-            "red_gem": (5, 2)
+            "red_gem": (5, 3)
         }
         self.point_values = {
             "blue_gem": 100,
