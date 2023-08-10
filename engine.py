@@ -24,7 +24,7 @@ while run:
     pressed = pygame.key.get_pressed()
     if pressed[pygame.K_UP]:
         if dave.on_surface and dave.jump_height == 0:
-            dave.jump_height += 64
+            dave.jump_height += 76
     if pressed[pygame.K_RIGHT]:
         dave.x_speed += 1
     if pressed[pygame.K_LEFT]:

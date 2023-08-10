@@ -71,7 +71,10 @@ class Dave(pygame.sprite.Sprite):
                 self.y_speed = 0
         if self.jump_height > 0:
             self.jump_height -= 1
-            self.y_speed = -1
+            if self.jump_height > 11:
+                self.y_speed = -1
+            else:
+                self.y_speed = 0
 
     def move_rect(self):
         self.rect.update(self.x, self.y, 20, 32)
