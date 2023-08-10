@@ -1,5 +1,5 @@
 import pygame
-from render import SpriteSheet
+from spritesheet import SpriteSheet
 
 
 class Tiles(pygame.sprite.Group):

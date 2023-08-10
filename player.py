@@ -1,4 +1,6 @@
-from render import *
+import pygame
+from spritesheet import SpriteSheet
+from render import  BG
 
 
 class Dave(pygame.sprite.Sprite):
