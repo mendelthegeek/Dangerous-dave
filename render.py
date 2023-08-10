@@ -2,7 +2,7 @@ import pygame
 
 BG = (50, 50, 50)
 
-board = pygame.display.set_mode((640, 326))
+board = pygame.display.set_mode((640, 334))
 
 
 def test_render(dave, tiles, last_update):
@@ -12,10 +12,10 @@ def test_render(dave, tiles, last_update):
         dave.move()
         last_update = current_time
     board.blit(dave.current_display(), dave.position())
-    board.blit(*tiles.create_tile("horizontal_pipe",(32,282)))
+    board.blit(*tiles.create_tile("horizontal_pipe",(32,288)))
     for j in range(3):
         for i in range(7):
-            board.blit(*tiles.create_tile("red_brick",(128*(j+1)+i*32, 250 - j*64)))
+            board.blit(*tiles.create_tile("red_brick",(128*(j+1)+i*32, 256 - j*64)))
     for j in range(10):
         board.blit(*tiles.create_tile("red_brick",(0, j*32)))
     for j in range(10):
@@ -23,7 +23,7 @@ def test_render(dave, tiles, last_update):
     for i in range(20):
         board.blit(*tiles.create_tile("red_brick",(i * 32, 0)))
     for i in range(20):
-        board.blit(*tiles.create_tile("red_brick",(i*32, 314)))
+        board.blit(*tiles.create_tile("red_brick",(i*32, 320)))
     pygame.display.flip()
     return last_update
 

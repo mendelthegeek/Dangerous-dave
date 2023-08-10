@@ -5,7 +5,7 @@ class Dave(pygame.sprite.Sprite):
 
     def __init__(self):
         super().__init__()
-        self.x, self.y = 64, 282
+        self.x, self.y = 64, 288
         self.sprite_source = r"resources\dave\Dave.png"
 
         self.speed = 8
