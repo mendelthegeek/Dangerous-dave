@@ -1,12 +1,23 @@
 import pygame
 from spritesheet import SpriteSheet
 
-
-class Tiles(pygame.sprite.Group):
+class Tile(pygame.sprite.Group):
     def __init__(self):
         super().__init__()
         self.sprite_source = r"resources/tileset/tileset.png"
         self.sprite_sheet = SpriteSheet(self)
+
+    def render_tile(self, rect, sheet_location):
+        sprite = pygame.sprite.Sprite()
+        sprite.rect = pygame.Rect(*rect, 32, 32)
+        sprite.image = self.sprite_sheet.get_sprite(*sheet_location, 16, 16, 2)
+        self.add(sprite)
+        return sprite
+
+
+class Tiles(Tile):
+    def __init__(self):
+        super().__init__()
         self.tileset = {
             "red_brick": (1, 7),
             "horizontal_pipe": (1, 5)
@@ -14,18 +25,13 @@ class Tiles(pygame.sprite.Group):
 
     def create_tile(self, tile_type, rect):
         sheet_location = self.tileset[tile_type]
-        sprite = pygame.sprite.Sprite()
-        sprite.rect = pygame.Rect(*rect, 32, 32)
-        sprite.image = self.sprite_sheet.get_sprite(*sheet_location, 16, 16, 2)
-        self.add(sprite)
+        sprite = self.render_tile(rect, sheet_location)
         return sprite.image, sprite.rect
 
 
-class Gems(pygame.sprite.Group):
+class Gems(Tile):
     def __init__(self):
         super().__init__()
-        self.sprite_source = r"resources/tileset/tileset.png"
-        self.sprite_sheet = SpriteSheet(self)
         self.tileset = {
             "blue_gem": (5, 1),
             "red_gem": (5, 2)
@@ -37,12 +43,9 @@ class Gems(pygame.sprite.Group):
 
     def create_tile(self, gem_type, rect):
         sheet_location = self.tileset[gem_type]
-        sprite = pygame.sprite.Sprite()
-        sprite.rect = pygame.Rect(*rect, 32, 32)
+        sprite = self.render_tile(rect, sheet_location)
         sprite.value = self.point_values[gem_type]
-        sprite.image = self.sprite_sheet.get_sprite(*sheet_location, 16, 16, 2)
         sprite.gem_type = gem_type
-        self.add(sprite)
         return sprite.image, sprite.rect
 
 
