@@ -33,7 +33,7 @@ class Dave(pygame.sprite.Sprite):
     def current_display(self):
         if not self.x_speed == 0:
             # expression maps 1 to 0 and -1 to 1, mapping movement to desired spritesheet row
-            self.facing = abs((self.x_speed - 1)/2)
+            self.facing = (1 - self.x_speed)/2
         if not self.moved:
             current_ticks = pygame.time.get_ticks()
             if current_ticks - self.last_blinked > 500:
