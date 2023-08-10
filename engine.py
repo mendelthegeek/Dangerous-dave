@@ -34,5 +34,5 @@ while run:
     if pressed[pygame.K_LEFT]:
         dave.x_speed -= 1
 
-    check_collision(dave, tiles)
     curr_score += check_obtained(dave, gems)
+    check_collision(dave, tiles)

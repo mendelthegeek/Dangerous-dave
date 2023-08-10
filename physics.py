@@ -44,10 +44,12 @@ def check_collision(dave, tiles):
     if dave.rect.top + 1 in [tile.bottom for tile in collided] and not side_collide:
         dave.jump_height = 0
 
+
 def check_obtained(dave, obtainables):
     points = 0
     detect_collision = pygame.sprite.spritecollide(dave, obtainables, True)
     for obtained in detect_collision:
         points += obtained.value
+        if obtained.gem_type == "trophy":
+            dave.has_key = True
     return points
-

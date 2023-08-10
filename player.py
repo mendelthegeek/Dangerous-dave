@@ -30,6 +30,7 @@ class Dave(pygame.sprite.Sprite):
         self.rect = pygame.Rect(0,0,0,0)
         self.move()
         self.last_update = pygame.time.get_ticks()
+        self.has_key = False
 
     def current_display(self):
         if not self.x_speed == 0:
