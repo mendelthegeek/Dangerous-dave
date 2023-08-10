@@ -12,10 +12,10 @@ tiles = Tiles()
 icon = tiles.sprite_sheet.get_sprite(5, 4, 16, 16, 2)
 pygame.display.set_caption("Dangerous Dave")
 pygame.display.set_icon(icon)
+init_tiles(tiles)
 while run:
 
-    tiles = Tiles()
-    last_update = test_render(dave, tiles, last_update)
+    last_update = test_render(dave, tiles, curr_score, last_update)
 
     for event in pygame.event.get():
         if event.type == pygame.QUIT:

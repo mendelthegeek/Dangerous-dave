@@ -12,10 +12,13 @@ class Tiles(pygame.sprite.Group):
             "horizontal_pipe": (1, 5)
         }
 
-    def create_tile(self, type, rect):
-        sheet_location = self.tileset[type]
+    def create_tile(self, tile_type, rect):
+        sheet_location = self.tileset[tile_type]
         sprite = pygame.sprite.Sprite()
         sprite.rect = pygame.Rect(*rect, 32, 32)
+        sprite.image = self.sprite_sheet.get_sprite(*sheet_location, 16, 16, 2)
+        self.add(sprite)
+        return sprite.image, sprite.rect
         self.add(sprite)
         image = self.sprite_sheet.get_sprite(*sheet_location, 16, 16, 2)
         return image, sprite.rect

@@ -3,6 +3,7 @@ import pygame
 BG = (50, 50, 50)
 
 board = pygame.display.set_mode((640, 334))
+board = pygame.display.set_mode((640, 384))
 
 
 def test_render(dave, tiles, last_update):
@@ -13,17 +14,30 @@ def test_render(dave, tiles, last_update):
         last_update = current_time
     board.blit(dave.current_display(), dave.position())
     board.blit(*tiles.create_tile("horizontal_pipe",(32,288)))
+def init_tiles(tiles):
+    board.blit(*tiles.create_tile("horizontal_pipe", (32, 338)))
     for j in range(3):
         for i in range(7):
-            board.blit(*tiles.create_tile("red_brick",(128*(j+1)+i*32, 256 - j*64)))
+            board.blit(*tiles.create_tile("red_brick", (128 * (j + 1) + i * 32, 306 - j * 64)))
     for j in range(10):
-        board.blit(*tiles.create_tile("red_brick",(0, j*32)))
+        board.blit(*tiles.create_tile("red_brick", (0, 50 + j * 32)))
     for j in range(10):
-        board.blit(*tiles.create_tile("red_brick",(608, j*32)))
+        board.blit(*tiles.create_tile("red_brick", (608, 50 + j * 32)))
     for i in range(20):
-        board.blit(*tiles.create_tile("red_brick",(i * 32, 0)))
+        board.blit(*tiles.create_tile("red_brick", (i * 32, 50)))
     for i in range(20):
-        board.blit(*tiles.create_tile("red_brick",(i*32, 320)))
+        board.blit(*tiles.create_tile("red_brick", (i * 32, 370)))
+
+
+def test_render(dave, tiles, curr_score, last_update):
+    board.fill(BG)
+    current_time = pygame.time.get_ticks()
+    if current_time - last_update > dave.speed:
+        dave.move()
+        last_update = current_time
+    board.blit(dave.current_display(), dave.position())
+    for tile in tiles.sprites():
+        board.blit(tile.image, tile.rect)
     pygame.display.flip()
     return last_update
 
