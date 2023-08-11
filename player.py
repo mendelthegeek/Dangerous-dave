@@ -16,13 +16,6 @@ class Dave(pygame.sprite.Sprite):
         self.sprite_sheet = SpriteSheet(self)
         self.jump_height = 0
 
-        self.walk_right = []
-        for i in range(4):
-            self.walk_right.append(self.sprite_sheet.get_sprite(0, i, 24, 16, 2))
-        self.display_frame = self.walk_right[0]
-        self.walk_left = []
-        for i in range(4):
-            self.walk_left.append(self.sprite_sheet.get_sprite(1, i, 24, 16, 2))
         self.x_speed = 0
         self.y_speed = 0
         self.facing = 0
