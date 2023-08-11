@@ -39,6 +39,7 @@ def go_thru():
     go_thru_message.set_colorkey((0, 0, 0))
     return go_thru_message
 
+
 def blit_border(board, curr_score):
     empty_rect = (pygame.Surface((640, 16)))
     empty_rect.fill(BG)

@@ -1,5 +1,3 @@
-import pygame
-
 from banner import *
 from player import *
 from tiles import *
@@ -11,10 +9,10 @@ def next_level(curr_score):
     tiles = Tiles()
     doors = Door()
     for i in range(20):
-        board.blit(*tiles.create_tile("blue_brick", (i * 32, 138)))
+        tiles.create_tile("blue_brick", (i * 32, 138))
     board.blit(*doors.create_tile((0, 170)))
     for i in range(20):
-        board.blit(*tiles.create_tile("blue_brick", (i * 32, 202)))
+        tiles.create_tile("blue_brick", (i * 32, 202))
     dave = Dave((32, 170))
     dave.x_speed = 1
 
@@ -54,28 +52,28 @@ def init_tiles(tiles, gems, doors):
         ("red_gem", (544, 74)),
         ("purple_gem", (32, 74)),
     ]
-    board.blit(*tiles.create_tile("horizontal_pipe", (32, 298)))
+    tiles.create_tile("horizontal_pipe", (32, 298))
     for i in range(4):
-        board.blit(*tiles.create_tile("red_brick", (96 + i * 128, 138)))
+        tiles.create_tile("red_brick", (96 + i * 128, 138))
     for i in range(5):
-        board.blit(*tiles.create_tile("red_brick", (32 + i * 128, 202)))
+        tiles.create_tile("red_brick", (32 + i * 128, 202))
     for i in range(4):
-        board.blit(*tiles.create_tile("red_brick", (128 + i * 32, 266)))
+        tiles.create_tile("red_brick", (128 + i * 32, 266))
     for i in range(6):
-        board.blit(*tiles.create_tile("red_brick", (352 + i * 32, 266)))
-    board.blit(*tiles.create_tile("red_brick", (352, 298)))
+        tiles.create_tile("red_brick", (352 + i * 32, 266))
+    tiles.create_tile("red_brick", (352, 298))
     board.blit(*doors.create_tile((384, 298)))
 
     for j in range(10):
-        board.blit(*tiles.create_tile("red_brick", (0, 42 + j * 32)))
+        tiles.create_tile("red_brick", (0, 42 + j * 32))
     for j in range(10):
-        board.blit(*tiles.create_tile("red_brick", (608, 42 + j * 32)))
+        tiles.create_tile("red_brick", (608, 42 + j * 32))
     for j in range(10):
-        board.blit(*tiles.create_tile("red_brick", (576, 42 + j * 32)))
+        tiles.create_tile("red_brick", (576, 42 + j * 32))
     for i in range(20):
-        board.blit(*tiles.create_tile("red_brick", (i * 32, 42)))
+        tiles.create_tile("red_brick", (i * 32, 42))
     for i in range(20):
-        board.blit(*tiles.create_tile("red_brick", (i * 32, 330)))
+        tiles.create_tile("red_brick", (i * 32, 330))
 
     trophy = Trophy((352, 106))
     gems.add(trophy)
@@ -83,7 +81,7 @@ def init_tiles(tiles, gems, doors):
         board.blit(*gems.create_tile(*gem_info))
 
 
-def test_render(dave, tiles, gems, doors, curr_score):
+def render(dave, tiles, gems, doors, curr_score):
     board.fill(BG)
     current_time = pygame.time.get_ticks()
     for tile in tiles.sprites():

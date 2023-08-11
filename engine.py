@@ -19,7 +19,7 @@ def level(curr_score=0):
     next_lev = False
     while run:
 
-        test_render(dave, tiles, gems, doors, curr_score)
+        render(dave, tiles, gems, doors, curr_score)
 
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
