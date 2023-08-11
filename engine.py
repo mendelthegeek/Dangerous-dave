@@ -1,7 +1,6 @@
 from physics import *
-from player import *
-from tiles import *
 from render import *
+from levels import *
 
 
 def level(curr_score=0):
