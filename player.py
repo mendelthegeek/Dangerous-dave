@@ -1,13 +1,14 @@
 import pygame
 from spritesheet import SpriteSheet
-from render import  BG
 
+
+BG = (50, 50, 50)
 
 class Dave(pygame.sprite.Sprite):
 
-    def __init__(self):
+    def __init__(self, init_pos):
         super().__init__()
-        self.x, self.y = 64, 298
+        self.x, self.y = init_pos
         self.sprite_source = r"resources\dave\Dave.png"
 
         self.speed = 8
@@ -27,7 +28,7 @@ class Dave(pygame.sprite.Sprite):
         self.facing = 0
         self.moved = False
         self.displayed = True
-        self.on_surface = False
+        self.on_surface = True
         self.last_blinked = pygame.time.get_ticks()
         self.rect = pygame.Rect(0,0,0,0)
         self.move()

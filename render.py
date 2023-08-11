@@ -1,11 +1,42 @@
 import pygame
 
-from tiles import Trophy
-
-BG = (50, 50, 50)
 from banner import *
+from player import *
+from tiles import *
 
 board = pygame.display.set_mode((640, 392))
+
+
+def next_level(curr_score):
+    tiles = Tiles()
+    doors = Door()
+    for i in range(20):
+        board.blit(*tiles.create_tile("blue_brick", (i * 32, 138)))
+    board.blit(*doors.create_tile((0, 170)))
+    for i in range(20):
+        board.blit(*tiles.create_tile("blue_brick", (i * 32, 202)))
+    dave = Dave((32, 170))
+    dave.x_speed = 1
+
+    while dave.x < 608:
+        for event in pygame.event.get():
+            if event.type == pygame.QUIT:
+                return False
+        board.fill(BG)
+
+        for door in doors.sprites():
+            board.blit(door.image, door.rect)
+        for tile in tiles.sprites():
+            board.blit(tile.image, tile.rect)
+        current_time = pygame.time.get_ticks()
+        if current_time - dave.last_update > dave.speed:
+            dave.move()
+            dave.last_update = current_time
+
+        board.blit(dave.current_display(), dave.position())
+        blit_border(board, curr_score)
+        pygame.display.flip()
+    return True
 
 
 def init_tiles(tiles, gems, doors):
@@ -69,5 +100,6 @@ def test_render(dave, tiles, gems, doors, curr_score):
         dave.last_update = current_time
     board.blit(dave.current_display(), dave.position())
     if dave.has_key:
+        board.blit(go_thru(), (180, 358))
     blit_border(board, curr_score)
     pygame.display.flip()

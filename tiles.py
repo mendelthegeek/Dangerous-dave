@@ -20,6 +20,7 @@ class Tiles(Tile):
         super().__init__()
         self.tileset = {
             "red_brick": (1, 7),
+            "blue_brick": (0, 4),
             "horizontal_pipe": (1, 5)
         }
 
@@ -52,16 +53,18 @@ class Gems(Tile):
         return sprite.image, sprite.rect
 
     def pad(self, rect):
-        return pygame.Rect(rect.left-4, rect.top, rect.width+8, rect.height)
+        return pygame.Rect(rect.left-5, rect.top, rect.width+10, rect.height)
 
     def unpad(self, rect):
-        return pygame.Rect(rect.left+4, rect.top, rect.width-8, rect.height)
+        return pygame.Rect(rect.left+5, rect.top, rect.width-10, rect.height)
 
 
 class Trophy(pygame.sprite.Sprite):
     def __init__(self, rect):
         super().__init__()
-        self.rect = pygame.Rect(*rect, 32, 32)
+        rect = pygame.Rect(*rect, 32, 32)
+        self.rect = pygame.Rect(rect.left-5, rect.top, rect.width+10, rect.height)
+        self.display_rect = rect
         self.sprite_source = r"resources/tileset/tileset.png"
         self.sprite_sheet = SpriteSheet(self)
         self.images = []
@@ -79,7 +82,7 @@ class Trophy(pygame.sprite.Sprite):
             self.frame = (self.frame + 1) % 5
             self.last_updated = curr_time
             self.image = self.images[self.frame]
-        return self.image, self.rect
+        return self.image, self.display_rect
 
 
 class Door(Tile):

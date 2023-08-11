@@ -62,4 +62,5 @@ def check_obtained(dave, obtainables):
     return points
 
 def check_door(dave, doors):
-    return not (pygame.sprite.spritecollide(dave, doors, False) and dave.has_key)
+    if pygame.sprite.spritecollide(dave, doors, False) and dave.has_key:
+        return True
