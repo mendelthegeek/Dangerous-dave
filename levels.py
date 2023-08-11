@@ -2,14 +2,16 @@ from banner import *
 from player import *
 from tiles import *
 from render import *
+
+
 def next_level(curr_score):
     tiles = Tiles()
     doors = Door()
     for i in range(20):
-        tiles.create_tile("blue_brick", (i * 32, 138))
-    doors.create_tile((0, 170))
+        tiles.create_tile("blue_brick", (i, 3))
+    doors.create_tile((0, 4))
     for i in range(20):
-        tiles.create_tile("blue_brick", (i * 32, 202))
+        tiles.create_tile("blue_brick", (i, 5))
     dave = Dave((32, 170))
     dave.x_speed = 1
 

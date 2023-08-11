@@ -9,7 +9,7 @@ class Tile(pygame.sprite.Group):
 
     def render_tile(self, rect, sheet_location):
         sprite = pygame.sprite.Sprite()
-        sprite.rect = pygame.Rect(*rect, 32, 32)
+        sprite.rect = pygame.Rect(rect[0]*32, rect[1]*32+42, 32, 32)
         sprite.image = self.sprite_sheet.get_sprite(*sheet_location, 16, 16, 2)
         self.add(sprite)
         return sprite
