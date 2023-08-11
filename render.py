@@ -1,9 +1,9 @@
 import pygame
 
-import banner
 from tiles import Trophy
 
 BG = (50, 50, 50)
+from banner import *
 
 board = pygame.display.set_mode((640, 392))
 
@@ -68,14 +68,6 @@ def test_render(dave, tiles, gems, doors, curr_score):
         dave.move()
         dave.last_update = current_time
     board.blit(dave.current_display(), dave.position())
-    board.blit(banner.score(curr_score), (450, 6))
     if dave.has_key:
-        board.blit(banner.go_thru(), (180, 358))
-    empty_rect = (pygame.Surface((640, 16)))
-    empty_rect.fill(BG)
-    board.blit(empty_rect, (0, 346))
-    border = pygame.image.load(r"resources/tileset/border.png")
-    border = pygame.transform.scale(border, (640, 6))
-    board.blit(border, (0, 32))
-    board.blit(border, (0, 349))
+    blit_border(board, curr_score)
     pygame.display.flip()
