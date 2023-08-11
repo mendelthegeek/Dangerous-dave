@@ -46,9 +46,16 @@ class Gems(Tile):
     def create_tile(self, gem_type, rect):
         sheet_location = self.tileset[gem_type]
         sprite = self.render_tile(rect, sheet_location)
+        sprite.rect = self.pad(sprite.rect)
         sprite.value = self.point_values[gem_type]
         sprite.gem_type = gem_type
         return sprite.image, sprite.rect
+
+    def pad(self, rect):
+        return pygame.Rect(rect.left-4, rect.top, rect.width+8, rect.height)
+
+    def unpad(self, rect):
+        return pygame.Rect(rect.left+4, rect.top, rect.width-8, rect.height)
 
 
 class Trophy(pygame.sprite.Sprite):

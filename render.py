@@ -63,7 +63,7 @@ def test_render(dave, tiles, gems, doors, curr_score):
         if gem.gem_type == "trophy":
             board.blit(*gem.get_image())
         else:
-            board.blit(gem.image, gem.rect)
+            board.blit(gem.image, gems.unpad(gem.rect))
     if current_time - dave.last_update > dave.speed:
         dave.move()
         dave.last_update = current_time
