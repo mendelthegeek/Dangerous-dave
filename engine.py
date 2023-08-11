@@ -14,7 +14,7 @@ def level(curr_score=0):
     pygame.display.set_icon(icon)
     gems = Gems()
     doors = Door()
-    init_tiles(tiles, gems, doors)
+    level_1(tiles, gems, doors)
     next_lev = False
     while run:
 
