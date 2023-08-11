@@ -1,4 +1,4 @@
-from physics import check_collision, check_obtained
+from physics import *
 from player import *
 from tiles import *
 from render import *
@@ -14,10 +14,11 @@ pygame.display.set_caption("Dangerous Dave")
 pygame.display.set_icon(icon)
 curr_score = 0
 gems = Gems()
-init_tiles(tiles, gems)
+doors = Door()
+init_tiles(tiles, gems, doors)
 while run:
 
-    test_render(dave, tiles, gems, curr_score)
+    test_render(dave, tiles, gems, doors, curr_score)
 
     for event in pygame.event.get():
         if event.type == pygame.QUIT:
@@ -34,3 +35,4 @@ while run:
 
     curr_score += check_obtained(dave, gems)
     check_collision(dave, tiles)
+    check_door(dave, doors)

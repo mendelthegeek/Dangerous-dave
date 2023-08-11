@@ -3,6 +3,7 @@ import pygame
 row_height = 52
 
 decos_source = r"resources/tileset/decorations.png"
+decos = pygame.image.load(decos_source)
 num_width = 8
 score_width, score_height = 55, 11
 score_rect = (270, 52, score_width, score_height)
@@ -21,11 +22,18 @@ number_rects = {
 
 
 def score(curr_score):
-    decos = pygame.image.load(decos_source)
     score_banner = pygame.Surface((150, score_height)).convert_alpha()
     score_banner.blit(decos, (0, 0), score_rect)
     for index, digit in enumerate(map(int, str(curr_score))):
-        score_banner.blit(decos, (60+9*index, 0), number_rects[digit])
+        score_banner.blit(decos, (60 + 9 * index, 0), number_rects[digit])
     score_banner = pygame.transform.scale(score_banner, (265, 20))
     score_banner.set_colorkey((0, 0, 0))
     return score_banner
+
+
+def go_thru():
+    go_thru_message = pygame.Surface((175, 16)).convert_alpha()
+    go_thru_message.blit(decos, (0, 0), (1, 63, 172, 16))
+    go_thru_message = pygame.transform.scale(go_thru_message, (280, 28))
+    go_thru_message.set_colorkey((0, 0, 0))
+    return go_thru_message

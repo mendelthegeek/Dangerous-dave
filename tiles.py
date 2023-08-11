@@ -74,3 +74,13 @@ class Trophy(pygame.sprite.Sprite):
             self.image = self.images[self.frame]
         return self.image, self.rect
 
+
+class Door(Tile):
+
+    def __init__(self):
+        super().__init__()
+
+    def create_tile(self, rect):
+        sheet_location = (0, 1)
+        sprite = self.render_tile(rect, sheet_location)
+        return sprite.image, sprite.rect

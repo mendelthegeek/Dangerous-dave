@@ -41,8 +41,15 @@ def check_collision(dave, tiles):
                 if dave.rect.bottom - 1 == k and len(list(g)) > 1:
                     dave.on_surface = True
     # check if we bumped our head ouchie
-    if dave.rect.top + 1 in [tile.bottom for tile in collided] and not side_collide:
-        dave.jump_height = 0
+    if dave.rect.top + 1 in [tile.bottom for tile in collided]:
+        if not side_collide:
+            dave.jump_height = 0
+        else:
+            # similar to above logic for bottom collision
+            sorted_collisions = sorted(collided, key=operator.itemgetter(1))
+            for k, g in groupby(sorted_collisions, operator.itemgetter(1)):
+                if dave.rect.top-31 == k and len(list(g)) > 1:
+                    dave.jump_height = 0
 
 
 def check_obtained(dave, obtainables):
@@ -53,3 +60,6 @@ def check_obtained(dave, obtainables):
         if obtained.gem_type == "trophy":
             dave.has_key = True
     return points
+
+def check_door(dave, doors):
+    return not (pygame.sprite.spritecollide(dave, doors, False) and dave.has_key)
