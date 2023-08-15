@@ -40,7 +40,7 @@ def go_thru():
     return go_thru_message
 
 
-def blit_border(board, curr_score):
+def blit_border(board, curr_score, dave_has_key):
     empty_rect = (pygame.Surface((640, 16)))
     empty_rect.fill(BG)
     board.blit(empty_rect, (0, 346))
@@ -49,3 +49,5 @@ def blit_border(board, curr_score):
     board.blit(border, (0, 32))
     board.blit(border, (0, 349))
     board.blit(score(curr_score), (450, 6))
+    if dave_has_key:
+        board.blit(go_thru(), (180, 358))

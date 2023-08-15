@@ -21,7 +21,5 @@ def render(dave, tiles, gems, doors, curr_score):
         dave.move()
         dave.last_update = current_time
     board.blit(dave.current_display(), dave.position())
-    if dave.has_key:
-        board.blit(go_thru(), (180, 358))
-    blit_border(board, curr_score)
+    blit_border(board, curr_score, dave.has_key)
     pygame.display.flip()
