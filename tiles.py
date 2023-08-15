@@ -38,8 +38,8 @@ class Tiles(Tile):
         }
 
     def create_tile(self, tile_type, rect):
-        sheet_location = self.tileset[tile_type]
-        sprite = self.render_tile(rect, sheet_location)
+        sheet_locations = self.tileset[tile_type]
+        sprite = self.render_tile(rect, sheet_locations)
 
     def render_image(self, sprite):
         return self.get_image(sprite), sprite.rect
@@ -68,8 +68,8 @@ class Gems(Tile):
         }
 
     def create_tile(self, gem_type, rect):
-        sheet_location = self.tileset[gem_type]
-        sprite = self.render_tile(rect, sheet_location)
+        sheet_locations = self.tileset[gem_type]
+        sprite = self.render_tile(rect, sheet_locations)
         sprite.rect = self.pad(sprite.rect)
         sprite.value = self.point_values[gem_type]
         sprite.gem_type = gem_type
@@ -90,8 +90,25 @@ class Door(Tile):
         super().__init__()
 
     def create_tile(self, rect):
-        sheet_location = [(0, 1)]
-        self.render_tile(rect, sheet_location)
+        sheet_locations = [(0, 1)]
+        self.render_tile(rect, sheet_locations)
+
+    def render_image(self, sprite):
+        return self.get_image(sprite), sprite.rect
+
+
+class Hazards(Tile):
+    def __init__(self):
+        super().__init__()
+        self.tileset = {
+            "fire": [(0, i + 5) for i in range(4)],
+            "water": [(4, i) for i in range(4)] + [(3,8)],
+            "purple_fire": [(4, i+5) for i in range(3)] + [(3, 0)]
+        }
+
+    def create_tile(self, tile_type, rect):
+        sheet_locations = self.tileset[tile_type]
+        sprite = self.render_tile(rect, sheet_locations)
 
     def render_image(self, sprite):
         return self.get_image(sprite), sprite.rect

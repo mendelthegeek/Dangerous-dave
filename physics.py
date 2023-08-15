@@ -3,17 +3,20 @@ from itertools import groupby
 
 import pygame
 
-arr =set()
+arr = set()
+
+
 def test_new_jump_floor(dave, collided):
     pass
+
+
 #             if dave.rect.bottom - 1 ==
 #             tile.top:
 #                 dave.on_surface = True
 #             elif dave.rect.top + 1 == tile.bottom:
 #                 dave.jump_height = 0
-        #     overlap = max(dave.rect.right-tile.left, tile.right-dave.rect.left)
-    #     if overlap > max_overlap:
-
+#     overlap = max(dave.rect.right-tile.left, tile.right-dave.rect.left)
+#     if overlap > max_overlap:
 
 
 def check_collision(dave, tiles):
@@ -37,13 +40,12 @@ def check_collision(dave, tiles):
                 side_collide = True
                 dave.x_speed = max(dave.x_speed, 0)
 
-
     # reset variable
     dave.on_surface = False
 
-    dave_column = (dave.rect.left+7)//32
+    dave_column = (dave.rect.left + 7) // 32
     for tile in collided:
-        if dave_column == tile.left//32:
+        if dave_column == tile.left // 32:
             if dave.rect.bottom - 1 == tile.top:
                 dave.on_surface = True
             elif dave.rect.top + 1 == tile.bottom:
@@ -92,3 +94,7 @@ def check_obtained(dave, obtainables):
 
 def check_door(dave, doors):
     return pygame.sprite.spritecollide(dave, doors, False) and dave.has_key
+
+
+def check_death(dave, hazards):
+    return pygame.sprite.spritecollide(dave, hazards, False)

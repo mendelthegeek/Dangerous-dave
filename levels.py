@@ -15,11 +15,12 @@ def next_level(curr_score):
     dave = Dave((32, 170))
     dave.x_speed = 1
 
+    empty = pygame.sprite.Group()
     while dave.x < 608:
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
                 return False
-        render(dave, tiles, pygame.sprite.Group(), doors, curr_score)
+        render(dave, tiles, empty, empty, doors, curr_score)
     return True
 
 
@@ -69,7 +70,7 @@ def level_1(tiles, gems, doors):
         gems.create_tile(*gem)
 
 
-def level_2(tiles, gems, doors):
+def level_2(tiles, hazards, gems, doors):
     tiles.create_tile("horizontal_pipe", (1, 8))
 
     gem_list = [
@@ -83,9 +84,9 @@ def level_2(tiles, gems, doors):
     tile_list = []
     for j in range(10):
         tile_list.append(("red_brick", (0, j)))
-    for j in range(4):
-        tile_list.append(("red_brick", (9, j+5)))
     for j in range(5):
+        tile_list.append(("red_brick", (9, j+5)))
+    for j in range(6):
         tile_list.append(("red_brick", (14, j+4)))
     for i in range(20):
         tile_list.append(("red_brick", (i, 0)))
@@ -99,7 +100,17 @@ def level_2(tiles, gems, doors):
     for location in purple_horizontal_singles:
         tile_list.append(("purple_horizontal", location))
 
-    for tile in tile_list:
-        tiles.create_tile(*tile)
+    hazard_list = []
+    for i in range(6):
+        hazard_list.append(("fire", (i+3, 9)))
+    for i in range(4):
+        hazard_list.append(("fire", (i+10, 9)))
+    for i in range(6):
+        hazard_list.append(("water", (i+15, 9)))
+
     for gem in gem_list:
         gems.create_tile(*gem)
+    for tile in tile_list:
+        tiles.create_tile(*tile)
+    for hazard in hazard_list:
+        hazards.create_tile(*hazard)
