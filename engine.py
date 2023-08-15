@@ -3,11 +3,10 @@ from render import *
 from levels import *
 
 
-def level(curr_score=0):
+def start(curr_score=0):
     pygame.init()
 
     dave = Dave((64, 298))
-    run = True
     tiles = Tiles()
     icon = tiles.sprite_sheet.get_sprite(5, 4, 16, 16, 2)
     pygame.display.set_caption("Dangerous Dave")
@@ -16,13 +15,34 @@ def level(curr_score=0):
     doors = Door()
     level_1(tiles, gems, doors)
     next_lev = False
-    while run:
+
+    next_lev, curr_score = run(dave, tiles, gems, doors, curr_score)
+
+    if next_lev:
+        if next_level(curr_score):
+            dave = Dave((64, 298))
+            tiles = Tiles()
+            doors = Door()
+            gems = Gems()
+            level_2(tiles, gems, doors)
+
+    next_lev, curr_score = run(dave, tiles, gems, doors, curr_score)
+    if next_lev:
+        if next_level(curr_score):
+            start(curr_score)
+
+
+def run(dave, tiles, gems, doors, curr_score):
+    running = True
+    while running:
+        if curr_score >= 100000:
+            curr_score = 99999
 
         render(dave, tiles, gems, doors, curr_score)
 
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
-                run = False
+                return False, curr_score
         dave.x_speed = 0
         pressed = pygame.key.get_pressed()
         if pressed[pygame.K_UP]:
@@ -36,14 +56,8 @@ def level(curr_score=0):
         curr_score += check_obtained(dave, gems)
         check_collision(dave, tiles)
         if check_door(dave, doors):
-            run = False
-            next_lev = True
             curr_score += 2000
-        if curr_score >= 100000:
-            curr_score = 99999
-    if next_lev:
-        if next_level(curr_score):
-            level(curr_score)
+            return True, curr_score
 
 
-level()
+start()

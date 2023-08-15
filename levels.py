@@ -24,48 +24,6 @@ def next_level(curr_score):
 
 
 def level_1(tiles, gems, doors):
-    gem_list = [
-        ("blue_gem", (1, 6)),
-        ("blue_gem", (7, 6)),
-        ("blue_gem", (1, 4)),
-        ("blue_gem", (5, 4)),
-        ("blue_gem", (9, 4)),
-        ("blue_gem", (13, 4)),
-        ("blue_gem", (17, 4)),
-        ("blue_gem", (3, 2)),
-        ("blue_gem", (7, 2)),
-        ("blue_gem", (15, 2)),
-        ("red_gem", (17, 1)),
-        ("purple_gem", (1, 1)),
-    ]
-    tiles.create_tile("horizontal_pipe", (1, 8))
-    for i in range(4):
-        tiles.create_tile("red_brick", (3 + i * 4, 3))
-    for i in range(5):
-        tiles.create_tile("red_brick", (1 + i * 4, 5))
-    for i in range(4):
-        tiles.create_tile("red_brick", (4 + i, 7))
-    for i in range(6):
-        tiles.create_tile("red_brick", (11 + i, 7))
-    tiles.create_tile("red_brick", (11, 8))
-    board.blit(*doors.create_tile((12, 8)))
-
-    for j in range(10):
-        tiles.create_tile("red_brick", (0, j))
-    for j in range(10):
-        tiles.create_tile("red_brick", (19, j))
-    for j in range(10):
-        tiles.create_tile("red_brick", (18, j))
-    for i in range(20):
-        tiles.create_tile("red_brick", (i, 0))
-    for i in range(20):
-        tiles.create_tile("red_brick", (i, 9))
-
-    for gem_info in gem_list:
-        board.blit(*gems.create_tile(*gem_info))
-
-
-def level_1(tiles, gems, doors):
     tiles.create_tile("horizontal_pipe", (1, 8))
     doors.create_tile((12, 8))
 
@@ -104,6 +62,42 @@ def level_1(tiles, gems, doors):
         tile_list.append(("red_brick", (i, 0)))
     for i in range(20):
         tile_list.append(("red_brick", (i, 9)))
+
+    for tile in tile_list:
+        tiles.create_tile(*tile)
+    for gem in gem_list:
+        gems.create_tile(*gem)
+
+
+def level_2(tiles, gems, doors):
+    tiles.create_tile("horizontal_pipe", (1, 8))
+
+    gem_list = [
+        ("trophy", (13, 5)),
+        ("blue_gem", (10, 8)),
+        ("blue_gem", (5, 1)),
+        ("red_gem", (1, 1)),
+        ("red_gem", (8, 7)),
+    ]
+
+    tile_list = []
+    for j in range(10):
+        tile_list.append(("red_brick", (0, j)))
+    for j in range(4):
+        tile_list.append(("red_brick", (9, j+5)))
+    for j in range(5):
+        tile_list.append(("red_brick", (14, j+4)))
+    for i in range(20):
+        tile_list.append(("red_brick", (i, 0)))
+    for i in range(3):
+        tile_list.append(("red_brick", (i, 9)))
+    for i in range(3):
+        tile_list.append(("purple_horizontal", (i+4, 7)))
+    for i in range(3):
+        tile_list.append(("purple_horizontal", (i+8, 4)))
+    purple_horizontal_singles = [(1,3), (4, 3), (2,5), (3, 5), (13, 3), (11, 6), (13, 8)]
+    for location in purple_horizontal_singles:
+        tile_list.append(("purple_horizontal", location))
 
     for tile in tile_list:
         tiles.create_tile(*tile)
