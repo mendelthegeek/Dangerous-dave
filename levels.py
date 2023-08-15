@@ -112,5 +112,6 @@ def level_2(tiles, hazards, gems, doors):
         gems.create_tile(*gem)
     for tile in tile_list:
         tiles.create_tile(*tile)
-    for hazard in hazard_list:
-        hazards.create_tile(*hazard)
+    for i, hazard in enumerate(hazard_list):
+        sprite = hazards.create_tile(*hazard)
+        sprite.frame = i % len(sprite.images)

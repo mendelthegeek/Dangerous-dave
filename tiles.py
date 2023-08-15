@@ -109,6 +109,7 @@ class Hazards(Tile):
     def create_tile(self, tile_type, rect):
         sheet_locations = self.tileset[tile_type]
         sprite = self.render_tile(rect, sheet_locations)
+        return sprite
 
     def render_image(self, sprite):
         return self.get_image(sprite), sprite.rect
