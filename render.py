@@ -9,14 +9,11 @@ def render(dave, tiles, gems, doors, curr_score):
     board.fill(BG)
     current_time = pygame.time.get_ticks()
     for tile in tiles.sprites():
-        board.blit(tile.image, tile.rect)
+        board.blit(*tiles.render_image(tile))
     for door in doors.sprites():
-        board.blit(door.image, door.rect)
+        board.blit(*doors.render_image(door))
     for gem in gems.sprites():
-        if gem.gem_type == "trophy":
-            board.blit(*gem.get_image())
-        else:
-            board.blit(gem.image, gems.unpad(gem.rect))
+        board.blit(*gems.render_image(gem))
     if current_time - dave.last_update > dave.speed:
         dave.move()
         dave.last_update = current_time

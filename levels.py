@@ -61,8 +61,6 @@ def level_1(tiles, gems, doors):
     for i in range(20):
         tiles.create_tile("red_brick", (i, 9))
 
-    trophy = Trophy((352, 106))
-    gems.add(trophy)
     for gem_info in gem_list:
         board.blit(*gems.create_tile(*gem_info))
 
@@ -70,14 +68,15 @@ def level_1(tiles, gems, doors):
 def level_1(tiles, gems, doors):
     tiles.create_tile("horizontal_pipe", (1, 8))
     doors.create_tile((12, 8))
-    gems.add(Trophy((352, 106)))
 
     gem_list = [
+        ("trophy", (11, 2)),
         ("blue_gem", (1, 6)),
         ("blue_gem", (7, 6)),
         ("red_gem", (17, 1)),
         ("purple_gem", (1, 1)),
     ]
+
     for i in range(4):
         if not i == 2:
             gem_list.append(("blue_gem", (3 + i * 4, 2)))
