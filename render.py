@@ -5,17 +5,17 @@ from tiles import *
 board = pygame.display.set_mode((640, 392))
 
 
-def render(dave, tiles, hazards, gems, doors, curr_score):
+def render(dave, level, curr_score):
     board.fill(BG)
     current_time = pygame.time.get_ticks()
-    for tile in tiles.sprites():
-        board.blit(*tiles.render_image(tile))
-    for door in doors.sprites():
-        board.blit(*doors.render_image(door))
-    for gem in gems.sprites():
-        board.blit(*gems.render_image(gem))
-    for hazard in hazards.sprites():
-        board.blit(*hazards.render_image(hazard))
+    for tile in level.tiles.sprites():
+        board.blit(*level.tiles.render_image(tile))
+    for door in level.doors.sprites():
+        board.blit(*level.doors.render_image(door))
+    for gem in level.gems.sprites():
+        board.blit(*level.gems.render_image(gem))
+    for hazard in level.hazards.sprites():
+        board.blit(*level.hazards.render_image(hazard))
     if current_time - dave.last_update > dave.speed:
         dave.move()
         dave.last_update = current_time

@@ -1,47 +1,39 @@
 from physics import *
 from render import *
 from levels import *
+import sys
 
-
-def start(curr_score=0):
+def start(lvl, curr_score=0):
     pygame.init()
 
-    dave = Dave((64, 298))
-    tiles = Tiles()
-    icon = tiles.sprite_sheet.get_sprite(5, 4, 16, 16, 2)
+    level = eval(f"Level{lvl}()")
+    dave = Dave(level.dave_pos)
+    icon = level.tiles.sprite_sheet.get_sprite(5, 4, 16, 16, 2)
     pygame.display.set_caption("Dangerous Dave")
     pygame.display.set_icon(icon)
-    gems = Gems()
-    doors = Door()
-    hazards = Hazards()
-    level_1(tiles, gems, doors)
     next_lev = False
 
-    next_lev, curr_score = run(dave, tiles, hazards, gems, doors, curr_score)
+    curr_score = run(dave, level, curr_score)
 
-    if next_lev:
-        if next_level(curr_score):
-            dave = Dave((64, 298))
-            tiles = Tiles()
-            doors = Door()
-            gems = Gems()
-            hazards = Hazards()
-            level_2(tiles, hazards, gems, doors)
+    NextLevel(curr_score)
 
-    next_lev, curr_score = run(dave, tiles, hazards, gems, doors, curr_score)
+    level = Level2()
+    dave = Dave(level.dave_pos)
+
+    curr_score = run(dave, level, curr_score)
 
 
-def run(dave, tiles, hazards, gems, doors, curr_score):
+def run(dave, level, curr_score):
     running = True
     while running:
         if curr_score >= 100000:
             curr_score = 99999
 
-        render(dave, tiles, hazards, gems, doors, curr_score)
+        render(dave, level, curr_score)
 
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
-                return False, curr_score
+                sys.exit()
         dave.x_speed = 0
         pressed = pygame.key.get_pressed()
         if pressed[pygame.K_UP]:
@@ -52,13 +44,13 @@ def run(dave, tiles, hazards, gems, doors, curr_score):
         if pressed[pygame.K_LEFT]:
             dave.x_speed -= 1
 
-        curr_score += check_obtained(dave, gems)
-        check_collision(dave, tiles)
-        if check_death(dave, hazards):
+        curr_score += check_obtained(dave, level.gems)
+        check_collision(dave, level.tiles)
+        if check_death(dave, level.hazards):
             return False, curr_score
-        if check_door(dave, doors):
+        if check_door(dave, level.doors):
             curr_score += 2000
-            return True, curr_score
+            return curr_score
 
 
-start()
+start(1)
