@@ -18,8 +18,8 @@ def slide_over(game, direction):
         game.board.fill(BG)
         for sprite_group in sprite_groups:
             move_over(sprite_group, direction)
-        blit_border(game)
         render_level(game.level, game.board)
+        blit_border(game)
         pygame.display.flip()
     game.dave.x += counter * direction * 32
 
