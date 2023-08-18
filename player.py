@@ -52,8 +52,6 @@ class Dave(pygame.sprite.Sprite):
         return self.x, self.y
 
     def move(self):
-        if not self.x_speed == 0 or not self.y_speed == 0:
-            self.moved = True
         if not self.x_speed == 0:
             self.sprite_sheet.move_frame()
         self.jump()

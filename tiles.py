@@ -103,7 +103,7 @@ class Hazards(Tile):
         self.tileset = {
             "fire": [(0, i + 5) for i in range(4)],
             "water": [(4, i) for i in range(4)] + [(3,8)],
-            "purple_fire": [(4, i+5) for i in range(3)] + [(3, 0)]
+            "purple_fire": [(2, i+6) for i in range(3)] + [(3, 0)]
         }
 
     def create_tile(self, tile_type, rect):

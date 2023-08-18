@@ -3,6 +3,7 @@ from render import *
 from levels import *
 import sys
 
+
 def start(lvl, curr_score=0):
     pygame.init()
 
@@ -17,10 +18,7 @@ def start(lvl, curr_score=0):
 
     NextLevel(curr_score)
 
-    level = Level2()
-    dave = Dave(level.dave_pos)
-
-    curr_score = run(dave, level, curr_score)
+    start(lvl + 1, curr_score)
 
 
 def run(dave, level, curr_score):
@@ -34,6 +32,7 @@ def run(dave, level, curr_score):
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
                 sys.exit()
+
         dave.x_speed = 0
         pressed = pygame.key.get_pressed()
         if pressed[pygame.K_UP]:
@@ -44,13 +43,21 @@ def run(dave, level, curr_score):
         if pressed[pygame.K_LEFT]:
             dave.x_speed -= 1
 
+        if len(pressed) > 0:
+            dave.moved = True
+
         curr_score += check_obtained(dave, level.gems)
         check_collision(dave, level.tiles)
         if check_death(dave, level.hazards):
-            return False, curr_score
+            sys.exit()
         if check_door(dave, level.doors):
             curr_score += 2000
             return curr_score
+
+        if dave.x == 18.5 * 32 and dave.x_speed == 1:
+            slide_over(dave, level, curr_score, -1)
+        elif dave.x == 1.5 * 32 and dave.x_speed == -1:
+            slide_over(dave, level, curr_score, 1)
 
 
 start(1)
