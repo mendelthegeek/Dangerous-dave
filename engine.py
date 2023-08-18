@@ -22,9 +22,9 @@ class Game:
         icon = sprite_sheet.get_sprite(5, 4, 16, 16, 2)
         pygame.display.set_caption("Dangerous self.dave")
         pygame.display.set_icon(icon)
+        pygame.init()
 
     def start(self):
-        pygame.init()
         self.level = eval(f"Level{self.lvl}()")
         self.dave = Dave(self.level.dave_pos)
 
@@ -67,12 +67,8 @@ class Game:
 
                 self.start()
             if check_death(self.dave, self.level.hazards):
-                self.dave.die(self)
-                if self.lives == 0:
-                    sys.exit()
-                self.lives -= 1
                 running = False
-                self.start()
+                self.restart_level()
 
             if self.dave.x == 18.5 * 32 and self.dave.x_speed == 1:
                 slide_over(self, -1)
@@ -80,7 +76,15 @@ class Game:
                 slide_over(self, 1)
 
     def restart_level(self):
-        pass
+        self.dave.die(self)
+        if self.lives == 0:
+            sys.exit()
+        self.lives -= 1
+        self.dave = Dave(self.level.dave_pos)
+        offset = self.level.door_start[0]*32 - self.level.doors.sprites()[0].rect.left
+        reset_position(self.level, offset)
+
+        self.run()
 
     def render(self):
         self.dave.moved = True
@@ -94,5 +98,5 @@ class Game:
                     sys.exit()
 
 
-game = Game(1)
+game = Game(2)
 game.start()

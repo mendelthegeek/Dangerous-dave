@@ -33,11 +33,11 @@ def go_thru():
 
 def lives(lives):
     daves_rect = (144, 52, 50, 11)
-    daves = pygame.Surface((100, 11)).convert_alpha()
-    daves.blit(decos, (0, 0), daves_rect)
+    daves = pygame.Surface((110, 13)).convert_alpha()
+    daves.blit(decos, (0, 1), daves_rect)
     for i in range(lives):
-        daves.blit(decos, (55 + 16 * i, 0), (1, 52, 15, 11))
-    daves = pygame.transform.scale(daves, (200, 20))
+        daves.blit(decos, (55 + 18 * i, 0), (1, 51, 15, 12))
+    daves = pygame.transform.scale(daves, (200, 22))
     daves.set_colorkey((0, 0, 0))
     return daves
 

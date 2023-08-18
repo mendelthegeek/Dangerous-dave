@@ -33,7 +33,8 @@ class Level1:
         self.gems = Gems()
         self.doors = Door()
         self.hazards = Hazards()
-        self.doors.create_tile((12, 8))
+        self.door_start = (12, 8)
+        self.doors.create_tile(self.door_start)
 
         gem_list = [
             ("trophy", (11, 2)),
@@ -84,7 +85,8 @@ class Level2:
         self.gems = Gems()
         self.doors = Door()
         self.hazards = Hazards()
-        self.doors.create_tile((48, 1))
+        self.door_start = (48, 1)
+        self.doors.create_tile(self.door_start)
 
         gem_list = [
             ("trophy", (13, 5)),

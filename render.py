@@ -46,3 +46,10 @@ def render_level(level, board):
     for sprite_group in sprite_groups:
         for renderable in sprite_group.sprites():
             board.blit(*sprite_group.render_image(renderable))
+
+
+def reset_position(level, offset):
+    sprite_groups = [level.tiles, level.doors, level.gems, level.hazards]
+    for sprite_group in sprite_groups:
+        for renderable in sprite_group.sprites():
+            renderable.rect = renderable.rect.move(offset, 0)
