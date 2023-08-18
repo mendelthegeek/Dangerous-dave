@@ -1,4 +1,5 @@
 # import sys
+import pygame
 
 from physics import *
 from levels import *
@@ -9,13 +10,15 @@ from render import *
 
 class Game:
 
-    def __init__(self, lvl=1):
+    def __init__(self, lvl=1, testing=False):
         self.board = pygame.display.set_mode((640, 392))
         self.score = 0
         self.dave = None
         self.level = None
         self.lives = 3
         self.lvl = lvl
+
+        self.testing = testing
 
         self.sprite_source = r"resources/tileset/tileset.png"
         sprite_sheet = SpriteSheet(self)
@@ -47,6 +50,12 @@ class Game:
             if pressed[pygame.K_UP]:
                 if self.dave.on_surface and self.dave.jump_height == 0:
                     self.dave.jump_height += 94
+                if self.testing:
+                    self.dave.jump_height = 31
+            if self.testing:
+                self.dave.on_surface = True
+                if pressed[pygame.K_DOWN]:
+                    self.dave.on_surface = False
             if pressed[pygame.K_RIGHT]:
                 self.dave.x_speed += 1
             if pressed[pygame.K_LEFT]:
@@ -56,7 +65,8 @@ class Game:
                 self.dave.moved = True
 
             self.score += check_obtained(self.dave, self.level.gems)
-            check_collision(self.dave, self.level.tiles)
+            if not self.testing:
+                check_collision(self.dave, self.level.tiles)
             if check_door(self.dave, self.level.doors):
                 self.score += 2000
                 self.lvl += 1
@@ -66,7 +76,7 @@ class Game:
                 self.render()
 
                 self.start()
-            if check_death(self.dave, self.level.hazards):
+            if check_death(self.dave, self.level.hazards) and not self.testing:
                 running = False
                 self.restart_level()
 
@@ -100,5 +110,5 @@ class Game:
                     sys.exit()
 
 
-game = Game(1)
+game = Game(1, True)
 game.start()
