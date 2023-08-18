@@ -86,6 +86,8 @@ class Dave(pygame.sprite.Sprite):
         for image in images:
             game.board.fill(BG)
 
+            render_level(game.level, game.board)
+
             death_frame = pygame.Surface((49, 41)).convert_alpha()
             rectangle = (0, 0, 49, 41)
             death_image = pygame.image.load(path + "\\" + image)
@@ -94,7 +96,6 @@ class Dave(pygame.sprite.Sprite):
             death_frame = pygame.transform.scale(death_frame, (35, 30))
             game.board.blit(death_frame, self.position())
 
-            render_level(game.level, game.board)
             blit_border(game)
             pygame.display.flip()
             pygame.time.delay(200)

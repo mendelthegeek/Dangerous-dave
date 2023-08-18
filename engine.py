@@ -70,9 +70,9 @@ class Game:
                 running = False
                 self.restart_level()
 
-            if self.dave.x == 18.5 * 32 and self.dave.x_speed == 1:
+            if self.dave.x >= 18.25 * 32 and self.dave.x_speed == 1:
                 slide_over(self, -1)
-            elif self.dave.x == 1.5 * 32 and self.dave.x_speed == -1:
+            elif self.dave.x <= 1.75 * 32 and self.dave.x_speed == -1:
                 slide_over(self, 1)
 
     def restart_level(self):

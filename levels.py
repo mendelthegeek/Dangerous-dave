@@ -85,7 +85,7 @@ class Level2:
         self.gems = Gems()
         self.doors = Door()
         self.hazards = Hazards()
-        self.door_start = (48, 1)
+        self.door_start = (47, 1)
         self.doors.create_tile(self.door_start)
 
         gem_list = [
@@ -94,13 +94,13 @@ class Level2:
             ("blue_gem", (7, 1)),
             ("red_gem", (1, 1)),
             ("red_gem", (8, 7)),
-            ("purple_gem", (21, 1)),
-            ("purple_gem", (28, 8)),
-            ("purple_gem", (29, 5)),
-            ("purple_gem", (32, 8)),
-            ("purple_gem", (37, 8))
+            ("purple_gem", (20, 1)),
+            ("purple_gem", (27, 8)),
+            ("purple_gem", (28, 5)),
+            ("purple_gem", (31, 8)),
+            ("purple_gem", (36, 8))
         ]
-        for i in range(6):
+        for i in range(5):
             gem_list.append(("blue_gem", (16 + i, 7)))
 
         tile_list = [("horizontal_pipe", (1, 8))]
@@ -111,41 +111,41 @@ class Level2:
         for j in range(6):
             tile_list.append(("red_brick", (14, j + 4)))
         for j in range(5):
-            tile_list.append(("red_brick", (23, j + 4)))
-        for i in range(51):
+            tile_list.append(("red_brick", (22, j + 4)))
+        for i in range(50):
             tile_list.append(("red_brick", (i, 0)))
         for i in range(5):
-            tile_list.append(("red_brick", (i + 25, 2)))
+            tile_list.append(("red_brick", (i + 24, 2)))
         for i in range(9):
-            tile_list.append(("red_brick", (i + 27, 4)))
+            tile_list.append(("red_brick", (i + 26, 4)))
         for j in range(3):
-            tile_list.append(("red_brick", (30, j + 5)))
+            tile_list.append(("red_brick", (29, j + 5)))
+        for j in range(3):
+            tile_list.append(("red_brick", (30, j + 1)))
         for j in range(3):
             tile_list.append(("red_brick", (31, j + 1)))
         for j in range(3):
-            tile_list.append(("red_brick", (32, j + 1)))
-        for j in range(3):
-            tile_list.append(("red_brick", (33, j + 6)))
+            tile_list.append(("red_brick", (32, j + 6)))
         for j in range(6):
-            tile_list.append(("red_brick", (38, j + 3)))
+            tile_list.append(("red_brick", (37, j + 3)))
         for i in range(3):
             tile_list.append(("red_brick", (i, 9)))
         for i in range(16):
-            tile_list.append(("red_brick", (i+23, 9)))
+            tile_list.append(("red_brick", (i+22, 9)))
         for i in range(17):
-            tile_list.append(("red_brick", (34 + i, 2)))
+            tile_list.append(("red_brick", (33 + i, 2)))
         for i in range(3):
             tile_list.append(("purple_horizontal", (i + 4, 7)))
         for i in range(3):
             tile_list.append(("purple_horizontal", (i + 8, 4)))
-        for i in range(6):
+        for i in range(5):
             tile_list.append(("purple_horizontal", (16 + i, 5)))
         purple_horizontal_singles = [(1, 3), (4, 3), (2, 5), (3, 5), (13, 3), (11, 6), (13, 8)]
         for location in purple_horizontal_singles:
             tile_list.append(("purple_horizontal", location))
-        red_brick_singles = [(24, 4), (24, 3), (25, 3), (25, 6), (25, 7), (26, 5), (27, 5), (27, 7),
-                             (27, 8), (28, 7), (32, 7), (35, 5), (35, 6), (36, 8), (37, 6), (49, 1),
-                             (50, 1)]
+        red_brick_singles = [(23, 4), (23, 3), (24, 3), (24, 6), (24, 7), (25, 5), (26, 5), (26, 7),
+                             (26, 8), (27, 7), (31, 7), (34, 5), (34, 6), (35, 8), (36, 6), (48, 1),
+                             (49, 1)]
         for location in red_brick_singles:
             tile_list.append(("red_brick", location))
 
@@ -154,20 +154,20 @@ class Level2:
             hazard_list.append(("fire", (i + 3, 9)))
         for i in range(4):
             hazard_list.append(("fire", (i + 10, 9)))
-        for i in range(8):
+        for i in range(7):
             hazard_list.append(("water", (i + 15, 9)))
         for i in range(12):
-            hazard_list.append(("fire", (i + 39, 9)))
+            hazard_list.append(("fire", (i + 38, 9)))
         for j in range(5):
-            hazard_list.append(("purple_fire", (39, j + 3)))
+            hazard_list.append(("purple_fire", (38, j + 3)))
         for j in range(5):
-            hazard_list.append(("purple_fire", (41, j + 3)))
+            hazard_list.append(("purple_fire", (40, j + 3)))
         for j in range(5):
-            hazard_list.append(("purple_fire", (43, j + 3)))
+            hazard_list.append(("purple_fire", (42, j + 3)))
         for j in range(3):
-            hazard_list.append(("purple_fire", (47, j + 4)))
-        purple_fires = [(40, 3), (40, 5), (44, 3), (44, 5), (44, 7), (48, 3), (49, 3), (48, 7), (49, 7),
-                        (45, 4), (45, 6)]
+            hazard_list.append(("purple_fire", (46, j + 4)))
+        purple_fires = [(39, 3), (39, 5), (43, 3), (43, 5), (43, 7), (47, 3), (48, 3), (47, 7), (48, 7),
+                        (44, 4), (44, 6)]
         for location in purple_fires:
             hazard_list.append(("purple_fire", location))
 
