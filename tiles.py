@@ -34,7 +34,13 @@ class Tiles(Tile):
             "red_brick": [(1, 7)],
             "blue_brick": [(0, 4)],
             "horizontal_pipe": [(1, 5)],
-            "purple_horizontal": [(3, 2)]
+            "purple_horizontal": [(3, 2)],
+            "clay": [(0, 0)],
+            "dirt": [(1, 8)],
+            "dirt_ll": [(2, 2)],
+            "dirt_ul": [(2, 3)],
+            "dirt_ur": [(2, 4)],
+            "dirt_lr": [(2, 5)]
         }
 
     def create_tile(self, tile_type, rect):

@@ -60,16 +60,16 @@ class Level1:
         for i in range(6):
             tile_list.append(("red_brick", (11 + i, 7)))
 
-        for j in range(10):
-            tile_list.append(("red_brick", (0, j)))
-        for j in range(10):
-            tile_list.append(("red_brick", (19, j)))
-        for j in range(10):
-            tile_list.append(("red_brick", (18, j)))
         for i in range(20):
             tile_list.append(("red_brick", (i, 0)))
         for i in range(20):
             tile_list.append(("red_brick", (i, 9)))
+        for j in range(10):
+            tile_list.append(("red_brick", (0, j)))
+        for j in range(10):
+            tile_list.append(("red_brick", (18, j)))
+        for j in range(10):
+            tile_list.append(("dirt", (19, j)))
 
         for tile in tile_list:
             self.tiles.create_tile(*tile)
