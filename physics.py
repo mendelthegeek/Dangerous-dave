@@ -55,6 +55,10 @@ def check_obtained(dave, obtainables):
         points += obtained.value
         if obtained.gem_type == "trophy":
             dave.has_key = True
+        if obtained.gem_type == "gun":
+            dave.has_gun = True
+        if obtained.gem_type == "jetpack":
+            dave.jetpack = 50
     return points
 
 

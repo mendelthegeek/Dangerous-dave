@@ -44,18 +44,18 @@ class Game:
             for event in pygame.event.get():
                 if event.type == pygame.QUIT:
                     sys.exit()
+                if event.type == pygame.KEYDOWN and (event.key == pygame.K_RALT or event.key == pygame.K_LALT):
+                    if self.dave.jetpack > 0:
+                        self.dave.flying = not self.dave.flying
+                        self.dave.jump_height = 0
 
             self.dave.x_speed = 0
             pressed = pygame.key.get_pressed()
             if pressed[pygame.K_UP]:
                 if self.dave.on_surface and self.dave.jump_height == 0:
                     self.dave.jump_height += 94
-                if self.testing:
+                if self.testing or self.dave.flying:
                     self.dave.jump_height = 31
-            if self.testing:
-                self.dave.on_surface = True
-                if pressed[pygame.K_DOWN]:
-                    self.dave.on_surface = False
             if pressed[pygame.K_RIGHT]:
                 self.dave.x_speed += 1
             if pressed[pygame.K_LEFT]:
@@ -64,18 +64,15 @@ class Game:
             if True in pressed:
                 self.dave.moved = True
 
-            self.score += check_obtained(self.dave, self.level.gems)
             if not self.testing:
                 check_collision(self.dave, self.level.tiles)
+            if self.testing or self.dave.flying:
+                self.dave.on_surface = True
+                if pressed[pygame.K_DOWN]:
+                    self.dave.on_surface = False
+            self.score += check_obtained(self.dave, self.level.gems)
             if check_door(self.dave, self.level.doors):
-                self.score += 2000
-                self.lvl += 1
-
-                self.level = NextLevel()
-                self.dave = Dave(self.level.dave_pos)
-                self.render()
-
-                self.start()
+                self.next_level()
             if check_death(self.dave, self.level.hazards) and not self.testing:
                 running = False
                 self.restart_level()
@@ -108,6 +105,16 @@ class Game:
             for event in pygame.event.get():
                 if event.type == pygame.QUIT:
                     sys.exit()
+
+    def next_level(self):
+        self.score += 2000
+        self.lvl += 1
+
+        self.level = NextLevel()
+        self.dave = Dave(self.level.dave_pos)
+        self.render()
+
+        self.start()
 
 
 game = Game()

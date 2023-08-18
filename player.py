@@ -29,14 +29,18 @@ class Dave(pygame.sprite.Sprite):
         self.on_surface = True
         self.last_blinked = pygame.time.get_ticks()
         self.rect = pygame.Rect(0,0,0,0)
-        self.move()
         self.last_update = pygame.time.get_ticks()
         self.has_key = False
+        self.jetpack = 0
+        self.flying = False
+        self.move()
 
     def current_display(self):
         if not self.x_speed == 0:
             # expression maps 1 to 0 and -1 to 1, mapping movement to desired spritesheet row
             self.facing = (1 - self.x_speed)/2
+        if self.flying:
+            return self.sprite_sheet.get_sprite(self.facing, self.sprite_sheet.frame%3+10, 24, 16, 2)
         if not self.moved:
             current_ticks = pygame.time.get_ticks()
             if current_ticks - self.last_blinked > 500:
@@ -57,7 +61,7 @@ class Dave(pygame.sprite.Sprite):
         return self.x, self.y
 
     def move(self):
-        if not self.x_speed == 0:
+        if not self.x_speed == 0 or self.flying:
             self.sprite_sheet.move_frame()
         self.jump()
         self.x += self.x_speed*1.2
