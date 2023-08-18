@@ -9,7 +9,7 @@ num_width = 8
 score_width, score_height = 55, 11
 score_rect = (270, 52, score_width, score_height)
 number_rects = {
-    i: (333 + i*9, 52, 8, 11) for i in range(1, 10)
+    i: (324 + i*9, 52, 8, 11) for i in range(1, 10)
 }
 number_rects[0] = (414, row_height, num_width, score_height)
 
