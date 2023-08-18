@@ -9,11 +9,13 @@ from render import *
 
 class Game:
 
-    def __init__(self):
+    def __init__(self, lvl=1):
+        self.board = pygame.display.set_mode((640, 392))
         self.score = 0
         self.dave = None
         self.level = None
         self.lives = 3
+        self.lvl = lvl
 
         self.sprite_source = r"resources/tileset/tileset.png"
         sprite_sheet = SpriteSheet(self)
@@ -21,16 +23,12 @@ class Game:
         pygame.display.set_caption("Dangerous self.dave")
         pygame.display.set_icon(icon)
 
-    def start(self, lvl):
+    def start(self):
         pygame.init()
-        self.level = eval(f"Level{lvl}()")
+        self.level = eval(f"Level{self.lvl}()")
         self.dave = Dave(self.level.dave_pos)
 
-        self.score = self.run()
-
-        NextLevel(self.score)
-
-        self.start(lvl + 1)
+        self.run()
 
     def run(self):
         running = True
@@ -54,22 +52,47 @@ class Game:
             if pressed[pygame.K_LEFT]:
                 self.dave.x_speed -= 1
 
-            if len(pressed) > 0:
+            if True in pressed:
                 self.dave.moved = True
 
             self.score += check_obtained(self.dave, self.level.gems)
             check_collision(self.dave, self.level.tiles)
-            if check_death(self.dave, self.level.hazards):
-                sys.exit()
             if check_door(self.dave, self.level.doors):
                 self.score += 2000
-                return self.score
+                self.lvl += 1
+
+                self.level = NextLevel()
+                self.dave = Dave(self.level.dave_pos)
+                self.render()
+
+                self.start()
+            if check_death(self.dave, self.level.hazards):
+                self.dave.die(self)
+                if self.lives == 0:
+                    sys.exit()
+                self.lives -= 1
+                running = False
+                self.start()
 
             if self.dave.x == 18.5 * 32 and self.dave.x_speed == 1:
-                slide_over(self.dave, self.level, self.score, -1)
+                slide_over(self, -1)
             elif self.dave.x == 1.5 * 32 and self.dave.x_speed == -1:
-                slide_over(self.dave, self.level, self.score, 1)
+                slide_over(self, 1)
+
+    def restart_level(self):
+        pass
+
+    def render(self):
+        self.dave.moved = True
+        self.dave.x_speed = 1
+
+        running = True
+        while self.dave.x < 608 and running:
+            render(self)
+            for event in pygame.event.get():
+                if event.type == pygame.QUIT:
+                    sys.exit()
 
 
-game = Game()
-game.start(1)
+game = Game(1)
+game.start()

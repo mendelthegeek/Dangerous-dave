@@ -1,4 +1,9 @@
+import os
+
 import pygame
+
+from banner import blit_border
+from render import render_level
 from spritesheet import SpriteSheet
 
 
@@ -74,3 +79,22 @@ class Dave(pygame.sprite.Sprite):
 
     def move_rect(self):
         self.rect.update(self.x+8, self.y, 14, 32)
+
+    def die(self, game):
+        path = r"resources\dave\death"
+        images = os.listdir(path)
+        for image in images:
+            game.board.fill(BG)
+
+            death_frame = pygame.Surface((49, 41)).convert_alpha()
+            rectangle = (0, 0, 49, 41)
+            death_image = pygame.image.load(path + "\\" + image)
+            death_frame.blit(death_image, (0, 0), rectangle)
+            death_frame.set_colorkey((0, 0, 0))
+            death_frame = pygame.transform.scale(death_frame, (35, 30))
+            game.board.blit(death_frame, self.position())
+
+            render_level(game.level, game.board)
+            blit_border(game)
+            pygame.display.flip()
+            pygame.time.delay(200)
