@@ -16,19 +16,22 @@ class NextLevel:
         self.doors.create_tile((0, 4))
         for i in range(20):
             self.tiles.create_tile("blue_brick", (i, 5))
-        dave = Dave((32, 170))
-        dave.moved = True
-        dave.x_speed = 1
+        self.dave = Dave((32, 170))
+        self.dave.moved = True
+        self.dave.x_speed = 1
+
+        self.level = self
+        self.score = curr_score
 
         empty = pygame.sprite.Group()
         self.gems = empty
         self.hazards = empty
-        self.run(dave, curr_score)
+        self.run()
 
-    def run(self, dave, curr_score):
+    def run(self):
         running = True
-        while dave.x < 608 and running:
-            render(dave, self, curr_score)
+        while self.dave.x < 608 and running:
+            render(self)
             for event in pygame.event.get():
                 if event.type == pygame.QUIT:
                     sys.exit()

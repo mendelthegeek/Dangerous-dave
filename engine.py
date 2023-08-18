@@ -1,63 +1,75 @@
+# import sys
+
 from physics import *
-from render import *
 from levels import *
 import sys
 
+from render import *
+
 
 class Game:
-    def start(self, lvl, curr_score=0):
-        pygame.init()
 
-        self.level = eval(f"Level{lvl}()")
-        dave = Dave(self.level.dave_pos)
-        icon = self.level.tiles.sprite_sheet.get_sprite(5, 4, 16, 16, 2)
-        pygame.display.set_caption("Dangerous Dave")
+    def __init__(self):
+        self.score = 0
+        self.dave = None
+        self.level = None
+        self.lives = 3
+
+        self.sprite_source = r"resources/tileset/tileset.png"
+        sprite_sheet = SpriteSheet(self)
+        icon = sprite_sheet.get_sprite(5, 4, 16, 16, 2)
+        pygame.display.set_caption("Dangerous self.dave")
         pygame.display.set_icon(icon)
-        next_lev = False
 
-        curr_score = self.run(dave, self.level, curr_score)
+    def start(self, lvl):
+        pygame.init()
+        self.level = eval(f"Level{lvl}()")
+        self.dave = Dave(self.level.dave_pos)
 
-        NextLevel(curr_score)
+        self.score = self.run()
 
-        self.start(lvl + 1, curr_score)
+        NextLevel(self.score)
 
-    def run(self, dave, level, curr_score):
+        self.start(lvl + 1)
+
+    def run(self):
         running = True
         while running:
-            if curr_score >= 100000:
-                curr_score = 99999
+            if self.score >= 100000:
+                self.score = 99999
 
-            render(dave, level, curr_score)
+            render(self)
 
             for event in pygame.event.get():
                 if event.type == pygame.QUIT:
                     sys.exit()
 
-            dave.x_speed = 0
+            self.dave.x_speed = 0
             pressed = pygame.key.get_pressed()
             if pressed[pygame.K_UP]:
-                if dave.on_surface and dave.jump_height == 0:
-                    dave.jump_height += 94
+                if self.dave.on_surface and self.dave.jump_height == 0:
+                    self.dave.jump_height += 94
             if pressed[pygame.K_RIGHT]:
-                dave.x_speed += 1
+                self.dave.x_speed += 1
             if pressed[pygame.K_LEFT]:
-                dave.x_speed -= 1
+                self.dave.x_speed -= 1
 
             if len(pressed) > 0:
-                dave.moved = True
+                self.dave.moved = True
 
-            curr_score += check_obtained(dave, level.gems)
-            check_collision(dave, level.tiles)
-            if check_death(dave, level.hazards):
+            self.score += check_obtained(self.dave, self.level.gems)
+            check_collision(self.dave, self.level.tiles)
+            if check_death(self.dave, self.level.hazards):
                 sys.exit()
-            if check_door(dave, level.doors):
-                curr_score += 2000
-                return curr_score
+            if check_door(self.dave, self.level.doors):
+                self.score += 2000
+                return self.score
 
-            if dave.x == 18.5 * 32 and dave.x_speed == 1:
-                slide_over(dave, level, curr_score, -1)
-            elif dave.x == 1.5 * 32 and dave.x_speed == -1:
-                slide_over(dave, level, curr_score, 1)
+            if self.dave.x == 18.5 * 32 and self.dave.x_speed == 1:
+                slide_over(self.dave, self.level, self.score, -1)
+            elif self.dave.x == 1.5 * 32 and self.dave.x_speed == -1:
+                slide_over(self.dave, self.level, self.score, 1)
+
 
 game = Game()
 game.start(1)
