@@ -131,7 +131,7 @@ class Level2:
         for i in range(3):
             tile_list.append(("red_brick", (i, 9)))
         for i in range(16):
-            tile_list.append(("red_brick", (i+22, 9)))
+            tile_list.append(("red_brick", (i + 22, 9)))
         for i in range(17):
             tile_list.append(("red_brick", (33 + i, 2)))
         for i in range(3):
@@ -175,6 +175,91 @@ class Level2:
             self.gems.create_tile(*gem)
         for tile in tile_list:
             self.tiles.create_tile(*tile)
+        for i, hazard in enumerate(hazard_list):
+            sprite = self.hazards.create_tile(*hazard)
+            sprite.frame = i % len(sprite.images)
+
+
+class Level3:
+
+    def __init__(self):
+        self.dave_pos = (64, 202)
+        self.tiles = Tiles()
+        self.gems = Gems()
+        self.doors = Door()
+        self.hazards = Hazards()
+        self.door_start = (69, 1)
+        self.doors.create_tile(self.door_start)
+
+        gem_list = [("jetpack", (66, 8)), ("trophy", (67, 8)), ("gun", (10, 3)), ("ring", (64, 1)),
+                    ("wand", (71, 5)), ("crown", (71, 4)), ("wand", (72, 0)), ("wand", (74, 1))]
+        for i in range(4):
+            gem_list.append(("wand", (76+i*3, 2)))
+        blue_gem_list = [1, 5, 14, 19, 23, 28, 35, 52, 56]
+        for x in blue_gem_list:
+            gem_list.append(("blue_gem", (x, 3)))
+
+        for i in range(3):
+            gem_list.append(("blue_gem", (35 + i * 5, 3)))
+
+        tile_list = [("horizontal_pipe", (1, 5)), ("dirt", (63, 4)), ("dirt", (66, 4))]
+        dirt_list = [("ul", (72, 8)), ("ul", (73, 7)), ("ur", (70, 2)), ("ur", (75, 0)),
+                     ("ur", (76, 1)), ("ur", (85, 4))]
+        for i in range(3):
+            dirt_list.append(("ll", (71 + i, i)))
+        for location in dirt_list:
+            tile_list.append((f"dirt_{location[0]}", location[1]))
+
+        for j in range(10):
+            tile_list.append(("dirt", (0, j)))
+        for j in range(10):
+            tile_list.append(("dirt", (86, j)))
+        for i in range(71):
+            tile_list.append(("dirt", (i, 0)))
+        for i in range(64):
+            tile_list.append(("dirt", (i, 1)))
+        for i in range(63):
+            tile_list.append(("dirt", (i, 7)))
+        for i in range(64):
+            tile_list.append(("dirt", (i, 8)))
+        for i in range(71):
+            tile_list.append(("dirt", (i, 9)))
+        for i in range(71, 87):
+            tile_list.append(("dirt", (i, 3)))
+        for i in range(2):
+            for j in range(2):
+                tile_list.append(("dirt", (70 + i + j, j + 1)))
+        for i in range(76, 86):
+            for j in range(2):
+                tile_list.append(("dirt", (i + j, j)))
+        for j in range(3):
+            for i in range(2):
+                tile_list.append(("dirt", (72 + i - j, 6 + j)))
+        for j in [2, 6]:
+            for i in range(1, 62):
+                tile_list.append(("blue_pillar", (i, j)))
+
+        hazard_list = []
+        for i in range(3):
+            hazard_list.append(("purple_fire", (5 + i * 4, 5)))
+        for i in range(5):
+            hazard_list.append(("purple_fire", (19 + i * 4, 5)))
+        for i in range(3):
+            hazard_list.append(("purple_fire", (36 + i * 4, 5)))
+        for j in range(3):
+            for i in range(2):
+                hazard_list.append(("fire", (62 + j + i * (9 - 2 * j), 6 + j)))
+                hazard_list.append(("fire", (63 + j + i * (7 - 2 * j), 6 + j)))
+        for i in range(71, 84):
+            hazard_list.append(("fire", (i, 9)))
+        purple_fires = [(14, 5), (47, 5), (52, 5), (53, 5)]
+        for location in purple_fires:
+            hazard_list.append(("purple_fire", location))
+
+        for tile in tile_list:
+            self.tiles.create_tile(*tile)
+        for gem in gem_list:
+            self.gems.create_tile(*gem)
         for i, hazard in enumerate(hazard_list):
             sprite = self.hazards.create_tile(*hazard)
             sprite.frame = i % len(sprite.images)

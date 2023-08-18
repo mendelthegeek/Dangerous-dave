@@ -110,5 +110,5 @@ class Game:
                     sys.exit()
 
 
-game = Game(1, True)
+game = Game()
 game.start()

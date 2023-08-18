@@ -36,6 +36,7 @@ class Tiles(Tile):
             "horizontal_pipe": [(1, 5)],
             "purple_horizontal": [(3, 2)],
             "clay": [(0, 0)],
+            "blue_pillar": [(2, 0)],
             "dirt": [(1, 8)],
             "dirt_ll": [(2, 2)],
             "dirt_ul": [(2, 3)],
@@ -61,7 +62,9 @@ class Gems(Tile):
             "crown": [(5, 4)],
             "ring": [(5, 5)],
             "wand": [(5, 6)],
-            "trophy": [(1, i) for i in range(5)]
+            "trophy": [(1, i) for i in range(5)],
+            "gun": [(2, 1)],
+            "jetpack": [(0, 3)]
         }
         self.point_values = {
             "purple_gem": 50,
@@ -70,7 +73,9 @@ class Gems(Tile):
             "ring": 200,
             "crown": 300,
             "wand": 500,
-            "trophy": 1000
+            "trophy": 1000,
+            "gun": 0,
+            "jetpack": 0
         }
 
     def create_tile(self, gem_type, rect):

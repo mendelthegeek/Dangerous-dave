@@ -12,7 +12,7 @@ def edge_check(tiles, direction):
 def slide_over(game, direction):
     sprite_groups = [game.level.tiles, game.level.doors, game.level.gems, game.level.hazards]
     counter = 0
-    while edge_check(game.level.tiles, direction) and counter < 16:
+    while edge_check(game.level.tiles, direction) and counter < 15:
         pygame.time.delay(10)
         counter += 1
         game.board.fill(BG)
