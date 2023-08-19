@@ -20,10 +20,10 @@ def check_collision(dave, tiles):
     for tile in collided:
         # check that (1) tile isn't below dave (2) tile isn't above dave
         if tile.top + 1 < dave.rect.bottom and not tile.bottom == dave.rect.top + 1:
-            if dave.rect.right - 1 == tile.left:
+            if dave.rect.right - 1 == tile.left or dave.rect.right - 2 == tile.left:
                 side_collide = True
                 dave.x_speed = min(dave.x_speed, 0)
-            elif dave.rect.left + 1 == tile.right:
+            elif dave.rect.left + 1 == tile.right or dave.rect.left + 2 == tile.right:
                 side_collide = True
                 dave.x_speed = max(dave.x_speed, 0)
 
