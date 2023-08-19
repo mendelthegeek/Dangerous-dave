@@ -32,6 +32,7 @@ class Dave(pygame.sprite.Sprite):
         self.last_update = pygame.time.get_ticks()
         self.has_key = False
         self.jetpack = 0
+        self.jetpack_last_update = pygame.time.get_ticks()
         self.flying = False
         self.move()
 
@@ -63,6 +64,7 @@ class Dave(pygame.sprite.Sprite):
     def move(self):
         if not self.x_speed == 0 or self.flying:
             self.sprite_sheet.move_frame()
+            self.decrease_jetpack()
         self.jump()
         self.x += self.x_speed*1.2
         self.y = (self.y + self.y_speed) % 424
@@ -103,3 +105,12 @@ class Dave(pygame.sprite.Sprite):
             blit_border(game)
             pygame.display.flip()
             pygame.time.delay(200)
+
+    def decrease_jetpack(self):
+        curr_ticks = pygame.time.get_ticks()
+        if curr_ticks - self.jetpack_last_update > 100:
+            if self.flying:
+                self.jetpack -= 1
+                if self.jetpack == 0:
+                    self.flying = False
+            self.jetpack_last_update = curr_ticks

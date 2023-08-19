@@ -11,7 +11,7 @@ from render import *
 class Game:
 
     def __init__(self, lvl=1, testing=False):
-        self.board = pygame.display.set_mode((640, 392))
+        self.board = pygame.display.set_mode((640, 432))
         self.score = 0
         self.dave = None
         self.level = None
