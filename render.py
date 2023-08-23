@@ -22,6 +22,8 @@ def slide_over(game, direction):
         blit_border(game)
         pygame.display.flip()
     game.dave.x += counter * direction * 32
+    if game.dave.bullet:
+        game.dave.bullet.x += counter * direction * 32
 
 
 def move_over(sprite_group, direction):
