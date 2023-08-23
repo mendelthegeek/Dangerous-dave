@@ -37,7 +37,7 @@ def render(game):
         game.dave.move()
         game.dave.last_update = current_time
     if game.dave.bullet:
-        game.board.blit(game.dave.bullet.image, game.dave.bullet.get_location())
+        game.board.blit(*game.dave.bullet.get_location())
     game.board.blit(game.dave.current_display(), game.dave.position())
     blit_border(game)
     pygame.display.flip()

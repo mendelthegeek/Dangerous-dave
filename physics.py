@@ -65,3 +65,9 @@ def check_door(dave, doors):
 
 def check_death(dave, hazards):
     return pygame.sprite.spritecollide(dave, hazards, False)
+
+
+def bullet_collision(game):
+    if (game.dave.bullet.x >= 640 or game.dave.bullet.x <= 0 or
+            pygame.sprite.spritecollide(game.dave.bullet, game.level.tiles, False)):
+        game.dave.bullet = None

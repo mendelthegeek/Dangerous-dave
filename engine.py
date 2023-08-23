@@ -62,8 +62,7 @@ class Game:
                     self.dave.shoot()
             if game.dave.bullet:
                 game.dave.bullet.move()
-                if game.dave.bullet.x >= 640:
-                    game.dave.bullet = None
+                bullet_collision(game)
 
             if True in pressed:
                 self.dave.moved = True
