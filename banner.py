@@ -32,7 +32,7 @@ def go_thru():
     return go_thru_message
 
 
-def lives(lives):
+def render_lives(lives):
     daves_rect = (144, 52, 50, 11)
     daves = pygame.Surface((110, 13)).convert_alpha()
     daves.blit(decos, (0, 1), daves_rect)
@@ -65,6 +65,15 @@ def render_jetpack(jetpack):
     return jetpack_display
 
 
+def render_gun():
+    gun_location = (81, 52, 62, 11)
+    gun_display = pygame.Surface((65, 13)).convert_alpha()
+    gun_display.blit(decos, (0, 0), gun_location)
+    gun_display = pygame.transform.scale(gun_display, (135, 30))
+    gun_display.set_colorkey((0, 0, 0))
+    return gun_display
+
+
 def blit_border(game):
     empty_rect = (pygame.Surface((640, 16)))
     empty_rect.fill(BG)
@@ -73,9 +82,11 @@ def blit_border(game):
     border = pygame.transform.scale(border, (640, 6))
     game.board.blit(border, (0, 32))
     game.board.blit(border, (0, 349))
-    game.board.blit(lives(game.lives), (3, 10))
+    game.board.blit(score(game.score), (465, 10))
+    game.board.blit(render_lives(game.lives), (3, 10))
     if game.dave.jetpack > 0:
         game.board.blit(render_jetpack(game.dave.jetpack), (20, 395))
-    game.board.blit(score(game.score), (465, 10))
+    if game.dave.has_gun:
+        game.board.blit(render_gun(), (500, 395))
     if game.dave.has_key:
         game.board.blit(go_thru(), (180, 358))

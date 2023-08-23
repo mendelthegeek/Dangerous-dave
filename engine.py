@@ -1,6 +1,3 @@
-# import sys
-import pygame
-
 from physics import *
 from levels import *
 import sys
@@ -60,6 +57,13 @@ class Game:
                 self.dave.x_speed += 1
             if pressed[pygame.K_LEFT]:
                 self.dave.x_speed -= 1
+            if pressed[pygame.K_LCTRL] or pressed[pygame.K_RCTRL]:
+                if self.dave.has_gun and not self.dave.bullet:
+                    self.dave.shoot()
+            if game.dave.bullet:
+                game.dave.bullet.move()
+                if game.dave.bullet.x >= 640:
+                    game.dave.bullet = None
 
             if True in pressed:
                 self.dave.moved = True
@@ -90,7 +94,7 @@ class Game:
         self.lives -= 1
         self.dave = Dave(self.level.dave_pos)
         self.dave.has_key = had_key
-        offset = self.level.door_start[0]*32 - self.level.doors.sprites()[0].rect.left
+        offset = self.level.door_start[0] * 32 - self.level.doors.sprites()[0].rect.left
         reset_position(self.level, offset)
 
         self.run()
@@ -117,5 +121,5 @@ class Game:
         self.start()
 
 
-game = Game()
+game = Game(3)
 game.start()

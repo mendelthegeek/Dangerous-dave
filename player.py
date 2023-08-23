@@ -3,11 +3,12 @@ import os
 import pygame
 
 from banner import blit_border
+from bullet import Bullet
 from render import render_level
 from spritesheet import SpriteSheet
 
-
 BG = (50, 50, 50)
+
 
 class Dave(pygame.sprite.Sprite):
 
@@ -28,20 +29,22 @@ class Dave(pygame.sprite.Sprite):
         self.displayed = True
         self.on_surface = True
         self.last_blinked = pygame.time.get_ticks()
-        self.rect = pygame.Rect(0,0,0,0)
+        self.rect = pygame.Rect(0, 0, 0, 0)
         self.last_update = pygame.time.get_ticks()
         self.has_key = False
         self.jetpack = 0
         self.jetpack_last_update = pygame.time.get_ticks()
+        self.has_gun = False
+        self.bullet = 0
         self.flying = False
         self.move()
 
     def current_display(self):
         if not self.x_speed == 0:
             # expression maps 1 to 0 and -1 to 1, mapping movement to desired spritesheet row
-            self.facing = (1 - self.x_speed)/2
+            self.facing = (1 - self.x_speed) / 2
         if self.flying:
-            return self.sprite_sheet.get_sprite(self.facing, self.sprite_sheet.frame%3+10, 24, 16, 2)
+            return self.sprite_sheet.get_sprite(self.facing, self.sprite_sheet.frame % 3 + 10, 24, 16, 2)
         if not self.moved:
             current_ticks = pygame.time.get_ticks()
             if current_ticks - self.last_blinked > 500:
@@ -54,9 +57,9 @@ class Dave(pygame.sprite.Sprite):
             elif not self.displayed:
                 return self.sprite_sheet.get_sprite(0, 6, 24, 16, 2)
         if self.on_surface:
-            return self.sprite_sheet.get_sprite(self.facing, self.sprite_sheet.frame//8 % 4, 24, 16, 2)
+            return self.sprite_sheet.get_sprite(self.facing, self.sprite_sheet.frame // 8 % 4, 24, 16, 2)
         else:
-            return self.sprite_sheet.get_sprite(self.facing,5,24, 16, 2)
+            return self.sprite_sheet.get_sprite(self.facing, 5, 24, 16, 2)
 
     def position(self):
         return self.x, self.y
@@ -66,7 +69,7 @@ class Dave(pygame.sprite.Sprite):
             self.sprite_sheet.move_frame()
             self.decrease_jetpack()
         self.jump()
-        self.x += self.x_speed*1.2
+        self.x += self.x_speed * 1.2
         self.y = (self.y + self.y_speed) % 424
         self.move_rect()
 
@@ -84,7 +87,7 @@ class Dave(pygame.sprite.Sprite):
                 self.y_speed = 0
 
     def move_rect(self):
-        self.rect.update(self.x+8, self.y, 14, 32)
+        self.rect.update(self.x + 8, self.y, 14, 32)
 
     def die(self, game):
         path = r"resources\dave\death"
@@ -114,3 +117,6 @@ class Dave(pygame.sprite.Sprite):
                 if self.jetpack == 0:
                     self.flying = False
             self.jetpack_last_update = curr_ticks
+
+    def shoot(self):
+        self.bullet = Bullet(-2 * self.facing + 1, "dave", *self.position())
