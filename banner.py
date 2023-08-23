@@ -43,18 +43,23 @@ def lives(lives):
     return daves
 
 
-def render_jetpack(jetpack):
+def render_fuelbar(jetpack, jetpack_display):
     fuelbar_rect = (178, 67, 128, 12)
-    jetpack_word_rect = (18, 52, 62, 11)
+    jetpack_display.blit(decos, (65, 0), fuelbar_rect)
     fuelcell_rect = (309, 76, 2, 3)
     halfcell_rect = (309, 76, 1, 3)
-    jetpack_display = pygame.Surface((300, 13)).convert_alpha()
-    jetpack_display.blit(decos, (0, 0), jetpack_word_rect)
-    jetpack_display.blit(decos, (65, 0), fuelbar_rect)
-    for i in range(jetpack//2):
+    for i in range(jetpack // 2):
         jetpack_display.blit(decos, (69 + 2 * i, 4), fuelcell_rect)
     if jetpack % 2 == 1:
-        jetpack_display.blit(decos, (69 + 2 * (jetpack//2), 4), halfcell_rect)
+        jetpack_display.blit(decos, (69 + 2 * (jetpack // 2), 4), halfcell_rect)
+    return jetpack_display
+
+
+def render_jetpack(jetpack):
+    jetpack_word_rect = (18, 52, 62, 11)
+    jetpack_display = pygame.Surface((300, 13)).convert_alpha()
+    jetpack_display.blit(decos, (0, 0), jetpack_word_rect)
+    jetpack_display = render_fuelbar(jetpack, jetpack_display)
     jetpack_display = pygame.transform.scale(jetpack_display, (600, 30))
     jetpack_display.set_colorkey((0, 0, 0))
     return jetpack_display
