@@ -7,6 +7,10 @@ class Mobs(pygame.sprite.Group):
         super().__init__()
 
     def render_image(self, sprite):
+        current_time = pygame.time.get_ticks()
+        if current_time - sprite.last_update > sprite.speed:
+            sprite.update()
+            sprite.last_update = current_time
         return sprite.image, sprite.pos
 
 

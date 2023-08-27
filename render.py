@@ -40,10 +40,6 @@ def render(game):
         game.dave.last_update = current_time
     if game.dave.bullet:
         game.board.blit(*game.dave.bullet.get_location())
-    for mob in game.level.mobs:
-        if current_time - mob.last_update > mob.speed:
-            mob.update()
-            mob.last_update = current_time
     game.board.blit(game.dave.current_display(), game.dave.position())
     blit_border(game)
     pygame.display.flip()
