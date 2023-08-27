@@ -101,8 +101,8 @@ class Dave(pygame.sprite.Sprite):
             rectangle = (0, 0, 49, 41)
             death_image = pygame.image.load(path + "\\" + image)
             death_frame.blit(death_image, (0, 0), rectangle)
-            death_frame.set_colorkey((0, 0, 0))
             death_frame = pygame.transform.scale(death_frame, (35, 30))
+            death_frame.set_colorkey((0, 0, 0))
             game.board.blit(death_frame, self.position())
 
             blit_border(game)
