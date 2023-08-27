@@ -10,14 +10,14 @@ def edge_check(tiles, direction):
 
 
 def slide_over(game, direction):
-    sprite_groups = [game.level.tiles, game.level.doors, game.level.gems, game.level.hazards]
+    sprite_groups = [x for x in dir(game.level) if not x.__contains__('_')]
     counter = 0
     while edge_check(game.level.tiles, direction) and counter < 15:
         pygame.time.delay(10)
         counter += 1
         game.board.fill(BG)
         for sprite_group in sprite_groups:
-            move_over(sprite_group, direction)
+            eval(f"move_over(game.level.{sprite_group}, direction)")
         render_level(game.level, game.board)
         blit_border(game)
         pygame.display.flip()
