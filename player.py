@@ -95,7 +95,7 @@ class Dave(pygame.sprite.Sprite):
         for image in images:
             game.board.fill(BG)
 
-            render_level(game.level, game.board)
+            render_level(game)
 
             death_frame = pygame.Surface((49, 41)).convert_alpha()
             rectangle = (0, 0, 49, 41)

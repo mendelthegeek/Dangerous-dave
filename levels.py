@@ -1,6 +1,7 @@
 import sys
 
 from banner import *
+from monster import *
 from player import *
 from tiles import *
 from render import *
@@ -263,3 +264,5 @@ class Level3:
         for i, hazard in enumerate(hazard_list):
             sprite = self.hazards.create_tile(*hazard)
             sprite.frame = i % len(sprite.images)
+        self.mobs = Mobs()
+        Mob(100, 150, [(300, 150), (100, 150)], self.mobs)
