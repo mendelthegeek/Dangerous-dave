@@ -265,4 +265,4 @@ class Level3:
             sprite = self.hazards.create_tile(*hazard)
             sprite.frame = i % len(sprite.images)
         self.mobs = Mobs()
-        Mob(100, 150, [(300, 150), (100, 150)], self.mobs)
+        Mob([(300,200), (100, 200)], self.mobs)

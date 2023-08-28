@@ -79,6 +79,8 @@ class Game:
             if check_death(self.dave, self.level.hazards) and not self.testing:
                 running = False
                 self.restart_level()
+            if game.dave.bullet:
+                bullet_hit(self)
 
             if self.dave.x >= 18.25 * 32 and self.dave.x_speed == 1:
                 slide_over(self, -1)
