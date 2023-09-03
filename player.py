@@ -38,8 +38,23 @@ class Dave(pygame.sprite.Sprite):
         self.bullet = 0
         self.flying = False
         self.move()
+        self.dead = False
+
+        path = r"resources\dave\death"
+        images = os.listdir(path)
+        self.death_images = [pygame.image.load(path + "\\" + image) for image in images]
+        self.dying = False
+        self.death_frame = -1
 
     def current_display(self):
+        if self.speed == 2000:
+            current_time = pygame.time.get_ticks()
+            if current_time - self.last_update > 200:
+                self.death_frame += 1
+                self.last_update = current_time
+            if self.death_frame == 7:
+                self.dead = True
+            return self.death_surface(self.death_images[self.death_frame%7])
         if not self.x_speed == 0:
             # expression maps 1 to 0 and -1 to 1, mapping movement to desired spritesheet row
             self.facing = (1 - self.x_speed) / 2
@@ -65,6 +80,10 @@ class Dave(pygame.sprite.Sprite):
         return self.x, self.y
 
     def move(self):
+        current_time = pygame.time.get_ticks()
+        if current_time - self.last_update <= self.speed:
+            return
+        self.last_update = current_time
         if not self.x_speed == 0 or self.flying:
             self.sprite_sheet.move_frame()
             self.decrease_jetpack()
@@ -89,25 +108,16 @@ class Dave(pygame.sprite.Sprite):
     def move_rect(self):
         self.rect.update(self.x + 8, self.y, 14, 32)
 
-    def die(self, game):
-        path = r"resources\dave\death"
-        images = os.listdir(path)
-        for image in images:
-            game.board.fill(BG)
+    def die(self):
+        self.speed = 2000
 
-            render_level(game)
-
-            death_frame = pygame.Surface((49, 41)).convert_alpha()
-            rectangle = (0, 0, 49, 41)
-            death_image = pygame.image.load(path + "\\" + image)
-            death_frame.blit(death_image, (0, 0), rectangle)
-            death_frame = pygame.transform.scale(death_frame, (35, 30))
-            death_frame.set_colorkey((0, 0, 0))
-            game.board.blit(death_frame, self.position())
-
-            blit_border(game)
-            pygame.display.flip()
-            pygame.time.delay(200)
+    def death_surface(self, death_image):
+        surface = pygame.Surface((49, 41)).convert_alpha()
+        rectangle = (0, 0, 49, 41)
+        surface.blit(death_image, (0, 0), rectangle)
+        surface = pygame.transform.scale(surface, (35, 30))
+        surface.set_colorkey((0, 0, 0))
+        return surface
 
     def decrease_jetpack(self):
         curr_ticks = pygame.time.get_ticks()

@@ -43,11 +43,8 @@ def move_over(sprite_group, direction):
 
 def render(game):
     game.board.fill(BG)
-    current_time = pygame.time.get_ticks()
     render_level(game)
-    if current_time - game.dave.last_update > game.dave.speed:
-        game.dave.move()
-        game.dave.last_update = current_time
+    game.dave.move()
     if game.dave.bullet:
         game.board.blit(*game.dave.bullet.get_location())
     game.board.blit(game.dave.current_display(), game.dave.position())

@@ -33,6 +33,9 @@ class Game:
     def run(self):
         running = True
         while running:
+            if self.dave.dead:
+                running = False
+                self.restart_level()
             if self.score >= 100000:
                 self.score = 99999
 
@@ -77,8 +80,7 @@ class Game:
             if check_door(self.dave, self.level.doors):
                 self.next_level()
             if check_death(self.dave, self.level.hazards) and not self.testing:
-                running = False
-                self.restart_level()
+                self.dave.die()
             if game.dave.bullet:
                 bullet_hit(self)
 
@@ -88,7 +90,6 @@ class Game:
                 slide_over(self, 1)
 
     def restart_level(self):
-        self.dave.die(self)
         if self.lives == 0:
             sys.exit()
         self.lives -= 1
