@@ -54,7 +54,7 @@ class Dave(pygame.sprite.Sprite):
                 self.last_update = current_time
             if self.death_frame == 7:
                 self.dead = True
-            return self.death_surface(self.death_images[self.death_frame%7])
+            return self.death_surface(self.death_images[self.death_frame])
         if not self.x_speed == 0:
             # expression maps 1 to 0 and -1 to 1, mapping movement to desired spritesheet row
             self.facing = (1 - self.x_speed) / 2

@@ -76,5 +76,7 @@ def bullet_collision(game):
 def bullet_hit(game):
     collided = pygame.sprite.spritecollide(game.dave.bullet, game.level.mobs, False)
     for mob in collided:
+        if mob.dying:
+            continue
         mob.die()
         game.score += mob.value
