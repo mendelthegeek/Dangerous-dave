@@ -37,6 +37,7 @@ class Mob(pygame.sprite.Sprite):
         group.add(self)
         self.last_update = pygame.time.get_ticks()
         self.speed = 5
+        self.value = 1
 
     def update(self):
         self.target = self.waypoints[self.waypoint_index]
@@ -57,3 +58,6 @@ class Mob(pygame.sprite.Sprite):
 
         self.pos += self.vel
         self.rect.center = self.pos
+
+    def die(self):
+        pass

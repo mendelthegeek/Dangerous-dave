@@ -195,7 +195,7 @@ class Level3:
         gem_list = [("jetpack", (66, 8)), ("trophy", (67, 8)), ("gun", (10, 3)), ("ring", (64, 1)),
                     ("wand", (71, 5)), ("crown", (71, 4)), ("wand", (72, 0)), ("wand", (74, 1))]
         for i in range(4):
-            gem_list.append(("wand", (76+i*3, 2)))
+            gem_list.append(("wand", (76 + i * 3, 2)))
         blue_gem_list = [1, 5, 14, 19, 23, 28, 52, 56]
         for x in blue_gem_list:
             gem_list.append(("blue_gem", (x, 3)))
@@ -265,4 +265,11 @@ class Level3:
             sprite = self.hazards.create_tile(*hazard)
             sprite.frame = i % len(sprite.images)
         self.mobs = Mobs()
-        Mob([(300,200), (100, 200)], self.mobs)
+        Mob([
+            (1150, 210),
+            (1075, 180),
+            (1125, 160),
+            (1550, 160),
+            (1400, 210),
+            (1250, 170)]
+            , self.mobs)

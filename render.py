@@ -1,5 +1,7 @@
 from banner import *
 from tiles import *
+from builtins import map
+from operator import add
 
 
 def edge_check(tiles, direction):
@@ -18,12 +20,20 @@ def slide_over(game, direction):
         game.board.fill(BG)
         for sprite_group in sprite_groups:
             eval(f"move_over(game.level.{sprite_group}, direction)")
+        for mob in game.level.mobs:
+            mob.pos += pygame.math.Vector2(direction * 32, 0)
         render_level(game)
         blit_border(game)
         pygame.display.flip()
     game.dave.x += counter * direction * 32
     if game.dave.bullet:
         game.dave.bullet.x += counter * direction * 32
+    for mob in game.level.mobs:
+        new_waypoints = []
+        for waypoint in mob.waypoints:
+            new_waypoint = tuple(map(add, waypoint, (counter * direction * 32, 0)))
+            new_waypoints.append(new_waypoint)
+        mob.waypoints = new_waypoints
 
 
 def move_over(sprite_group, direction):
@@ -59,3 +69,10 @@ def reset_position(level, offset):
         sprite_group = eval(f"level.{sprite_group}")
         for renderable in sprite_group.sprites():
             renderable.rect = renderable.rect.move(offset, 0)
+    for mob in level.mobs:
+        new_waypoints = []
+        for waypoint in mob.waypoints:
+            new_waypoint = tuple(map(add, waypoint, (offset, 0)))
+            new_waypoints.append(new_waypoint)
+        mob.waypoints = new_waypoints
+        mob.pos += pygame.math.Vector2(offset, 0)
