@@ -88,13 +88,13 @@ class Game:
                 slide_over(self, 1)
 
     def restart_level(self):
-        had_key = self.dave.has_key
         self.dave.die(self)
         if self.lives == 0:
             sys.exit()
         self.lives -= 1
+        obtained = self.dave.obtained()
         self.dave = Dave(self.level.dave_pos)
-        self.dave.has_key = had_key
+        self.dave.reset_obtained(obtained)
         offset = self.level.door_start[0] * 32 - self.level.doors.sprites()[0].rect.left
         reset_position(self.level, offset)
 

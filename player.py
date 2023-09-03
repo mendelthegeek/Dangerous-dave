@@ -120,3 +120,11 @@ class Dave(pygame.sprite.Sprite):
 
     def shoot(self):
         self.bullet = Bullet(-2 * self.facing + 1, "dave", *self.position())
+
+    def obtained(self):
+        return self.jetpack, self.has_gun, self.has_key
+
+    def reset_obtained(self, obtained):
+        self.jetpack = obtained[0]
+        self.has_gun = obtained[1]
+        self.has_key = obtained[2]
