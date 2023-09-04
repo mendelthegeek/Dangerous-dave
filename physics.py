@@ -83,3 +83,4 @@ def bullet_hit(game):
             continue
         mob.die()
         game.score += mob.value
+        game.dave.bullet = None

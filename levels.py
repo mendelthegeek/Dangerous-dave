@@ -19,11 +19,11 @@ class NextLevel:
         for i in range(20):
             self.tiles.create_tile("blue_brick", (i, 5))
 
-        self.level = self
-
         empty = pygame.sprite.Group()
         self.gems = empty
         self.hazards = empty
+        self.mobs = empty
+
 
 
 class Level1:
@@ -76,6 +76,7 @@ class Level1:
             self.tiles.create_tile(*tile)
         for gem in gem_list:
             self.gems.create_tile(*gem)
+        self.mobs = pygame.sprite.Group()
 
 
 class Level2:
@@ -179,6 +180,7 @@ class Level2:
         for i, hazard in enumerate(hazard_list):
             sprite = self.hazards.create_tile(*hazard)
             sprite.frame = i % len(sprite.images)
+        self.mobs = pygame.sprite.Group()
 
 
 class Level3:
