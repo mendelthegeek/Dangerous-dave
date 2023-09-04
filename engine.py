@@ -1,3 +1,5 @@
+import numpy
+
 from physics import *
 from levels import *
 import sys
@@ -62,10 +64,21 @@ class Game:
                 self.dave.x_speed -= 1
             if pressed[pygame.K_LCTRL] or pressed[pygame.K_RCTRL]:
                 if self.dave.has_gun and not self.dave.bullet:
-                    self.dave.shoot()
+                    x_dir = -2 * self.dave.facing + 1
+                    spawn_position = self.dave.position()
+                    self.dave.bullet = Bullet(x_dir, "dave", *spawn_position)
             if game.dave.bullet:
                 game.dave.bullet.move()
-                bullet_collision(game)
+                bullet_collision(game, game.dave.bullet, game.dave)
+            for mob in game.level.mobs:
+                if mob.bullet:
+                    mob.bullet.move()
+                    bullet_collision(game, mob.bullet, mob)
+                elif (mob.rect.right > 0 and mob.rect.left < 640 and
+                      pygame.time.get_ticks() % 150 == 0):
+                    x_dir = numpy.sign(game.dave.rect.centerx - mob.rect.centerx)
+                    if x_dir == 0: continue
+                    mob.bullet = Bullet(x_dir, "mob", *mob.pos)
 
             if True in pressed:
                 self.dave.moved = True
@@ -98,6 +111,8 @@ class Game:
         self.dave.reset_obtained(obtained)
         offset = self.level.door_start[0] * 32 - self.level.doors.sprites()[0].rect.left
         reset_position(self.level, offset)
+        for mob in game.level.mobs:
+            mob.bullet = None
 
         self.run()
 

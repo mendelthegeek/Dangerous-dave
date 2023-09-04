@@ -61,6 +61,8 @@ class Mob(pygame.sprite.Sprite):
         self.dying = False
         self.death_frame = -1
 
+        self.bullet = None
+
     def update(self):
         self.target = self.waypoints[self.waypoint_index]
         # A vector pointing from self to the target.

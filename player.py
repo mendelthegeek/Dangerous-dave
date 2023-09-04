@@ -15,7 +15,7 @@ class Dave(pygame.sprite.Sprite):
     def __init__(self, init_pos):
         super().__init__()
         self.x, self.y = init_pos
-        self.sprite_source = r"resources\dave\Dave.png"
+        self.sprite_source = r"resources\dave\dave.png"
 
         self.speed = 8
 
@@ -127,9 +127,6 @@ class Dave(pygame.sprite.Sprite):
                 if self.jetpack == 0:
                     self.flying = False
             self.jetpack_last_update = curr_ticks
-
-    def shoot(self):
-        self.bullet = Bullet(-2 * self.facing + 1, "dave", *self.position())
 
     def obtained(self):
         return self.jetpack, self.has_gun, self.has_key

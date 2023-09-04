@@ -29,6 +29,9 @@ def slide_over(game, direction):
     if game.dave.bullet:
         game.dave.bullet.x += counter * direction * 32
     for mob in game.level.mobs:
+        if mob.bullet:
+            mob.bullet.x += counter * direction * 32
+    for mob in game.level.mobs:
         new_waypoints = []
         for waypoint in mob.waypoints:
             new_waypoint = tuple(map(add, waypoint, (counter * direction * 32, 0)))
@@ -47,6 +50,9 @@ def render(game):
     game.dave.move()
     if game.dave.bullet:
         game.board.blit(*game.dave.bullet.get_location())
+    for mob in game.level.mobs:
+        if mob.bullet:
+            game.board.blit(*mob.bullet.get_location())
     game.board.blit(game.dave.current_display(), game.dave.position())
     blit_border(game)
     pygame.display.flip()

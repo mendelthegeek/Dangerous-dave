@@ -266,10 +266,10 @@ class Level3:
             sprite.frame = i % len(sprite.images)
         self.mobs = Mobs()
         Mob([
+            (1250, 170),
             (1150, 210),
             (1075, 180),
             (1125, 160),
             (1550, 160),
-            (1400, 210),
-            (1250, 170)]
+            (1400, 210)]
             , self.mobs)

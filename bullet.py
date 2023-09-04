@@ -12,6 +12,8 @@ class Bullet(pygame.sprite.Sprite):
         self.last_updated = pygame.time.get_ticks()
         if creature == "dave":
             self.image = pygame.image.load("resources/dave/bullet.png")
+        elif creature == "mob":
+            self.image = pygame.image.load("resources/mobs/bullet.png")
 
     def move(self):
         curr_ticks = pygame.time.get_ticks()
@@ -24,5 +26,6 @@ class Bullet(pygame.sprite.Sprite):
         image = self.image
         if self.x_dir == -1:
             image = pygame.transform.flip(self.image, True, False)
-        image = pygame.transform.scale(image, (18, 6))
+        image = pygame.transform.scale(image, (2*image.get_width()//3, 6))
+        image.set_colorkey((0, 0, 0))
         return image, (self.x, self.y)
