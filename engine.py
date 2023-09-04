@@ -75,7 +75,7 @@ class Game:
                     mob.bullet.move()
                     bullet_collision(game, mob.bullet, mob)
                 elif (mob.rect.right > 0 and mob.rect.left < 640 and
-                      pygame.time.get_ticks() % 150 == 0):
+                      pygame.time.get_ticks() % 150 == 0) and not mob.dying:
                     x_dir = numpy.sign(game.dave.rect.centerx - mob.rect.centerx)
                     if x_dir == 0: continue
                     mob.bullet = Bullet(x_dir, "mob", *mob.pos)
@@ -92,7 +92,7 @@ class Game:
             self.score += check_obtained(self.dave, self.level.gems)
             if check_door(self.dave, self.level.doors):
                 self.next_level()
-            if check_death(self.dave, self.level.hazards) and not self.testing:
+            if check_death(self) and not self.testing:
                 self.dave.die()
             if game.dave.bullet:
                 bullet_hit(self)

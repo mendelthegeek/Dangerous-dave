@@ -63,9 +63,12 @@ def check_door(dave, doors):
     return pygame.sprite.spritecollide(dave, doors, False) and dave.has_key
 
 
-def check_death(dave, hazards):
-    return pygame.sprite.spritecollide(dave, hazards, False)
-
+def check_death(game):
+    mobs = game.level.mobs
+    bullets = [mob.bullet for mob in mobs if mob.bullet is not None]
+    return (bool(pygame.sprite.spritecollide(game.dave, game.level.hazards, False)) or
+            any(pygame.sprite.collide_rect(game.dave, bullet) for bullet in bullets)
+            or any(pygame.sprite.collide_rect(game.dave, mob) for mob in mobs))
 
 def bullet_collision(game, bullet, parent):
     if (bullet.x >= 640 or bullet.x <= 0 or
