@@ -34,6 +34,7 @@ class Tiles(Tile):
             "red_brick": [(1, 7)],
             "blue_brick": [(0, 4)],
             "horizontal_pipe": [(1, 5)],
+            "vertical_pipe": [(1, 6)],
             "purple_horizontal": [(3, 2)],
             "clay": [(0, 0)],
             "blue_pillar": [(2, 0)],

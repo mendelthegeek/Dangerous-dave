@@ -274,7 +274,8 @@ class Level3:
             (1125, 160),
             (1550, 160),
             (1400, 210)]
-            , self.mobs)
+            , self.mobs,
+            "spider")
         Mob([
             (2030, 160),
             (1880, 210),
@@ -282,4 +283,149 @@ class Level3:
             (1630, 210),
             (1555, 180),
             (1605, 160)]
-            , self.mobs)
+            , self.mobs,
+            "spider")
+
+class Level4:
+
+    def __init__(self):
+        self.dave_pos = (32, 202)
+        self.tiles = Tiles()
+        self.gems = Gems()
+        self.doors = Door()
+        self.hazards = Hazards()
+        self.mobs = Mobs()
+        self.door_start = (98, 2)
+        self.doors.create_tile(self.door_start)
+
+        gem_list = [("trophy", (6, 1)), ("red_gem", (49, 1)), ("red_gem", (55, 5)),
+                    ("jetpack", (70, 4)), ("wand", (80, 6)), ("ring", (91, 5)), ("crown", (98, 1))]
+        blue_gems = [(8, 5), (12, 1), (20, 1), (25, 1), (29, 1), (27, 4), (40, 4), (45, 3), (43, 1),
+                     (46, 1), (56, 1), (56, 3), (57, 5), (58, 6), (60, 1), (63, 1), (67, 2), (79, 1),
+                     (79, 3), (82, 4), (86, 5), (87, 6), (95, 1), (97, 1)]
+        for j in range(3):
+            blue_gems.append((72, 3+j))
+        for j in range(4):
+            blue_gems.append((76, 1+j))
+        for i in range(5):
+            blue_gems.append((81+3*i, 1))
+        for gem_location in blue_gems:
+            gem_list.append(("blue_gem", gem_location))
+
+        tile_list = [("vertical_pipe", (1, 4))]
+        blue_bricks = [(1, 3), (2, 4), (2, 5), (7, 1), (11, 6), (18, 4), (19, 6), (20, 2), (21, 5),
+                       (23, 3), (24, 5), (25, 5), (39, 4), (45, 7), (46, 3), (48, 1), (48, 2),
+                       (51, 3), (52, 3), (54, 6), (54, 5), (58, 5), (60, 5), (60, 6), (63, 4),
+                       (63, 7), (63, 8), (65, 5), (65, 6), (66, 6), (68, 6), (69, 6), (69, 2),
+                       (70, 2), (70, 8), (71, 3), (71, 4), (73, 8), (81, 6), (81, 5), (82, 5),
+                       (83, 7), (86, 4), (87, 5), (93, 4), (96, 5), (96, 7), (98, 8)]
+        for i in range(101):
+            blue_bricks.append((i, 0))
+        for i in range(28):
+            blue_bricks.append((i, 9))
+        for i in range(6):
+            blue_bricks.append((8+i, 8))
+        for i in range(4):
+            blue_bricks.append((9+i, 7))
+        for i in range(5):
+            blue_bricks.append((3+i, 2))
+        for i in range(4):
+            blue_bricks.append((13+i, 3))
+        for i in range(5):
+            blue_bricks.append((27+i, 3))
+        for i in range(3):
+            blue_bricks.append((30+i, 6))
+        for i in range(65):
+            blue_bricks.append((36+i, 9))
+        for i in range(3):
+            blue_bricks.append((36+i, 2))
+        for i in range(7):
+            blue_bricks.append((40+i, 2))
+        for i in range(5):
+            blue_bricks.append((39+i, 5))
+        for i in range(5):
+            blue_bricks.append((39+i, 7))
+        for i in range(4):
+            blue_bricks.append((49+i, 5))
+        for i in range(7):
+            blue_bricks.append((52+i, 2))
+        for i in range(6):
+            blue_bricks.append((50+i, 7))
+        for i in range(5):
+            blue_bricks.append((54+i, 4))
+        for i in range(4):
+            blue_bricks.append((57+i, 7))
+        for i in range(3):
+            blue_bricks.append((62+i, 3))
+        for i in range(3):
+            blue_bricks.append((66+i, 3))
+        for i in range(3):
+            blue_bricks.append((69+i, 5))
+        for i in range(3):
+            blue_bricks.append((76+i, 6))
+        for i in range(4):
+            blue_bricks.append((78+i, 7))
+        for i in range(4):
+            blue_bricks.append((78+i, 4))
+        for i in range(13):
+            blue_bricks.append((79+i, 2))
+        for i in range(4):
+            blue_bricks.append((88+i, 6))
+        for i in range(4):
+            blue_bricks.append((94+i, 6))
+        for i in range(3):
+            blue_bricks.append((96+i, 3))
+        for j in range(10):
+            blue_bricks.append((0, j))
+        for j in range(3):
+            blue_bricks.append((16, 6+j))
+        for j in range(5):
+            blue_bricks.append((36, 4+j))
+        for j in range(3):
+            blue_bricks.append((48, 5+j))
+        for j in range(5):
+            blue_bricks.append((73, 2+j))
+        for j in range(4):
+            blue_bricks.append((77, 1+j))
+        for j in range(4):
+            blue_bricks.append((84, 4+j))
+        for i in range(2):
+            for j in range(8):
+                blue_bricks.append((99+i, 1+j))
+        for i in range(3):
+            for j in range(4):
+                blue_bricks.append((3+i+j*2, 6-j))
+        for j in range(3):
+            for i in range(6-2*j):
+                blue_bricks.append((22+j+i, 8-j))
+        for brick_location in blue_bricks:
+            tile_list.append(("blue_brick", brick_location))
+
+        hazard_list = [("fire", (3, 5)), ("fire", (4, 5)), ("water", (51, 2)), ("water", (55, 6)),
+                       ("water", (68, 2)), ("water", (71, 2)), ("purple_fire", (79, 6)),
+                       ("purple_fire", (94, 5)), ("purple_fire", (95, 5))]
+        for i in range(8):
+            hazard_list.append(("fire", (28+i, 9)))
+        for j in range(3):
+            hazard_list.append(("water", (59, 4+j)))
+        for i in range(3):
+            hazard_list.append(("purple_fire", (88+i, 5)))
+
+        for tile in tile_list:
+            self.tiles.create_tile(*tile)
+        for gem in gem_list:
+            self.gems.create_tile(*gem)
+        for i, hazard in enumerate(hazard_list):
+            sprite = self.hazards.create_tile(*hazard)
+            sprite.frame = i % len(sprite.images)
+        self.mobs = Mobs()
+        Mob([
+            (940, 290),
+            (1100, 290),
+            (1075, 175),
+            (1040, 100),
+            (850, 120),
+            (850, 180),
+            ]
+            , self.mobs,
+            "spinner")

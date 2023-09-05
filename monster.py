@@ -39,10 +39,11 @@ class Mobs(pygame.sprite.Group):
 
 class Mob(pygame.sprite.Sprite):
 
-    def __init__(self, waypoints, group):
+    def __init__(self, waypoints, group, mob_type, speed=5):
         super().__init__()
-        self.x = waypoints[1][0]
-        self.y = waypoints[1][1]
+        self.mob_type = mob_type
+        self.x = waypoints[-1][0]
+        self.y = waypoints[-1][1]
         self.vel = pygame.math.Vector2(0, 0)
         self.max_speed = 1.75
         self.pos = pygame.math.Vector2((self.x, self.y))
@@ -53,7 +54,7 @@ class Mob(pygame.sprite.Sprite):
         self.target_radius = 50
         group.add(self)
         self.last_update = pygame.time.get_ticks()
-        self.speed = 5
+        self.speed = speed
         self.value = 100
         self.image_index = 1
         self.set_frame()
@@ -76,7 +77,7 @@ class Mob(pygame.sprite.Sprite):
             self.target = self.waypoints[self.waypoint_index]
         if distance <= self.target_radius:
             # If we're approaching the target, we slow down.
-            self.vel = heading * (distance / self.target_radius)**.25 * self.max_speed
+            self.vel = heading * (distance / self.target_radius) ** .25 * self.max_speed
         else:  # Otherwise move with max_speed.
             self.vel = heading * self.max_speed
 
@@ -84,14 +85,16 @@ class Mob(pygame.sprite.Sprite):
         self.rect.center = self.pos
 
     def set_frame(self):
-        self.image = pygame.Surface((81, 45)).convert_alpha()
-        picture = pygame.image.load(r"resources/mobs/spider"
-                                    f"{(self.image_index//25)%3+1}"
-                                    r".png")
-        self.image.blit(picture, (0, 0))
-        self.image = pygame.transform.scale(self.image, (54, 30))
+        mob_dir = os.listdir(r"resources\mobs")
+        animation_length = len([img for img in mob_dir if img.__contains__(self.mob_type)])
+        self.image = pygame.image.load(
+            r"resources/mobs/"
+            f"{self.mob_type}{(self.image_index // 25) % animation_length}"
+            r".png")
+        self.image = pygame.transform.scale(
+            self.image,
+            (self.image.get_width() * 2 // 3, self.image.get_height() * 2 // 3))
         self.image.set_colorkey((0, 0, 0))
-
 
     def die(self):
         self.dying = True
