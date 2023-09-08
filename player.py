@@ -39,6 +39,8 @@ class Dave(pygame.sprite.Sprite):
         self.flying = False
         self.move()
         self.dead = False
+        self.climbing = False
+        self.can_descend = False
 
         path = r"resources\dave\death"
         images = os.listdir(path)
@@ -59,7 +61,11 @@ class Dave(pygame.sprite.Sprite):
             # expression maps 1 to 0 and -1 to 1, mapping movement to desired spritesheet row
             self.facing = (1 - self.x_speed) / 2
         if self.flying:
-            return self.sprite_sheet.get_sprite(self.facing, self.sprite_sheet.frame % 3 + 10, 24, 16, 2)
+            return self.sprite_sheet.get_sprite(
+                self.facing, self.sprite_sheet.frame % 3 + 10, 24, 16, 2)
+        if self.climbing:
+            return self.sprite_sheet.get_sprite(
+                self.facing, (self.sprite_sheet.frame // 5) % 3 + 7, 24, 16, 2)
         if not self.moved:
             current_ticks = pygame.time.get_ticks()
             if current_ticks - self.last_blinked > 500:
@@ -72,7 +78,8 @@ class Dave(pygame.sprite.Sprite):
             elif not self.displayed:
                 return self.sprite_sheet.get_sprite(0, 6, 24, 16, 2)
         if self.on_surface:
-            return self.sprite_sheet.get_sprite(self.facing, self.sprite_sheet.frame // 8 % 4, 24, 16, 2)
+            return self.sprite_sheet.get_sprite(
+                self.facing, self.sprite_sheet.frame // 8 % 4, 24, 16, 2)
         else:
             return self.sprite_sheet.get_sprite(self.facing, 5, 24, 16, 2)
 
@@ -88,9 +95,26 @@ class Dave(pygame.sprite.Sprite):
             self.sprite_sheet.move_frame()
             self.decrease_jetpack()
         self.jump()
+        if self.climbing:
+            self.climb()
         self.x += self.x_speed * 1.2
         self.y = (self.y + self.y_speed) % 424
         self.move_rect()
+
+    def climb(self):
+        self.x_speed = 0
+        self.y_speed = 0
+        pressed = pygame.key.get_pressed()
+        if pressed[pygame.K_RIGHT]:
+            self.x_speed += 1
+        if pressed[pygame.K_LEFT]:
+            self.x_speed -= 1
+        if pressed[pygame.K_UP]:
+            self.y_speed -= 1
+        if pressed[pygame.K_DOWN] and self.can_descend:
+            self.y_speed += 1
+        if abs(self.y_speed) > 0:
+            self.sprite_sheet.move_frame()
 
     def jump(self):
         if self.jump_height == 0 and self.moved:
