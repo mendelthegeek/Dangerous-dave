@@ -70,6 +70,7 @@ def check_death(game):
             any(pygame.sprite.collide_rect(game.dave, bullet) for bullet in bullets)
             or any(pygame.sprite.collide_rect(game.dave, mob) for mob in mobs))
 
+
 def bullet_collision(game, bullet, parent):
     if (bullet.x >= 640 or bullet.x <= 0 or
             pygame.sprite.spritecollide(bullet, game.level.tiles, False)):
@@ -84,3 +85,19 @@ def bullet_hit(game):
         mob.die()
         game.score += mob.value
         game.dave.bullet = None
+
+
+def check_climbing(game):
+    return bool(pygame.sprite.spritecollide(game.dave, game.level.climbable, False))
+
+
+def check_climb_bottom(game):
+    detect_collision = pygame.sprite.spritecollide(game.dave, game.level.tiles, False)
+    # a bit more convenient types to work with
+    collided = [pygame.Rect(tile) for tile in set(tuple(tile.rect) for tile in detect_collision)]
+    dave_column = (game.dave.rect.left + 7) // 32
+    for tile in collided:
+        if dave_column == tile.left // 32:
+            if game.dave.rect.bottom - 1 == tile.top:
+                return True
+    return False
