@@ -125,3 +125,40 @@ class Hazards(Tile):
 
     def render_image(self, sprite):
         return self.get_image(sprite), sprite.rect
+
+class Passable(Tile):
+
+    def __init__(self):
+        super().__init__()
+        self.tileset = {
+            "purple_pipe": [(3, 3)],
+            "grass": [(3, 4)],
+        }
+
+    def create_tile(self, tile_type, rect):
+        sheet_locations = self.tileset[tile_type]
+        sprite = self.render_tile(rect, sheet_locations)
+
+    def render_image(self, sprite):
+        return self.get_image(sprite), sprite.rect
+
+class Climbable(Tile):
+    def __init__(self):
+        super().__init__()
+        self.tileset = {
+            "tree_trunk": [(3, 5)],
+            "leaves": [(3, 6)],
+            "leaves_br": [(4, 6)],
+            "leaves_bl": [(4, 7)],
+            "leaves_ur": [(4, 8)],
+            "leaves_ul": [(5, 0)],
+            "stars": [(4, 4)],
+            "moon": [(4, 5)]
+        }
+
+    def create_tile(self, tile_type, rect):
+        sheet_locations = self.tileset[tile_type]
+        sprite = self.render_tile(rect, sheet_locations)
+
+    def render_image(self, sprite):
+        return self.get_image(sprite), sprite.rect
