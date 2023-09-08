@@ -46,7 +46,8 @@ class Game:
             for event in pygame.event.get():
                 if event.type == pygame.QUIT:
                     sys.exit()
-                if event.type == pygame.KEYDOWN and (event.key == pygame.K_RALT or event.key == pygame.K_LALT):
+                if (event.type == pygame.KEYDOWN and
+                        (event.key == pygame.K_RALT or event.key == pygame.K_LALT)):
                     if self.dave.jetpack > 0:
                         self.dave.flying = not self.dave.flying
                         self.dave.jump_height = 0
@@ -77,7 +78,8 @@ class Game:
                 elif (mob.rect.right > 0 and mob.rect.left < 640 and
                       pygame.time.get_ticks() % 150 == 0) and not mob.dying:
                     x_dir = numpy.sign(game.dave.rect.centerx - mob.rect.centerx)
-                    if x_dir == 0: continue
+                    if x_dir == 0:
+                        continue
                     mob.bullet = Bullet(x_dir, "mob", *mob.pos)
 
             if True in pressed:
@@ -96,6 +98,9 @@ class Game:
                 self.dave.die()
             if game.dave.bullet:
                 bullet_hit(self)
+            self.dave.climbing = check_climbing(self)
+            if self.dave.climbing:
+                self.dave.can_descend = not check_climb_bottom(self)
 
             if self.dave.x >= 18.25 * 32 and self.dave.x_speed == 1:
                 slide_over(self, -1)
@@ -138,5 +143,5 @@ class Game:
         self.start()
 
 
-game = Game(1)
+game = Game(5)
 game.start()
