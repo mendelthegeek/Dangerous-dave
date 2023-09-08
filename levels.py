@@ -25,10 +25,10 @@ class NextLevel:
         self.mobs = empty
 
 
-
-class Level1:
+class Level1():
 
     def __init__(self):
+        super().__init__()
         self.dave_pos = (64, 298)
         self.tiles = Tiles()
         self.gems = Gems()
@@ -191,6 +191,8 @@ class Level3:
         self.gems = Gems()
         self.doors = Door()
         self.hazards = Hazards()
+        self.climbable = Climbable()
+        self.decorations = Passable()
         self.door_start = (69, 1)
         self.doors.create_tile(self.door_start)
 
@@ -286,6 +288,7 @@ class Level3:
             , self.mobs,
             "spider")
 
+
 class Level4:
 
     def __init__(self):
@@ -294,6 +297,8 @@ class Level4:
         self.gems = Gems()
         self.doors = Door()
         self.hazards = Hazards()
+        self.decorations = Passable()
+        self.climbable = Climbable()
         self.mobs = Mobs()
         self.door_start = (97, 2)
         self.doors.create_tile(self.door_start)
@@ -305,11 +310,11 @@ class Level4:
                      (62, 1), (66, 2), (78, 1), (78, 3), (81, 4), (85, 5), (86, 6), (94, 1), (94, 7),
                      (96, 1)]
         for j in range(3):
-            blue_gems.append((71, 3+j))
+            blue_gems.append((71, 3 + j))
         for j in range(4):
-            blue_gems.append((75, 1+j))
+            blue_gems.append((75, 1 + j))
         for i in range(5):
-            blue_gems.append((80+3*i, 1))
+            blue_gems.append((80 + 3 * i, 1))
         for gem_location in blue_gems:
             gem_list.append(("blue_gem", gem_location))
 
@@ -325,80 +330,80 @@ class Level4:
         for i in range(28):
             blue_bricks.append((i, 9))
         for i in range(6):
-            blue_bricks.append((8+i, 8))
+            blue_bricks.append((8 + i, 8))
         for i in range(4):
-            blue_bricks.append((9+i, 7))
+            blue_bricks.append((9 + i, 7))
         for i in range(5):
-            blue_bricks.append((3+i, 2))
+            blue_bricks.append((3 + i, 2))
         for i in range(4):
-            blue_bricks.append((13+i, 3))
+            blue_bricks.append((13 + i, 3))
         for i in range(5):
-            blue_bricks.append((27+i, 3))
+            blue_bricks.append((27 + i, 3))
         for i in range(3):
-            blue_bricks.append((30+i, 6))
+            blue_bricks.append((30 + i, 6))
         for i in range(64):
-            blue_bricks.append((35+i, 9))
+            blue_bricks.append((35 + i, 9))
         for i in range(3):
-            blue_bricks.append((35+i, 2))
+            blue_bricks.append((35 + i, 2))
         for i in range(7):
-            blue_bricks.append((39+i, 2))
+            blue_bricks.append((39 + i, 2))
         for i in range(5):
-            blue_bricks.append((38+i, 5))
+            blue_bricks.append((38 + i, 5))
         for i in range(5):
-            blue_bricks.append((38+i, 7))
+            blue_bricks.append((38 + i, 7))
         for i in range(4):
-            blue_bricks.append((48+i, 5))
+            blue_bricks.append((48 + i, 5))
         for i in range(7):
-            blue_bricks.append((51+i, 2))
+            blue_bricks.append((51 + i, 2))
         for i in range(6):
-            blue_bricks.append((49+i, 7))
+            blue_bricks.append((49 + i, 7))
         for i in range(5):
-            blue_bricks.append((53+i, 4))
+            blue_bricks.append((53 + i, 4))
         for i in range(4):
-            blue_bricks.append((56+i, 7))
+            blue_bricks.append((56 + i, 7))
         for i in range(3):
-            blue_bricks.append((61+i, 3))
+            blue_bricks.append((61 + i, 3))
         for i in range(3):
-            blue_bricks.append((65+i, 3))
+            blue_bricks.append((65 + i, 3))
         for i in range(3):
-            blue_bricks.append((68+i, 5))
+            blue_bricks.append((68 + i, 5))
         for i in range(3):
-            blue_bricks.append((75+i, 6))
+            blue_bricks.append((75 + i, 6))
         for i in range(4):
-            blue_bricks.append((77+i, 7))
+            blue_bricks.append((77 + i, 7))
         for i in range(4):
-            blue_bricks.append((77+i, 4))
+            blue_bricks.append((77 + i, 4))
         for i in range(13):
-            blue_bricks.append((78+i, 2))
+            blue_bricks.append((78 + i, 2))
         for i in range(4):
-            blue_bricks.append((87+i, 6))
+            blue_bricks.append((87 + i, 6))
         for i in range(4):
-            blue_bricks.append((93+i, 6))
+            blue_bricks.append((93 + i, 6))
         for i in range(3):
-            blue_bricks.append((95+i, 3))
+            blue_bricks.append((95 + i, 3))
         for j in range(10):
             blue_bricks.append((0, j))
         for j in range(3):
-            blue_bricks.append((16, 6+j))
+            blue_bricks.append((16, 6 + j))
         for j in range(5):
-            blue_bricks.append((35, 4+j))
+            blue_bricks.append((35, 4 + j))
         for j in range(3):
-            blue_bricks.append((47, 5+j))
+            blue_bricks.append((47, 5 + j))
         for j in range(5):
-            blue_bricks.append((72, 2+j))
+            blue_bricks.append((72, 2 + j))
         for j in range(4):
-            blue_bricks.append((76, 1+j))
+            blue_bricks.append((76, 1 + j))
         for j in range(4):
-            blue_bricks.append((83, 4+j))
+            blue_bricks.append((83, 4 + j))
         for i in range(2):
             for j in range(8):
-                blue_bricks.append((98+i, 1+j))
+                blue_bricks.append((98 + i, 1 + j))
         for i in range(3):
             for j in range(4):
-                blue_bricks.append((3+i+j*2, 6-j))
+                blue_bricks.append((3 + i + j * 2, 6 - j))
         for j in range(3):
-            for i in range(6-2*j):
-                blue_bricks.append((22+j+i, 8-j))
+            for i in range(6 - 2 * j):
+                blue_bricks.append((22 + j + i, 8 - j))
         for brick_location in blue_bricks:
             tile_list.append(("blue_brick", brick_location))
 
@@ -406,11 +411,11 @@ class Level4:
                        ("water", (67, 2)), ("water", (70, 2)), ("purple_fire", (78, 6)),
                        ("purple_fire", (93, 5)), ("purple_fire", (94, 5))]
         for i in range(8):
-            hazard_list.append(("fire", (28+i, 9)))
+            hazard_list.append(("fire", (28 + i, 9)))
         for j in range(3):
-            hazard_list.append(("water", (58, 4+j)))
+            hazard_list.append(("water", (58, 4 + j)))
         for i in range(3):
-            hazard_list.append(("purple_fire", (87+i, 5)))
+            hazard_list.append(("purple_fire", (87 + i, 5)))
 
         for tile in tile_list:
             self.tiles.create_tile(*tile)
@@ -427,6 +432,160 @@ class Level4:
             (1040, 100),
             (850, 120),
             (850, 180),
-            ]
+        ]
             , self.mobs,
             "spinner")
+
+
+class Level5:
+
+    def __init__(self):
+        self.dave_pos = (64, 298)
+        self.tiles = Tiles()
+        self.gems = Gems()
+        self.doors = Door()
+        self.hazards = Hazards()
+        self.mobs = Mobs()
+        self.decorations = Passable()
+        self.climbable = Climbable()
+        self.door_start = (97, 3)
+        self.doors.create_tile(self.door_start)
+
+        gem_list = [("purple_gem", (3, 4)), ("purple_gem", (5, 4)), ("gun", (15, 6)),
+                    ("purple_gem", (29, 4)), ("purple_gem", (33, 5)), ("jetpack", (37, 3)),
+                    ("purple_gem", (42, 3)), ("purple_gem", (44, 3)), ("trophy", (47, 2)),
+                    ("red_gem", (54, 2)), ("red_gem", (57, 2)), ("red_gem", (64, 8)),
+                    ("blue_gem", (67, 1)), ("blue_gem", (67, 6)), ("blue_gem", (69, 5)),
+                    ("blue_gem", (70, 1)), ("blue_gem", (73, 1)), ("blue_gem", (76, 6)),
+                    ("purple_gem", (77, 1)), ("purple_gem", (79, 1)), ("purple_gem", (80, 5)),
+                    ("purple_gem", (82, 5)), ("purple_gem", (83, 1)), ("purple_gem", (85, 1)),
+                    ("red_gem", (91, 1)), ("red_gem", (94, 4)), ("crown", (96, 1))]
+
+        tile_list = [("dirt_ll", (0, 0)), ("horizontal_pipe", (1, 8)), ("dirt_ul", (60, 3)),
+                     ("dirt_ul", (61, 2)), ("dirt_ul", (63, 1)), ("vertical_pipe", (78, 1)),
+                     ("vertical_pipe", (84, 1)), ("dirt_ll", (99, 0)), ("dirt_ul", (99, 9))]
+        clay_locations = [(26, 5), (29, 5), (30, 7), (33, 6), (36, 6), (39, 5), (41, 6), (53, 7),
+                          (54, 3), (55, 5), (57, 3), (57, 8), (60, 7), (63, 5), (69, 6), (85, 7),
+                          (87, 2), (87, 6), (89, 4), (89, 7), (91, 2), (91, 6), (93, 7)]
+        dirt_locations = [(62, 1), (70, 8), (71, 8), (98, 2)]
+        for j in range(8):
+            dirt_locations.append((0, 1 + j))
+        for i in range(25):
+            dirt_locations.append((i, 9))
+        for i in range(5):
+            dirt_locations.append((i + 9, 8))
+        for j in range(2):
+            for i in range(3):
+                dirt_locations.append((i + 10, 6 + j))
+        for i in range(13):
+            dirt_locations.append((42 + i, 9))
+        for i in range(37):
+            dirt_locations.append((i + 58, 0))
+        for i in range(34):
+            dirt_locations.append((i + 65, 9))
+        for i in range(3):
+            dirt_locations.append((i + 96, 0))
+        for i in range(3):
+            dirt_locations.append((i + 97, 1))
+        for i in range(3):
+            dirt_locations.append((i + 97, 8))
+        for j in range(6):
+            dirt_locations.append((99, 2+j))
+        for j in range(2):
+            for i in range(5):
+                dirt_locations.append((i + 20, 7 + j))
+        for j in range(2):
+            for i in range(3):
+                dirt_locations.append((i + 42, 7 + j))
+        for j in range(3):
+            for i in range(4 - j):
+                dirt_locations.append((i + 58, 1 + j))
+        for i in range(2):
+            for j in range(5+i):
+                dirt_locations.append((65+i, 8-j))
+        for j in range(3):
+            for i in range(4):
+                dirt_locations.append((i + 72, 4 + j))
+        for location in dirt_locations:
+            tile_list.append(("dirt", location))
+        for location in clay_locations:
+            tile_list.append(("clay", location))
+
+        hazard_list = [("purple_fire", (71, 5)), ("purple_fire", (72, 8)), ("purple_fire", (74, 7)),
+                       ("purple_fire", (76, 8))]
+        for i in range(17):
+            hazard_list.append(("water", (25 + i, 9)))
+        for i in range(10):
+            hazard_list.append(("fire", (55+i, 9)))
+        for i in range(3):
+            hazard_list.append(("water", (67 + i, 8)))
+
+        decoration_list = []
+        grass_locations = [(2, 8), (3, 8), (9, 7), (13, 7), (42, 6), (44, 6), (65, 3), (66, 2), (70, 7),
+                           (71, 7)]
+        for i in range(4):
+            grass_locations.append((i + 5, 8))
+        for i in range(3):
+            grass_locations.append((i + 10, 5))
+        for i in range(6):
+            grass_locations.append((i + 14, 8))
+        for i in range(5):
+            grass_locations.append((i + 20, 6))
+        for i in range(10):
+            grass_locations.append((i + 45, 8))
+        for i in range(4):
+            grass_locations.append((i + 72, 3))
+        for i in range(3):
+            grass_locations.append((i + 73, 8))
+        for i in range(4):
+            grass_locations.append((i + 77, 8))
+        for i in range(15):
+            grass_locations.append((i + 82, 8))
+        for location in grass_locations:
+            decoration_list.append(("grass", location))
+
+        climbable_list = [("leaves_ur", (2, 3)), ("leaves_ul", (6, 3)), ("leaves_br", (2, 1)),
+                          ("leaves_br", (3, 0)), ("leaves_bl", (5, 0)), ("leaves_bl", (6, 1)),
+                          ("moon", (30, 1)), ("leaves_ur", (41, 2)), ("leaves_ul", (45, 2)),
+                          ("leaves_ur", (80, 4)), ("leaves_ul", (82, 4)), ("leaves_br", (80, 2)),
+                          ("leaves_bl", (82, 2)),]
+        leaf_list = [(81, 2), (81, 4)]
+        star_list = [(1, 4), (2, 0), (8, 0), (8, 2), (10, 1), (12, 0), (13, 2), (14, 1), (16, 2),
+                     (17, 1), (19, 0), (21, 2), (23, 0), (24, 1), (26, 0), (28, 1), (30, 0),
+                     (33, 0), (36, 0), (39, 1), (40, 0), (47, 0), (48, 1), (50, 1), (51, 0),
+                     (53, 0)]
+        for i in range(3):
+            leaf_list.append((3 + i, 3))
+        for j in range(3):
+            for i in range(1 + 2 * j):
+                leaf_list.append((4 + i - j, j))
+        for i in range(3):
+            leaf_list.append((42 + i, 2))
+        for i in range(3):
+            leaf_list.append((80 + i, 3))
+        for j in range(2):
+            for i in range(5):
+                leaf_list.append((41 + i, j))
+        for location in leaf_list:
+            climbable_list.append(("leaves", location))
+        for location in star_list:
+            climbable_list.append(("stars", location))
+        for j in range(5):
+            climbable_list.append(("tree_trunk", (4, 4 + j)))
+        for j in range(4):
+            climbable_list.append(("tree_trunk", (43, 3 + j)))
+        for j in range(4):
+            climbable_list.append(("tree_trunk", (81, 5 + j)))
+
+        for tile in tile_list:
+            self.tiles.create_tile(*tile)
+        for gem in gem_list:
+            self.gems.create_tile(*gem)
+        for i, hazard in enumerate(hazard_list):
+            sprite = self.hazards.create_tile(*hazard)
+            sprite.frame = i % len(sprite.images)
+        self.mobs = Mobs()
+        for decoration in decoration_list:
+            self.decorations.create_tile(*decoration)
+        for climable in climbable_list:
+            self.climbable.create_tile(*climable)
