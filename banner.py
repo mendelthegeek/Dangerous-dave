@@ -45,13 +45,19 @@ def render_lives(lives):
 
 def render_fuelbar(jetpack, jetpack_display):
     fuelbar_rect = (178, 67, 128, 12)
-    jetpack_display.blit(decos, (65, 0), fuelbar_rect)
+    fuelbar = pygame.Surface((128, 13)).convert_alpha()
+    fuelbar.blit(decos, (0, 0), fuelbar_rect)
+    # fuelbar = pygame.transform.scale(fuelbar, (128, 13))
     fuelcell_rect = (309, 76, 2, 3)
     halfcell_rect = (309, 76, 1, 3)
+    fuel = pygame.Surface((120, 3)).convert_alpha()
     for i in range(jetpack // 2):
-        jetpack_display.blit(decos, (69 + 2 * i, 4), fuelcell_rect)
+        fuel.blit(decos, (2 * i, 0), fuelcell_rect)
     if jetpack % 2 == 1:
-        jetpack_display.blit(decos, (69 + 2 * (jetpack // 2), 4), halfcell_rect)
+        fuel.blit(decos, (2 * (jetpack // 2), 0), halfcell_rect)
+    fuel = pygame.transform.scale(fuel, (120, 4))
+    fuelbar.blit(fuel, (4, 4))
+    jetpack_display.blit(fuelbar, (69, 0))
     return jetpack_display
 
 
