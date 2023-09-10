@@ -576,6 +576,46 @@ class Level5:
             climbable_list.append(("tree_trunk", (43, 3 + j)))
         for j in range(4):
             climbable_list.append(("tree_trunk", (81, 5 + j)))
+        Mob([
+            (550, 300),
+            (600, 300),
+            (575, 220),
+            (550, 135),
+            (450, 120),
+            (450, 220),
+        ]
+            , self.mobs,
+            "alien")
+        Mob([
+            (1075, 300),
+            (1150, 300),
+            (1125, 220),
+            (1100, 135),
+            (1000, 120),
+            (1000, 230),
+        ]
+            , self.mobs,
+            "alien")
+        Mob([
+            (1575, 300),
+            (1650, 300),
+            (1625, 220),
+            (1600, 135),
+            (1500, 120),
+            (1500, 230),
+        ]
+            , self.mobs,
+            "alien")
+        Mob([
+            (2975, 300),
+            (3050, 300),
+            (3025, 220),
+            (3000, 135),
+            (2900, 120),
+            (2900, 230),
+        ]
+            , self.mobs,
+            "alien")
 
         for tile in tile_list:
             self.tiles.create_tile(*tile)
@@ -584,7 +624,6 @@ class Level5:
         for i, hazard in enumerate(hazard_list):
             sprite = self.hazards.create_tile(*hazard)
             sprite.frame = i % len(sprite.images)
-        self.mobs = Mobs()
         for decoration in decoration_list:
             self.decorations.create_tile(*decoration)
         for climable in climbable_list:
