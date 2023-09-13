@@ -7,9 +7,9 @@ class Mobs(pygame.sprite.Group):
 
     def __init__(self):
         super().__init__()
-        path = r"resources\dave\death"
+        path = r"resources/dave/death"
         images = os.listdir(path)
-        self.death_images = [pygame.image.load(path + "\\" + image) for image in images]
+        self.death_images = [pygame.image.load(path + "//" + image) for image in images]
 
     def render_image(self, sprite):
         sprite.pos = pygame.math.Vector2(sprite.rect.center)

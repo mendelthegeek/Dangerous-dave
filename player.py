@@ -15,7 +15,7 @@ class Dave(pygame.sprite.Sprite):
     def __init__(self, init_pos):
         super().__init__()
         self.x, self.y = init_pos
-        self.sprite_source = r"resources\dave\dave.png"
+        self.sprite_source = r"resources/dave/dave.png"
 
         self.speed = 8
 
@@ -42,9 +42,9 @@ class Dave(pygame.sprite.Sprite):
         self.climbing = False
         self.can_descend = False
 
-        path = r"resources\dave\death"
+        path = r"resources/dave/death"
         images = os.listdir(path)
-        self.death_images = [pygame.image.load(path + "\\" + image) for image in images]
+        self.death_images = [pygame.image.load(path + "//" + image) for image in images]
         self.dying = False
         self.death_frame = -1
 
