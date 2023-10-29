@@ -7,6 +7,60 @@ from tiles import *
 from render import *
 
 
+
+
+
+class all_levels:
+    """daves y and x set to most common reacuring varibles used for daves position 
+    (using keywords that can be changed if need)"""
+    def __init__(self, level_board, dave_y = 64, dave_x = 298):
+        self.dave_pos = (dave_y, dave_x)
+        self.tiles = Tiles()
+        self.doors = Door()
+        self.level_board = level_board
+        created_levels.append(self)
+
+
+    def draw_level_board(self):
+        for i, row in enumerate(self.level_board):
+            for j, col in enumerate(row):
+                if col == 0:
+                    continue
+                # if insert_value < col > insert_value: depending on wich how they are organized in the dictionary
+                tile_list.append((tile_type_by_char[col], (i, j)))
+                
+                # either the previus or self.tiles.create_tile(tile_type_by_char[col], (i, j))
+                        
+
+"""a more visual way of writing the levels
+    gives more options of ways to remove gems from board/map by using something like self.level_board[self.y//tile_size][self.x//tile_size] = n
+    Bonus: it generates more ideas on how to come up with system to automate the setting up of each level"""
+
+#put levels into list so the can be iterated through
+#automaticly gets appended to list as part of each levels __init__ method
+created_levels = []
+
+#n used bc varibles are a different color than numbers in most ide's
+n = None
+#n set to None so it can be placed in an array without returning an error
+tile_type_by_char = {1: "blue_brick", 2: "blue_gem", 3: "door", 4: "trophy"} #5: hazards......
+
+#the creatoin of each level would look someting like this
+example_level_board =[[1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1],
+                      [1,2,n,n,n,n,n,n,n,n,n,n,n,n,n,2,1],
+                      [1,n,n,n,n,n,n,n,n,n,n,n,n,n,n,n,1],
+                      [1,1,1,1,n,n,n,n,4,n,n,1,1,1,1,1,1],
+                      [1,n,n,n,n,n,n,n,n,n,n,n,n,n,n,n,1],
+                      [1,n,n,2,n,n,1,1,1,1,1,n,n,n,n,n,1],
+                      [1,n,n,n,n,n,n,n,n,n,n,n,n,n,n,n,1],
+                      [1,n,n,1,1,1,n,n,n,n,n,1,1,1,1,n,1],
+                      [1,n,n,n,n,n,n,n,n,n,n,1,3,n,n,n,1],
+                      [1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1]]
+
+#change dave y without affecting his x and vise versa
+example_level = all_levels(example_level_board, dave_y = 128)
+
+
 class NextLevel:
 
     def __init__(self):
