@@ -143,5 +143,5 @@ class Game:
         self.start()
 
 
-game = Game(5)
+game = Game(3, True)
 game.start()
