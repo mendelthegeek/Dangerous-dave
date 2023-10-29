@@ -27,7 +27,7 @@ class all_levels:
                 if col == 0:
                     continue
                 # if insert_value < col > insert_value: depending on wich how they are organized in the dictionary
-                tile_list.append((tile_type_by_char[col], (i, j)))
+                # tile_list.append((tile_type_by_char[col], (i, j)))
                 
                 # either the previus or self.tiles.create_tile(tile_type_by_char[col], (i, j))
                         
@@ -86,6 +86,7 @@ class Level1():
         self.dave_pos = (64, 298)
         self.tiles = Tiles()
         self.gems = Gems()
+        self.climbable = Climbable()
         self.doors = Door()
         self.hazards = Hazards()
         self.door_start = (12, 8)
@@ -139,6 +140,7 @@ class Level2:
         self.dave_pos = (64, 298)
         self.tiles = Tiles()
         self.gems = Gems()
+        self.climbable = Climbable()
         self.doors = Door()
         self.hazards = Hazards()
         self.door_start = (47, 1)
