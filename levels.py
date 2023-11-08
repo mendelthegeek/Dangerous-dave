@@ -15,16 +15,25 @@ class all_levels:
     (using keywords that can be changed if need)"""
     def __init__(self, level_board, dave_y = 64, dave_x = 298):
         self.dave_pos = (dave_y, dave_x)
+
         self.tiles = Tiles()
+        self.gems = Gems()
         self.doors = Door()
-        self.level_board = level_board
-        created_levels.append(self)
+        self.hazards = Hazards()
+        self.mobs = Mobs()
+        self.decorations = Passable()
+        self.climbable = Climbable()
+        self.door_start = (97, 3)
+        self.doors.create_tile(self.door_start)
+
+        # self.level_board = level_board
+        # created_levels.append(self)
 
 
     def draw_level_board(self):
         for i, row in enumerate(self.level_board):
             for j, col in enumerate(row):
-                if col == 0:
+                if not col:
                     continue
                 # if insert_value < col > insert_value: depending on wich how they are organized in the dictionary
                 # tile_list.append((tile_type_by_char[col], (i, j)))
