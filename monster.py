@@ -85,7 +85,7 @@ class Mob(pygame.sprite.Sprite):
         self.rect.center = self.pos
 
     def set_frame(self):
-        mob_dir = os.listdir(r"resources\mobs")
+        mob_dir = os.listdir(r"resources/mobs")
         animation_length = len([img for img in mob_dir if img.__contains__(self.mob_type)])
         self.image = pygame.image.load(
             r"resources/mobs/"
