@@ -7,9 +7,9 @@ class Mobs(pygame.sprite.Group):
 
     def __init__(self):
         super().__init__()
-        path = r"resources\dave\death"
+        path = r"resources/dave/death"
         images = os.listdir(path)
-        self.death_images = [pygame.image.load(path + "\\" + image) for image in images]
+        self.death_images = [pygame.image.load(path + "//" + image) for image in images]
 
     def render_image(self, sprite):
         sprite.pos = pygame.math.Vector2(sprite.rect.center)
@@ -85,7 +85,7 @@ class Mob(pygame.sprite.Sprite):
         self.rect.center = self.pos
 
     def set_frame(self):
-        mob_dir = os.listdir(r"resources\mobs")
+        mob_dir = os.listdir(r"resources/mobs")
         animation_length = len([img for img in mob_dir if img.__contains__(self.mob_type)])
         self.image = pygame.image.load(
             r"resources/mobs/"
