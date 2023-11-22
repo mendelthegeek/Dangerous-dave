@@ -28,44 +28,6 @@ class Game:
 
     def start(self):
         self.level = eval(f"Level{self.lvl}()")
-        level_1_items = {'tiles': [], 'gems': [], 'Hazards': [], 'Mobs': [], 'decorations': [], 'climables': []}
-        level_1_items['gems'] = [
-            ("trophy", (11, 2)),
-            ("blue_gem", (1, 6)),
-            ("blue_gem", (7, 6)),
-            ("red_gem", (17, 1)),
-            ("purple_gem", (1, 1)),
-        ]
-
-        for i in range(4):
-            if not i == 2:
-                level_1_items['gems'].append(("blue_gem", (3 + i * 4, 2)))
-            for i in range(5):
-                level_1_items['gems'].append(("blue_gem", (1 + 4 * i, 4)))
-
-
-        level_1_items["tiles"] = [("horizontal_pipe", (1, 8)), ("red_brick", (11, 8))]
-        for i in range(4):
-            level_1_items["tiles"].append(("red_brick", (3 + i * 4, 3)))
-        for i in range(5):
-            level_1_items["tiles"].append(("red_brick", (1 + i * 4, 5)))
-        for i in range(4):
-            level_1_items["tiles"].append(("red_brick", (4 + i, 7)))
-        for i in range(6):
-            level_1_items["tiles"].append(("red_brick", (11 + i, 7)))
-
-        for i in range(20):
-            level_1_items["tiles"].append(("red_brick", (i, 0)))
-        for i in range(20):
-            level_1_items["tiles"].append(("red_brick", (i, 9)))
-        for j in range(10):
-            level_1_items["tiles"].append(("red_brick", (0, j)))
-        for j in range(10):
-            level_1_items["tiles"].append(("red_brick", (18, j)))
-        for j in range(10):
-            level_1_items["tiles"].append(("dirt", (19, j)))
-
-        self.level = all_levels(level_1_items, (0, 0))
         self.dave = Dave(self.level.dave_pos)
 
         self.run()
