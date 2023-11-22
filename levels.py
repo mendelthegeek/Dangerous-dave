@@ -6,16 +6,12 @@ from player import *
 from tiles import *
 from render import *
 
-
-
-
-
-class all_levels:
+class all_levels():
     """daves y and x set to most common reacuring varibles used for daves position 
     (using keywords that can be changed if need)"""
-    def __init__(self, level_board, dave_y = 64, dave_x = 298):
+    def __init__(self, level_items, door_start, dave_y = 64, dave_x = 298):
+        super().__init__()
         self.dave_pos = (dave_y, dave_x)
-
         self.tiles = Tiles()
         self.gems = Gems()
         self.doors = Door()
@@ -23,52 +19,61 @@ class all_levels:
         self.mobs = Mobs()
         self.decorations = Passable()
         self.climbable = Climbable()
+        self.door_start = door_start
         self.door_start = (97, 3)
         self.doors.create_tile(self.door_start)
+        self.level_items = level_items
 
-        # self.level_board = level_board
-        # created_levels.append(self)
+    def make_level_map(self):
+        for tile in self.level_items['tiles']:
+            self.tiles.create_tile(*tile)
+        for gem in self.level_items['gems']:
+            self.gems.create_tile(*gem)
+        # self.hazards.create_tile(*self.level_items['Hazards'])
+        self.mobs
+        # self.decorations.create_tile(self.level_items['decorations'])
+        # self.climbable.create_tile(self.level_items['climables'])
 
 
-    def draw_level_board(self):
-        for i, row in enumerate(self.level_board):
-            for j, col in enumerate(row):
-                if not col:
-                    continue
-                # if insert_value < col > insert_value: depending on wich how they are organized in the dictionary
-                # tile_list.append((tile_type_by_char[col], (i, j)))
-                
-                # either the previus or self.tiles.create_tile(tile_type_by_char[col], (i, j))
-                        
+level_1_items = {'tiles': [], 'gems': [], 'Hazards': [], 'Mobs': [], 'decorations': [], 'climables': []}
+level_1_items['gems'] = [
+            ("trophy", (11, 2)),
+            ("blue_gem", (1, 6)),
+            ("blue_gem", (7, 6)),
+            ("red_gem", (17, 1)),
+            ("purple_gem", (1, 1)),
+        ]
 
-"""a more visual way of writing the levels
-    gives more options of ways to remove gems from board/map by using something like self.level_board[self.y//tile_size][self.x//tile_size] = n
-    Bonus: it generates more ideas on how to come up with system to automate the setting up of each level"""
+for i in range(4):
+            if not i == 2:
+                level_1_items['gems'].append(("blue_gem", (3 + i * 4, 2)))
+            for i in range(5):
+                level_1_items['gems'].append(("blue_gem", (1 + 4 * i, 4)))
 
-#put levels into list so the can be iterated through
-#automaticly gets appended to list as part of each levels __init__ method
-created_levels = []
 
-#n used bc varibles are a different color than numbers in most ide's
-n = None
-#n set to None so it can be placed in an array without returning an error
-tile_type_by_char = {1: "blue_brick", 2: "blue_gem", 3: "door", 4: "trophy"} #5: hazards......
+level_1_items["tiles"] = [("horizontal_pipe", (1, 8)), ("red_brick", (11, 8))]
+for i in range(4):
+    level_1_items["tiles"].append(("red_brick", (3 + i * 4, 3)))
+for i in range(5):
+    level_1_items["tiles"].append(("red_brick", (1 + i * 4, 5)))
+for i in range(4):
+    level_1_items["tiles"].append(("red_brick", (4 + i, 7)))
+for i in range(6):
+    level_1_items["tiles"].append(("red_brick", (11 + i, 7)))
 
-#the creatoin of each level would look someting like this
-example_level_board =[[1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1],
-                      [1,2,n,n,n,n,n,n,n,n,n,n,n,n,n,2,1],
-                      [1,n,n,n,n,n,n,n,n,n,n,n,n,n,n,n,1],
-                      [1,1,1,1,n,n,n,n,4,n,n,1,1,1,1,1,1],
-                      [1,n,n,n,n,n,n,n,n,n,n,n,n,n,n,n,1],
-                      [1,n,n,2,n,n,1,1,1,1,1,n,n,n,n,n,1],
-                      [1,n,n,n,n,n,n,n,n,n,n,n,n,n,n,n,1],
-                      [1,n,n,1,1,1,n,n,n,n,n,1,1,1,1,n,1],
-                      [1,n,n,n,n,n,n,n,n,n,n,1,3,n,n,n,1],
-                      [1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1]]
+for i in range(20):
+    level_1_items["tiles"].append(("red_brick", (i, 0)))
+for i in range(20):
+    level_1_items["tiles"].append(("red_brick", (i, 9)))
+for j in range(10):
+    level_1_items["tiles"].append(("red_brick", (0, j)))
+for j in range(10):
+    level_1_items["tiles"].append(("red_brick", (18, j)))
+for j in range(10):
+    level_1_items["tiles"].append(("dirt", (19, j)))
 
-#change dave y without affecting his x and vise versa
-example_level = all_levels(example_level_board, dave_y = 128)
-
+level1 = all_levels(level_1_items, (0, 0))
+level1.make_level_map()
 
 class NextLevel:
 
