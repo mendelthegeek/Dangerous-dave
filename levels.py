@@ -33,6 +33,7 @@ class Level1:
         self.tiles = Tiles()
         self.gems = Gems()
         self.doors = Door()
+        self.climbable = Climbable()
         self.hazards = Hazards()
         self.door_start = (12, 8)
         self.doors.create_tile(self.door_start)
@@ -87,6 +88,7 @@ class Level2:
         self.gems = Gems()
         self.doors = Door()
         self.hazards = Hazards()
+        self.climbable = Climbable()
         self.door_start = (47, 1)
         self.doors.create_tile(self.door_start)
 
