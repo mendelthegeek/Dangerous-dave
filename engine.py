@@ -5,7 +5,7 @@ import sys
 from pygame import Surface, SurfaceType
 
 from bullet import Bullet
-from levels import NextLevel
+from levels import *
 from physics import bullet_collision, check_collision, check_obtained, check_death, check_door, check_climbing, \
     bullet_hit, check_climb_bottom
 from player import Dave
@@ -157,6 +157,5 @@ class Game:
 
         self.start()
 
-
-game = Game(lvl=3, testing=False)
+game = Game(int(sys.argv[1]), eval(sys.argv[2]))
 game.start()

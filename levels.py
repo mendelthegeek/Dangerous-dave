@@ -9,9 +9,6 @@ from tiles import Tiles, Gems, Door, Hazards
 
 class NextLevel:
 
-    mobs: Group[Any]
-    hazards: Group[Any]
-    gems: Group[Any]
     doors: Door
     tiles: Tiles
     dave_pos: tuple[int, int]
