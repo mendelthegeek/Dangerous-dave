@@ -1,15 +1,30 @@
 import numpy
 
-from physics import *
-from levels import *
 import sys
 
+from pygame import Surface, SurfaceType
+
+from bullet import Bullet
+from levels import NextLevel
+from physics import bullet_collision, check_collision, check_obtained, check_death, check_door, check_climbing, \
+    bullet_hit, check_climb_bottom
+from player import Dave
 from render import *
+from spritesheet import SpriteSheet
 
 
 class Game:
+    
+    level: object
+    sprite_source: str
+    testing: bool
+    lvl: int
+    lives: int
+    dave: Dave | None
+    score: int
+    board: Surface | SurfaceType
 
-    def __init__(self, lvl=1, testing=False):
+    def __init__(self, lvl: int = 1, testing: bool = False) -> None:
         self.board = pygame.display.set_mode((640, 432))
         self.score = 0
         self.dave = None
@@ -20,19 +35,19 @@ class Game:
         self.testing = testing
 
         self.sprite_source = r"resources/tileset/tileset.png"
-        sprite_sheet = SpriteSheet(self)
-        icon = sprite_sheet.get_sprite(5, 4, 16, 16, 2)
+        sprite_sheet: SpriteSheet = SpriteSheet(self)
+        icon: Surface | SurfaceType = sprite_sheet.get_sprite(5, 4, 16, 16, 2)
         pygame.display.set_caption("Dangerous self.dave")
         pygame.display.set_icon(icon)
         pygame.init()
 
-    def start(self):
+    def start(self) -> None:
         self.level = eval(f"Level{self.lvl}()")
         self.dave = Dave(self.level.dave_pos)
 
         self.run()
 
-    def run(self):
+    def run(self) -> None:
         running = True
         while running:
             if self.dave.dead:
@@ -107,7 +122,7 @@ class Game:
             elif self.dave.x <= 1.75 * 32 and self.dave.x_speed == -1:
                 slide_over(self, 1)
 
-    def restart_level(self):
+    def restart_level(self) -> None:
         if self.lives == 0:
             sys.exit()
         self.lives -= 1
@@ -121,7 +136,7 @@ class Game:
 
         self.run()
 
-    def render(self):
+    def render(self) -> None:
         self.dave.moved = True
         self.dave.x_speed = 1
 
@@ -132,7 +147,7 @@ class Game:
                 if event.type == pygame.QUIT:
                     sys.exit()
 
-    def next_level(self):
+    def next_level(self) -> None:
         self.score += 2000
         self.lvl += 1
 
@@ -143,5 +158,5 @@ class Game:
         self.start()
 
 
-game = Game(3, True)
+game = Game(lvl=3, testing=False)
 game.start()

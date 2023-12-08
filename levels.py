@@ -1,15 +1,22 @@
-import sys
+from typing import Any
 
-from banner import *
+from pygame.sprite import Group
+
 from monster import *
-from player import *
-from tiles import *
 from render import *
+from tiles import Tiles, Gems, Door, Hazards
 
 
 class NextLevel:
 
-    def __init__(self):
+    mobs: Group[Any]
+    hazards: Group[Any]
+    gems: Group[Any]
+    doors: Door
+    tiles: Tiles
+    dave_pos: tuple[int, int]
+
+    def __init__(self) -> None:
         self.dave_pos = (32, 170)
         self.tiles = Tiles()
         self.doors = Door()
@@ -19,18 +26,25 @@ class NextLevel:
         for i in range(20):
             self.tiles.create_tile("blue_brick", (i, 5))
 
-        empty = pygame.sprite.Group()
+        empty: Group = pygame.sprite.Group()
         self.gems = empty
         self.hazards = empty
         self.mobs = empty
 
 
-class Level1():
+class Level1:
 
-    def __init__(self):
+    dave_pos: tuple[int, int]
+    door_start: tuple[int, int]
+    hazards: Hazards
+    doors: Door
+    gems: Gems
+    tiles: Tiles
+
+    def __init__(self) -> None:
         super().__init__()
         self.dave_pos = (64, 298)
-        self.tiles = Tiles()
+        self.tiles  = Tiles()
         self.gems = Gems()
         self.doors = Door()
         self.hazards = Hazards()
@@ -81,7 +95,14 @@ class Level1():
 
 class Level2:
 
-    def __init__(self):
+    dave_pos: tuple[int, int]
+    door_start: tuple[int, int]
+    hazards: Hazards
+    doors: Door
+    gems: Gems
+    tiles: Tiles
+
+    def __init__(self) -> None:
         self.dave_pos = (64, 298)
         self.tiles = Tiles()
         self.gems = Gems()
@@ -185,7 +206,14 @@ class Level2:
 
 class Level3:
 
-    def __init__(self):
+    dave_pos: tuple[int, int]
+    door_start: tuple[int, int]
+    hazards: Hazards
+    doors: Door
+    gems: Gems
+    tiles: Tiles
+
+    def __init__(self) -> None:
         self.dave_pos = (64, 202)
         self.tiles = Tiles()
         self.gems = Gems()
@@ -291,7 +319,14 @@ class Level3:
 
 class Level4:
 
-    def __init__(self):
+    dave_pos: tuple[int, int]
+    door_start: tuple[int, int]
+    hazards: Hazards
+    doors: Door
+    gems: Gems
+    tiles: Tiles
+
+    def __init__(self) -> None:
         self.dave_pos = (32, 202)
         self.tiles = Tiles()
         self.gems = Gems()
@@ -439,7 +474,14 @@ class Level4:
 
 class Level5:
 
-    def __init__(self):
+    dave_pos: tuple[int, int]
+    door_start: tuple[int, int]
+    hazards: Hazards
+    doors: Door
+    gems: Gems
+    tiles: Tiles
+
+    def __init__(self) -> None:
         self.dave_pos = (64, 298)
         self.tiles = Tiles()
         self.gems = Gems()
@@ -490,7 +532,7 @@ class Level5:
         for i in range(3):
             dirt_locations.append((i + 97, 8))
         for j in range(6):
-            dirt_locations.append((99, 2+j))
+            dirt_locations.append((99, 2 + j))
         for j in range(2):
             for i in range(5):
                 dirt_locations.append((i + 20, 7 + j))
@@ -501,8 +543,8 @@ class Level5:
             for i in range(4 - j):
                 dirt_locations.append((i + 58, 1 + j))
         for i in range(2):
-            for j in range(5+i):
-                dirt_locations.append((65+i, 8-j))
+            for j in range(5 + i):
+                dirt_locations.append((65 + i, 8 - j))
         for j in range(3):
             for i in range(4):
                 dirt_locations.append((i + 72, 4 + j))
@@ -516,7 +558,7 @@ class Level5:
         for i in range(17):
             hazard_list.append(("water", (25 + i, 9)))
         for i in range(10):
-            hazard_list.append(("fire", (55+i, 9)))
+            hazard_list.append(("fire", (55 + i, 9)))
         for i in range(3):
             hazard_list.append(("water", (67 + i, 8)))
 
@@ -548,7 +590,7 @@ class Level5:
                           ("leaves_br", (3, 0)), ("leaves_bl", (5, 0)), ("leaves_bl", (6, 1)),
                           ("moon", (30, 1)), ("leaves_ur", (41, 2)), ("leaves_ul", (45, 2)),
                           ("leaves_ur", (80, 4)), ("leaves_ul", (82, 4)), ("leaves_br", (80, 2)),
-                          ("leaves_bl", (82, 2)),]
+                          ("leaves_bl", (82, 2)), ]
         leaf_list = [(81, 2), (81, 4)]
         star_list = [(1, 4), (2, 0), (8, 0), (8, 2), (10, 1), (12, 0), (13, 2), (14, 1), (16, 2),
                      (17, 1), (19, 0), (21, 2), (23, 0), (24, 1), (26, 0), (28, 1), (30, 0),
