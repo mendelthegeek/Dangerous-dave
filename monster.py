@@ -7,9 +7,9 @@ class Mobs(pygame.sprite.Group):
 
     def __init__(self):
         super().__init__()
-        path = r"resources/dave/death"
-        images = os.listdir(path)
-        self.death_images = [pygame.image.load(path + "//" + image) for image in images]
+        path: str = r"resources/dave/death"
+        images: list[str] = os.listdir(path)
+        self.death_images: list[pygame.Surface] = [pygame.image.load(path + "//" + image) for image in images]
 
     def render_image(self, sprite):
         sprite.pos = pygame.math.Vector2(sprite.rect.center)
@@ -28,7 +28,7 @@ class Mobs(pygame.sprite.Group):
             sprite.set_frame()
         return sprite.image, sprite.rect
 
-    def death_surface(self, death_image):
+    def death_surface(self, death_image: pygame.Surface) -> pygame.Surface:
         surface = pygame.Surface((49, 41)).convert_alpha()
         rectangle = (0, 0, 49, 41)
         surface.blit(death_image, (0, 0), rectangle)
@@ -39,7 +39,10 @@ class Mobs(pygame.sprite.Group):
 
 class Mob(pygame.sprite.Sprite):
 
-    def __init__(self, waypoints, group, mob_type, speed=5):
+    def __init__(self, waypoints: list[tuple[int, int]],
+                 group: pygame.sprite.Group,
+                 mob_type: pygame.sprite.Sprite,
+                 speed: int = 5) -> None:
         super().__init__()
         self.mob_type = mob_type
         self.x = waypoints[-1][0]

@@ -1,26 +1,36 @@
+from typing import Dict, List, Tuple
+
 import pygame
+from pygame import Surface, Rect
+from pygame.sprite import Sprite
+
 from spritesheet import SpriteSheet
 
 
 class Tile(pygame.sprite.Group):
-    def __init__(self):
+    sprite_source: str
+    sprite_sheet: SpriteSheet
+
+    def __init__(self) -> None:
         super().__init__()
         self.sprite_source = r"resources/tileset/tileset.png"
         self.sprite_sheet = SpriteSheet(self)
 
-    def render_tile(self, rect, sheet_locations):
-        sprite = pygame.sprite.Sprite()
+    def render_tile(self, rect: tuple[int, int], sheet_locations: list[tuple[int, int]]) -> Sprite:
+        sprite: Sprite = pygame.sprite.Sprite()
         sprite.rect = pygame.Rect(rect[0] * 32, rect[1] * 32 + 42, 32, 32)
-        sprite.images = []
+        sprite.images: list[Surface] = []
+        sheet_location: tuple[int, int]
         for sheet_location in sheet_locations:
             sprite.images.append(self.sprite_sheet.get_sprite(*sheet_location, 16, 16, 2))
-        sprite.last_updated = pygame.time.get_ticks()
-        sprite.frame = 0
+        sprite.last_updated: int = pygame.time.get_ticks()
+        sprite.frame: int = 0
         self.add(sprite)
         return sprite
 
-    def get_image(self, sprite):
-        curr_time = pygame.time.get_ticks()
+    @staticmethod
+    def get_image(sprite: Sprite) -> Surface:
+        curr_time: int = pygame.time.get_ticks()
         if curr_time - sprite.last_updated > 150:
             sprite.frame = (sprite.frame + 1) % len(sprite.images)
             sprite.last_updated = curr_time
@@ -28,7 +38,9 @@ class Tile(pygame.sprite.Group):
 
 
 class Tiles(Tile):
-    def __init__(self):
+    tileset: dict[str, list[tuple[int, int]]]
+
+    def __init__(self) -> None:
         super().__init__()
         self.tileset = {
             "red_brick": [(1, 7)],
@@ -45,16 +57,19 @@ class Tiles(Tile):
             "dirt_lr": [(2, 5)]
         }
 
-    def create_tile(self, tile_type, rect):
-        sheet_locations = self.tileset[tile_type]
-        sprite = self.render_tile(rect, sheet_locations)
+    def create_tile(self, tile_type: str, rect: tuple[int, int]) -> None:
+        sheet_locations: list[tuple[int, int]] = self.tileset[tile_type]
+        self.render_tile(rect, sheet_locations)
 
-    def render_image(self, sprite):
+    def render_image(self, sprite: Sprite) -> tuple[Surface, tuple[int, int]]:
         return self.get_image(sprite), sprite.rect
 
 
 class Gems(Tile):
-    def __init__(self):
+    point_values: dict[str, int]
+    tileset: dict[str, list[tuple[int, int]]]
+
+    def __init__(self) -> None:
         super().__init__()
         self.tileset = {
             "blue_gem": [(5, 1)],
@@ -79,71 +94,81 @@ class Gems(Tile):
             "jetpack": 0
         }
 
-    def create_tile(self, gem_type, rect):
-        sheet_locations = self.tileset[gem_type]
-        sprite = self.render_tile(rect, sheet_locations)
-        sprite.rect = self.pad(sprite.rect)
-        sprite.value = self.point_values[gem_type]
-        sprite.gem_type = gem_type
+    def create_tile(self, gem_type: str, rect: tuple[int, int]) -> None:
+        sheet_locations: list[tuple[int, int]] = self.tileset[gem_type]
+        sprite: Sprite = self.render_tile(rect, sheet_locations)
+        sprite.rect: Rect = self.pad(sprite.rect)
+        sprite.value: int = self.point_values[gem_type]
+        sprite.gem_type: str = gem_type
 
-    def pad(self, rect):
+    @staticmethod
+    def pad(rect: Rect) -> Rect:
         return pygame.Rect(rect.left - 5, rect.top, rect.width + 10, rect.height)
 
-    def unpad(self, rect):
+    @staticmethod
+    def unpad(rect: Rect) -> Rect:
         return pygame.Rect(rect.left + 5, rect.top, rect.width - 10, rect.height)
 
-    def render_image(self, sprite):
+    def render_image(self, sprite: Sprite) -> tuple[Surface, Rect]:
         return self.get_image(sprite), self.unpad(sprite.rect)
 
 
 class Door(Tile):
 
-    def __init__(self):
+    def __init__(self) -> None:
         super().__init__()
 
-    def create_tile(self, rect):
-        sheet_locations = [(0, 1)]
+    def create_tile(self, rect: tuple[int, int]) -> None:
+        sheet_locations: list[tuple[int, int]] = [(0, 1)]
         self.render_tile(rect, sheet_locations)
 
-    def render_image(self, sprite):
+    def render_image(self, sprite: Sprite) -> tuple[Surface, Rect]:
         return self.get_image(sprite), sprite.rect
 
 
 class Hazards(Tile):
-    def __init__(self):
+    tileset: dict[str, list[tuple[int, int]]]
+
+    def __init__(self) -> None:
         super().__init__()
         self.tileset = {
             "fire": [(0, i + 5) for i in range(4)],
-            "water": [(4, i) for i in range(4)] + [(3,8)],
-            "purple_fire": [(2, i+6) for i in range(3)] + [(3, 0)]
+            "water": [(4, i) for i in range(4)] + [(3, 8)],
+            "purple_fire": [(2, i + 6) for i in range(3)] + [(3, 0)]
         }
 
-    def create_tile(self, tile_type, rect):
-        sheet_locations = self.tileset[tile_type]
-        sprite = self.render_tile(rect, sheet_locations)
+    def create_tile(self, tile_type: str, rect: tuple[int, int]) -> Sprite:
+        sheet_locations: list[tuple[int, int]] = self.tileset[tile_type]
+        sprite: Sprite = self.render_tile(rect, sheet_locations)
         return sprite
 
-    def render_image(self, sprite):
+    def render_image(self, sprite: Sprite) -> tuple[Surface, Rect]:
         return self.get_image(sprite), sprite.rect
+
 
 class Passable(Tile):
 
-    def __init__(self):
+    tileset: dict[str, list[tuple[int, int]]]
+
+    def __init__(self) -> None:
         super().__init__()
         self.tileset = {
             "purple_pipe": [(3, 3)],
             "grass": [(3, 4)],
         }
 
-    def create_tile(self, tile_type, rect):
-        sheet_locations = self.tileset[tile_type]
-        sprite = self.render_tile(rect, sheet_locations)
+    def create_tile(self, tile_type: str, rect: tuple[int, int]) -> None:
+        sheet_locations: list[tuple[int, int]] = self.tileset[tile_type]
+        self.render_tile(rect, sheet_locations)
 
-    def render_image(self, sprite):
+    def render_image(self, sprite: Sprite) -> tuple[Surface, Rect]:
         return self.get_image(sprite), sprite.rect
 
+
 class Climbable(Tile):
-    def __init__(self):
+    tileset: dict[str, list[tuple[int, int]]]
+
+    def __init__(self) -> None:
         super().__init__()
         self.tileset = {
             "tree_trunk": [(3, 5)],
@@ -156,9 +181,9 @@ class Climbable(Tile):
             "moon": [(4, 5)]
         }
 
-    def create_tile(self, tile_type, rect):
-        sheet_locations = self.tileset[tile_type]
-        sprite = self.render_tile(rect, sheet_locations)
+    def create_tile(self, tile_type: str, rect: tuple[int, int]) -> None:
+        sheet_locations: list[tuple[int, int]] = self.tileset[tile_type]
+        self.render_tile(rect, sheet_locations)
 
-    def render_image(self, sprite):
+    def render_image(self, sprite: Sprite) -> tuple[Surface, Rect]:
         return self.get_image(sprite), sprite.rect
