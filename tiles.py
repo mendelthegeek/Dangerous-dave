@@ -1,5 +1,3 @@
-from typing import Dict, List, Tuple
-
 import pygame
 from pygame import Surface, Rect
 from pygame.sprite import Sprite

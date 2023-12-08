@@ -77,9 +77,6 @@ level1.make_level_map()
 
 class NextLevel:
 
-    mobs: Group[Any]
-    hazards: Group[Any]
-    gems: Group[Any]
     doors: Door
     tiles: Tiles
     dave_pos: tuple[int, int]

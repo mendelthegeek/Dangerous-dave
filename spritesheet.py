@@ -2,8 +2,6 @@ import pygame
 from pygame import Surface
 from pygame.sprite import Sprite
 
-from tiles import Tile
-
 #tried to fix error(pygame.error: No video mode has been set) by implementing a quick fix
 pygame.init()
 pygame.display.set_mode((1000, 800))
@@ -23,7 +21,7 @@ class SpriteSheet:
     frame: int
     sprite_sheet: Surface
 
-    def __init__(self, sprite: Sprite | Tile) -> None:
+    def __init__(self, sprite: Sprite) -> None:
         self.sprite = sprite
         self.sprite_sheet = pygame.image.load(self.sprite.sprite_source)
         self.frame = 0
