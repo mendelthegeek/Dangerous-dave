@@ -55,7 +55,10 @@ def render(game):
             game.board.blit(*mob.bullet.get_location())
     game.board.blit(game.dave.current_display(), game.dave.position())
     blit_border(game)
-    pygame.display.flip()
+    curr_tick = pygame.time.get_ticks()
+    if curr_tick - game.last_flip > 20:
+        game.last_flip = curr_tick
+        pygame.display.flip()
 
 
 def render_level(game):
