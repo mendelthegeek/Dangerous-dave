@@ -1,4 +1,7 @@
+from random import random
+
 import numpy
+from pygame import SurfaceType, Surface
 
 import sys
 
@@ -15,6 +18,7 @@ from spritesheet import SpriteSheet
 
 class Game:
 
+    last_flip: int
     level: object
     sprite_source: str
     testing: bool
@@ -25,6 +29,7 @@ class Game:
     board: Surface | SurfaceType
 
     def __init__(self, lvl: int = 1, testing: bool = False) -> None:
+        self.last_flip = 0
         self.board = pygame.display.set_mode((640, 432))
         self.score = 0
         self.dave = None
@@ -37,7 +42,7 @@ class Game:
         self.sprite_source = r"resources/tileset/tileset.png"
         sprite_sheet: SpriteSheet = SpriteSheet(self)
         icon: Surface | SurfaceType = sprite_sheet.get_sprite(5, 4, 16, 16, 2)
-        pygame.display.set_caption("Dangerous self.dave")
+        pygame.display.set_caption("Dangerous Dave")
         pygame.display.set_icon(icon)
         pygame.init()
 
@@ -49,7 +54,12 @@ class Game:
 
     def run(self) -> None:
         running = True
+        last_loop = pygame.time.get_ticks()
         while running:
+            curr_ticks = pygame.time.get_ticks()
+            if curr_ticks - last_loop <= 5:
+                continue
+            last_loop = curr_ticks
             if self.dave.dead:
                 running = False
                 self.restart_level()
@@ -91,7 +101,7 @@ class Game:
                     mob.bullet.move()
                     bullet_collision(game, mob.bullet, mob)
                 elif (mob.rect.right > 0 and mob.rect.left < 640 and
-                      pygame.time.get_ticks() % 150 == 0) and not mob.dying:
+                      random() < .01) and not mob.dying:
                     x_dir = numpy.sign(game.dave.rect.centerx - mob.rect.centerx)
                     if x_dir == 0:
                         continue
