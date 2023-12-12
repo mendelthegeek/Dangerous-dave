@@ -6,37 +6,131 @@ from monster import *
 from render import *
 from tiles import Tiles, Gems, Door, Hazards
 
-class all_levels():
-    """daves y and x set to most common reacuring varibles used for daves position 
-    (using keywords that can be changed if need)"""
-    def __init__(self, level_items, door_start, dave_y = 64, dave_x = 298):
-        super().__init__()
-        self.dave_pos = (dave_y, dave_x)
-        self.tiles = Tiles()
-        self.gems = Gems()
-        self.doors = Door()
-        self.hazards = Hazards()
-        self.mobs = Mobs()
-        self.decorations = Passable()
-        self.climbable = Climbable()
+# class all_levels():
+#     """daves y and x set to most common reacuring varibles used for daves position 
+#     (using keywords that can be changed if need)"""
+#     def __init__(self, level_items, door_start, dave_y = 64, dave_x = 298):
+#         super().__init__()
+#         self.dave_pos = (dave_y, dave_x)
+#         self.tiles = Tiles()
+#         self.gems = Gems()
+#         self.doors = Door()
+#         self.hazards = Hazards()
+#         self.mobs = Mobs()
+#         self.decorations = Passable()
+#         self.climbable = Climbable()
+#         self.door_start = door_start
+#         self.door_start = (97, 3)
+#         self.doors.create_tile(self.door_start)
+#         self.level_items = level_items
+
+#     def make_level_map(self):
+#         for tile in self.level_items['tiles']:
+#             self.tiles.create_tile(*tile)
+#         for gem in self.level_items['gems']:
+#             self.gems.create_tile(*gem)
+#         # self.hazards.create_tile(*self.level_items['Hazards'])
+#         self.mobs
+#         # self.decorations.create_tile(self.level_items['decorations'])
+#         # self.climbable.create_tile(self.level_items['climables'])
+
+
+# level_1_items = {'tiles': [], 'gems': [], 'Hazards': [], 'Mobs': [], 'decorations': [], 'climables': []}
+# level_1_items['gems'] = [
+#             ("trophy", (11, 2)),
+#             ("blue_gem", (1, 6)),
+#             ("blue_gem", (7, 6)),
+#             ("red_gem", (17, 1)),
+#             ("purple_gem", (1, 1)),
+#         ]
+
+# for i in range(4):
+#             if not i == 2:
+#                 level_1_items['gems'].append(("blue_gem", (3 + i * 4, 2)))
+#             for i in range(5):
+#                 level_1_items['gems'].append(("blue_gem", (1 + 4 * i, 4)))
+
+
+# level_1_items["tiles"] = [("horizontal_pipe", (1, 8)), ("red_brick", (11, 8))]
+# for i in range(4):
+#     level_1_items["tiles"].append(("red_brick", (3 + i * 4, 3)))
+# for i in range(5):
+#     level_1_items["tiles"].append(("red_brick", (1 + i * 4, 5)))
+# for i in range(4):
+#     level_1_items["tiles"].append(("red_brick", (4 + i, 7)))
+# for i in range(6):
+#     level_1_items["tiles"].append(("red_brick", (11 + i, 7)))
+
+# for i in range(20):
+#     level_1_items["tiles"].append(("red_brick", (i, 0)))
+# for i in range(20):
+#     level_1_items["tiles"].append(("red_brick", (i, 9)))
+# for j in range(10):
+#     level_1_items["tiles"].append(("red_brick", (0, j)))
+# for j in range(10):
+#     level_1_items["tiles"].append(("red_brick", (18, j)))
+# for j in range(10):
+#     level_1_items["tiles"].append(("dirt", (19, j)))
+
+# level1 = all_levels(level_1_items, (0, 0))
+# level1.make_level_map()
+
+class level:
+    def __init__(self, dave_pos=None, tiles=None, gems=None, climbable=None, doors=None, 
+            hazards=None, door_start=None, mobs=None, passable=None, decorations=None, 
+            gem_list=None, tile_list=None, hazard_list=None, climbable_list=None, decoration_list=None,
+            star_list=None, leaf_list=None):
+        
+        self.dave_pos = dave_pos
+        self.tiles  = tiles
+        self.gems = gems
+        self.climbable = climbable
+        self.doors = doors
+        self.hazards = hazards
         self.door_start = door_start
-        self.door_start = (97, 3)
+        self.mobs = mobs
+        self.passable = passable
+        self.decorations = decorations
+
+        #actions
         self.doors.create_tile(self.door_start)
-        self.level_items = level_items
 
-    def make_level_map(self):
-        for tile in self.level_items['tiles']:
-            self.tiles.create_tile(*tile)
-        for gem in self.level_items['gems']:
-            self.gems.create_tile(*gem)
-        # self.hazards.create_tile(*self.level_items['Hazards'])
-        self.mobs
-        # self.decorations.create_tile(self.level_items['decorations'])
-        # self.climbable.create_tile(self.level_items['climables'])
+        if tile_list:
+            for tile in tile_list:
+                self.tiles.create_tile(*tile)
+
+        if gem_list:
+            for gem in gem_list:
+                self.gems.create_tile(*gem)
+
+        if hazard_list:
+            for i, hazard in enumerate(hazard_list):
+                sprite = self.hazards.create_tile(*hazard)
+                sprite.frame = i % len(sprite.images)
+
+        if decoration_list:
+            for decoration in decoration_list:
+                self.decorations.create_tile(*decoration)
+
+        if climbable_list:
+            for climable in climbable_list:
+                self.climbable.create_tile(*climable)
+
+        if climbable_list:
+            if leaf_list:
+                for location in leaf_list:
+                    climbable_list.append(("leaves", location))
+            if star_list:
+                for location in star_list:
+                    climbable_list.append(("stars", location))
+        
+        #placed it again to make sure there was no error do to not having it in the level instance
+        self.mobs = pygame.sprite.Group()
 
 
-level_1_items = {'tiles': [], 'gems': [], 'Hazards': [], 'Mobs': [], 'decorations': [], 'climables': []}
-level_1_items['gems'] = [
+"************************************************************************************************************************************************"
+
+gem_list = [
             ("trophy", (11, 2)),
             ("blue_gem", (1, 6)),
             ("blue_gem", (7, 6)),
@@ -45,35 +139,50 @@ level_1_items['gems'] = [
         ]
 
 for i in range(4):
-            if not i == 2:
-                level_1_items['gems'].append(("blue_gem", (3 + i * 4, 2)))
-            for i in range(5):
-                level_1_items['gems'].append(("blue_gem", (1 + 4 * i, 4)))
-
-
-level_1_items["tiles"] = [("horizontal_pipe", (1, 8)), ("red_brick", (11, 8))]
-for i in range(4):
-    level_1_items["tiles"].append(("red_brick", (3 + i * 4, 3)))
+    if not i == 2:
+        gem_list.append(("blue_gem", (3 + i * 4, 2)))
 for i in range(5):
-    level_1_items["tiles"].append(("red_brick", (1 + i * 4, 5)))
+    gem_list.append(("blue_gem", (1 + 4 * i, 4)))
+
+tile_list = [("horizontal_pipe", (1, 8)), ("red_brick", (11, 8))]
 for i in range(4):
-    level_1_items["tiles"].append(("red_brick", (4 + i, 7)))
+    tile_list.append(("red_brick", (3 + i * 4, 3)))
+for i in range(5):
+    tile_list.append(("red_brick", (1 + i * 4, 5)))
+for i in range(4):
+    tile_list.append(("red_brick", (4 + i, 7)))
 for i in range(6):
-    level_1_items["tiles"].append(("red_brick", (11 + i, 7)))
+    tile_list.append(("red_brick", (11 + i, 7)))
 
 for i in range(20):
-    level_1_items["tiles"].append(("red_brick", (i, 0)))
+    tile_list.append(("red_brick", (i, 0)))
 for i in range(20):
-    level_1_items["tiles"].append(("red_brick", (i, 9)))
+    tile_list.append(("red_brick", (i, 9)))
 for j in range(10):
-    level_1_items["tiles"].append(("red_brick", (0, j)))
+    tile_list.append(("red_brick", (0, j)))
 for j in range(10):
-    level_1_items["tiles"].append(("red_brick", (18, j)))
+    tile_list.append(("red_brick", (18, j)))
 for j in range(10):
-    level_1_items["tiles"].append(("dirt", (19, j)))
+    tile_list.append(("dirt", (19, j)))
 
-level1 = all_levels(level_1_items, (0, 0))
-level1.make_level_map()
+
+level_items = {1: 
+    {'dave_pos': (64, 298),
+    'tiles': Tiles(),
+    'gems': Gems(),
+    'climbable': Climbable(),
+    'doors': Door(),
+    'hazards': Hazards(),
+    'door_start': (12, 8),
+    'mobs': pygame.sprite.Group(),
+
+    'gem_list': gem_list,
+    'tile_list': tile_list}}
+
+
+"************************************************************************************************************************************************"
+"************************************************************************************************************************************************"
+"************************************************************************************************************************************************"
 
 class NextLevel:
 
