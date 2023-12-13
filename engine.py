@@ -50,9 +50,10 @@ class Game:
 
     def start(self) -> None:
         self.level = eval(f"Level{self.lvl}()")
-        self.level = level(**level_items[self.lvl])
+        self.level = Level(**level_items[self.lvl])
         self.dave = Dave(self.level.dave_pos)
 
+        
         self.run()
 
     def run(self) -> None:

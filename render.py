@@ -62,10 +62,17 @@ def render(game):
 
 
 def render_level(game):
+    print(f"{game.level.mobs = }")
+    
+    # print(f"{game.level = }")
     sprite_groups = [x for x in dir(game.level) if not x.__contains__('_')]
-    for sprite_group in sprite_groups:
+    for sprite_group in sprite_groups:        
+        # print(f"{ sprite_group = }")
+        # print("inside of eval:", f"game.level.{sprite_group}")
         sprite_group = eval(f"game.level.{sprite_group}")
         for renderable in sprite_group.sprites():
+            # print(f"{renderable = }")
+            # print(f"{sprite_group.render_image(renderable) = }")
             game.board.blit(*sprite_group.render_image(renderable))
 
 
