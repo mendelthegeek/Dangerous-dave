@@ -677,7 +677,7 @@ class Level4:
         ]
             , self.mobs,
             "spinner")
-
+ 
 
 class Level5:
 
