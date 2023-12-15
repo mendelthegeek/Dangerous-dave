@@ -1,7 +1,6 @@
 from random import random
 
 import numpy
-from pygame import SurfaceType, Surface
 
 import sys
 
