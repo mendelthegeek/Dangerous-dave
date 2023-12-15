@@ -14,8 +14,6 @@ from player import Dave
 from render import *
 from spritesheet import SpriteSheet
 
-#import level_items
-
 
 class Game:
 
@@ -48,7 +46,6 @@ class Game:
         pygame.init()
 
     def start(self) -> None:
-        self.level = eval(f"Level{self.lvl}()")
         self.level = Level(**level_items[self.lvl])
         self.dave = Dave(self.level.dave_pos)
 
