@@ -1,23 +1,29 @@
-import os
+from __future__ import annotations
 
+import os
 import pygame
+from pygame import Surface, SurfaceType, Vector2, Rect
+
+from bullet import Bullet
 
 
 class Mobs(pygame.sprite.Group):
 
-    def __init__(self):
+    death_images: list[Surface | SurfaceType]
+
+    def __init__(self) -> None:
         super().__init__()
-        path = r"resources/dave/death"
-        images = os.listdir(path)
+        path: str = r"resources/dave/death"
+        images: list[str] = os.listdir(path)
         self.death_images = [pygame.image.load(path + "//" + image) for image in images]
 
-    def render_image(self, sprite):
-        sprite.pos = pygame.math.Vector2(sprite.rect.center)
-        current_time = pygame.time.get_ticks()
+    def render_image(self, sprite: 'Mob') -> tuple[Surface, Rect]:
+        sprite.pos: Vector2 = pygame.math.Vector2(sprite.rect.center)
+        current_time: int = pygame.time.get_ticks()
         if sprite.dying:
             if current_time - sprite.last_update > 200:
                 sprite.death_frame += 1
-                sprite.last_update = current_time
+                sprite.last_update: int = current_time
                 if sprite.death_frame == 7:
                     self.remove(sprite)
             return self.death_surface(self.death_images[sprite.death_frame]), sprite.rect
@@ -28,9 +34,9 @@ class Mobs(pygame.sprite.Group):
             sprite.set_frame()
         return sprite.image, sprite.rect
 
-    def death_surface(self, death_image):
-        surface = pygame.Surface((49, 41)).convert_alpha()
-        rectangle = (0, 0, 49, 41)
+    def death_surface(self, death_image: Surface) -> Surface:
+        surface: Surface = pygame.Surface((49, 41)).convert_alpha()
+        rectangle: tuple[int, int, int, int] = (0, 0, 49, 41)
         surface.blit(death_image, (0, 0), rectangle)
         surface = pygame.transform.scale(surface, (35, 30))
         surface.set_colorkey((0, 0, 0))
@@ -39,7 +45,27 @@ class Mobs(pygame.sprite.Group):
 
 class Mob(pygame.sprite.Sprite):
 
-    def __init__(self, waypoints, group, mob_type, speed=5):
+    image: Surface | SurfaceType
+    bullet: Bullet | None
+    death_frame: int
+    dying: bool
+    value: int
+    image_index: int
+    speed: int
+    last_update: int
+    target_radius: int
+    target: tuple[int, int]
+    waypoint_index: int
+    waypoints: list[tuple[int, int]]
+    rect: Rect
+    pos: Vector2
+    max_speed: float
+    vel: Vector2
+    y: int
+    x: int
+    mob_type: str
+
+    def __init__(self, waypoints: list[tuple[int, int]], group: Mobs, mob_type: str, speed: int = 5) -> None:
         super().__init__()
         self.mob_type = mob_type
         self.x = waypoints[-1][0]
@@ -67,8 +93,8 @@ class Mob(pygame.sprite.Sprite):
     def update(self):
         self.target = self.waypoints[self.waypoint_index]
         # A vector pointing from self to the target.
-        heading = self.target - self.pos
-        distance = heading.length()  # Distance to the target.
+        heading: Vector2 = self.target - self.pos
+        distance: float = heading.length()  # Distance to the target.
         heading.normalize_ip()
         if distance <= 2:  # We're closer than 2 pixels.
             # Increment the waypoint index to switch the target.
@@ -85,8 +111,8 @@ class Mob(pygame.sprite.Sprite):
         self.rect.center = self.pos
 
     def set_frame(self):
-        mob_dir = os.listdir(r"resources/mobs")
-        animation_length = len([img for img in mob_dir if img.__contains__(self.mob_type)])
+        mob_dir: list[str] = os.listdir(r"resources/mobs")
+        animation_length: int = len([img for img in mob_dir if img.__contains__(self.mob_type)])
         self.image = pygame.image.load(
             r"resources/mobs/"
             f"{self.mob_type}{(self.image_index // 25) % animation_length}"
