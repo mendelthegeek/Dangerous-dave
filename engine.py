@@ -1,13 +1,20 @@
 from random import random
 
 import numpy
-from pygame import SurfaceType, Surface
 
-from physics import *
-from levels import *
 import sys
 
+from pygame import Surface, SurfaceType
+
+from bullet import Bullet
+from levels import *
+from physics import bullet_collision, check_collision, check_obtained, check_death, check_door, check_climbing, \
+    bullet_hit, check_climb_bottom
+from player import Dave
 from render import *
+from spritesheet import SpriteSheet
+
+from store_level_items import level_items
 
 
 class Game:
@@ -34,19 +41,20 @@ class Game:
         self.testing = testing
 
         self.sprite_source = r"resources/tileset/tileset.png"
-        sprite_sheet = SpriteSheet(self)
-        icon = sprite_sheet.get_sprite(5, 4, 16, 16, 2)
+        sprite_sheet: SpriteSheet = SpriteSheet(self)
+        icon: Surface | SurfaceType = sprite_sheet.get_sprite(5, 4, 16, 16, 2)
         pygame.display.set_caption("Dangerous Dave")
         pygame.display.set_icon(icon)
         pygame.init()
 
-    def start(self):
-        self.level = eval(f"Level{self.lvl}()")
+    def start(self) -> None:
+        self.level = Level(**level_items[self.lvl])
         self.dave = Dave(self.level.dave_pos)
 
+        
         self.run()
 
-    def run(self):
+    def run(self) -> None:
         running = True
         last_loop = pygame.time.get_ticks()
         while running:
@@ -126,7 +134,7 @@ class Game:
             elif self.dave.x <= 1.75 * 32 and self.dave.x_speed == -1:
                 slide_over(self, 1)
 
-    def restart_level(self):
+    def restart_level(self) -> None:
         if self.lives == 0:
             sys.exit()
         self.lives -= 1
@@ -140,7 +148,7 @@ class Game:
 
         self.run()
 
-    def render(self):
+    def render(self) -> None:
         self.dave.moved = True
         self.dave.x_speed = 1
 
@@ -151,7 +159,7 @@ class Game:
                 if event.type == pygame.QUIT:
                     sys.exit()
 
-    def next_level(self):
+    def next_level(self) -> None:
         self.score += 2000
         self.lvl += 1
 
@@ -161,6 +169,5 @@ class Game:
 
         self.start()
 
-
-game = Game(3, False)
+game = Game(int(sys.argv[1]), eval(sys.argv[2]))
 game.start()
