@@ -85,8 +85,8 @@ class Game:
             if pressed[pygame.K_LCTRL] or pressed[pygame.K_RCTRL]:
                 if self.dave.has_gun and not self.dave.bullet:
                     x_dir = -2 * self.dave.facing + 1
-                    spawn_position = self.dave.position()
-                    self.dave.bullet = Bullet(x_dir, "dave", *spawn_position)
+                    spawn_position = self.dave.position
+                    self.dave.bullet = Bullet(x_dir, "dave", *spawn_position())
             if game.dave.bullet:
                 game.dave.bullet.move()
                 bullet_collision(game, game.dave.bullet, game.dave)
@@ -103,13 +103,14 @@ class Game:
 
             if True in pressed:
                 self.dave.moved = True
-
+            print("first", self.dave.x_speed)
             if not self.testing:
                 check_collision(self.dave, self.level.tiles)
             if self.testing or self.dave.flying:
                 self.dave.on_surface = True
                 if pressed[pygame.K_DOWN]:
                     self.dave.on_surface = False
+            print("second", self.dave.x_speed)
             self.score += check_obtained(self.dave, self.level.gems)
             if check_door(self.dave, self.level.doors):
                 self.next_level()
@@ -120,6 +121,7 @@ class Game:
             self.dave.climbing = check_climbing(self)
             if self.dave.climbing:
                 self.dave.can_descend = not check_climb_bottom(self)
+            print("third", self.dave.x_speed)
 
             if self.dave.x >= 18.25 * 32 and self.dave.x_speed == 1:
                 slide_over(self, -1)
@@ -162,5 +164,5 @@ class Game:
         self.start()
 
 
-game = Game(3, False)
+game = Game(5, False)
 game.start()

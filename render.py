@@ -45,9 +45,10 @@ def move_over(sprite_group, direction):
 
 
 def render(game):
+    print("game dave speed", game.dave.x_speed)
     game.board.fill(BG)
     render_level(game)
-    game.dave.move()
+    game.dave.move(game)
     if game.dave.bullet:
         game.board.blit(*game.dave.bullet.get_location())
     for mob in game.level.mobs:
