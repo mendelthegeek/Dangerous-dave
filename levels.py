@@ -12,7 +12,7 @@ class Level:
     def __init__(self, tiles=empty_sprite_group, gems=empty_sprite_group, climbable=empty_sprite_group, doors=empty_sprite_group, 
             hazards=empty_sprite_group, mobs=empty_sprite_group, passable=empty_sprite_group, decorations=empty_sprite_group, 
             gem_list=None, tile_list=None, hazard_list=None, climbable_list=None, decoration_list=None,
-            door_start=None, dave_pos=None, star_list=None, leaf_list=None):
+            door_start=None, dave_pos=None, star_list=None, leaf_list=None, cur_level_mobs=None):
         
         self.dave_pos = dave_pos
         self.tiles  = tiles
@@ -56,6 +56,12 @@ class Level:
             if star_list:
                 for location in star_list:
                     climbable_list.append(("stars", location))
+        
+        if cur_level_mobs:
+            for m in cur_level_mobs:
+                print(*m)
+                Mob(*m)
+
         
 
 class NextLevel:

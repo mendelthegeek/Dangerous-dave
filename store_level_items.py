@@ -4,6 +4,7 @@ from tiles import Tiles, Gems, Door, Hazards
 
 
 level_items = {}
+m = Mobs()
 
 gem_list = [
             ("trophy", (11, 2)),
@@ -222,6 +223,7 @@ for location in purple_fires:
     hazard_list.append(("purple_fire", location))
 
 level_items[3] = {
+    'mobs': m,
     'hazard_list': hazard_list,
     'dave_pos': (64, 202),
     'tiles': Tiles(),
@@ -231,7 +233,26 @@ level_items[3] = {
     'hazards': Hazards(),
     'door_start': (69, 1),
     'tile_list': tile_list,
-    'gem_list': gem_list
+    'gem_list': gem_list,
+    'cur_level_mobs': [
+        ([
+            (2030, 160),
+            (1880, 210),
+            (1730, 170),
+            (1630, 210),
+            (1555, 180),
+            (1605, 160)]
+            , m,
+            "spider"),
+        ([
+            (1250, 170),
+            (1150, 210),
+            (1075, 180),
+            (1125, 160),
+            (1550, 160),
+            (1400, 210)]
+            , m,
+            "spider")]
     }
 
 
@@ -352,6 +373,7 @@ for i in range(3):
     hazard_list.append(("purple_fire", (87 + i, 5)))
 
 level_items[4] = {
+    'mobs': m,
     'hazard_list': hazard_list,
     'dave_pos': (32, 202),
     'tiles': Tiles(),
@@ -361,7 +383,20 @@ level_items[4] = {
     'hazards': Hazards(),
     'door_start': (97, 2),
     'tile_list': tile_list,
-    'gem_list': gem_list
+    'gem_list': gem_list,
+    'cur_level_mobs': [
+        ([
+            (940, 290),
+            (1100, 290),
+            (1075, 175),
+            (1040, 100),
+            (850, 120),
+            (850, 180),
+        ]
+            , m,
+            "spinner")
+
+            ]
     }
 
 
@@ -494,6 +529,7 @@ for j in range(4):
     climbable_list.append(("tree_trunk", (81, 5 + j)))
 
 level_items[5] = {
+    'mobs': m,
     'hazard_list': hazard_list,
     'dave_pos': (64, 298),
     'tiles': Tiles(),
@@ -504,5 +540,24 @@ level_items[5] = {
     'door_start': (97, 3),
     'tile_list': tile_list,
     'gem_list': gem_list,
-    'climbable_list': climbable_list
+    'climbable_list': climbable_list,
+    'cur_level_mobs': [
+        ([
+            (2030, 160),
+            (1880, 210),
+            (1730, 170),
+            (1630, 210),
+            (1555, 180),
+            (1605, 160)]
+            , m,
+            "spider"),
+        ([
+            (1250, 170),
+            (1150, 210),
+            (1075, 180),
+            (1125, 160),
+            (1550, 160),
+            (1400, 210)]
+            , m,
+            "spider")]
     }
